@@ -33,14 +33,15 @@ Create a .env file in the backend and frontend directories.Add the following var
 #### backend .env
 
 PORT=3636
-MONGODB_URI="your_mongodb_connection"
-JWT_KEY="your_jwt_secret_key"
-SALT_ROUNDS=8
-CLOUDINARY_CLOUD_NAME="your_cloudinary_cloud_name"
-CLOUDINARY_API_KEY="your_cloudinary_api_key"
-CLOUDINARY_API_SECRET="your_cloudinary_api_secret"
 
-#### frontend config.js
+- MONGODB_URI="your_mongodb_connection"
+- JWT_KEY="your_jwt_secret_key"
+- SALT_ROUNDS=8
+- CLOUDINARY_CLOUD_NAME="your_cloudinary_cloud_name"
+- CLOUDINARY_API_KEY="your_cloudinary_api_key"
+- CLOUDINARY_API_SECRET="your_cloudinary_api_secret"
+
+#### frontend .env
 
 REACT_APP_GOOGLE_MAPS_API_KEY="YOUR_API_KEY"
 
@@ -60,40 +61,40 @@ The Grocery Wise project relies on the following dependencies:
 ### Backend:
 
 - bcrypt: For encrypting and decrypting user passwords.
-  -multer: For handling file uploads.
-  -cloudinary: For storing and managing images.
-  -dotenv: For managing environment variables.
-  -express: For building the backend server.
-  -jsonwebtoken: For user authentication using JSON Web Tokens.
-  -mongoose: For interacting with the MongoDB database.
-  -nodemailer: For sending emails for password reset functionality.
-  -Twilio: for sms
-  -nodemon: For automatically restarting the Node.js app
+- multer: For handling file uploads.
+- cloudinary: For storing and managing images.
+- dotenv: For managing environment variables.
+- express: For building the backend server.
+- jsonwebtoken: For user authentication using JSON Web Tokens.
+- mongoose: For interacting with the MongoDB database.
+- nodemailer: For sending emails for password reset functionality.
+- Twilio: for sms
+- nodemon: For automatically restarting the Node.js app
 
 ### Frontend:
 
--axios: For making HTTP requests to the backend API.
--@material-ui/core: For styling and UI components.
--@material-ui/icons: For accessing Material-UI icons.
--react: For building the frontend user interface.
--react-dom: For rendering React components.
--react-router-dom: For managing client-side routing.
+- axios: For making HTTP requests to the backend API.
+- @material-ui/core: For styling and UI components.
+- @material-ui/icons: For accessing Material-UI icons.
+- react: For building the frontend user interface.
+- react-dom: For rendering React components.
+- react-router-dom: For managing client-side routing.
 
 ## Functionality
 
 The Grocery Wise web application provides the following functionalities:
 
--User registration and login
--Admin section to manage products and users
--Search for groceries by category or barcode reader
--Compare prices across multiple stores
--Create and manage shopping lists by temporary needs or weekly needs
--Add items to lists directly from search results
--Store locator with maps and directions
--Share lists via email and/or SMS
--Favorites and reminders
--Personalized recommendations based on search history
--Recipe and nutrition recommendations
+- User registration and login
+- Admin section to manage products and users
+- Search for groceries by category or barcode reader
+- Compare prices across multiple stores
+- Create and manage shopping lists by temporary needs or weekly needs
+- Add items to lists directly from search results
+- Store locator with maps and directions
+- Share lists via email and/or SMS
+- Favorites and reminders
+- Personalized recommendations based on search history
+- Recipe and nutrition recommendations
 
 ## Contributing
 
@@ -103,4 +104,4 @@ We welcome contributions! Please open an issue or pull request with your ideas.
 
 ## Contact
 
-For any questions or support, please email support@grocerywise.com
+<!-- For any questions or support, please email support@grocerywise.com -->
