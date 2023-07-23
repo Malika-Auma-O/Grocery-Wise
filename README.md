@@ -28,7 +28,10 @@ cd Grocery-Wise
 
 ### Set up environment variables:
 
-Create a .env file in the backend directory.Add the following variables and replace them with your own values:
+Create a .env file in the backend and frontend directories.Add the following variables and replace them with your own values:
+
+#### backend .env
+
 PORT=3636
 MONGODB_URI="your_mongodb_connection"
 JWT_KEY="your_jwt_secret_key"
@@ -36,6 +39,10 @@ SALT_ROUNDS=8
 CLOUDINARY_CLOUD_NAME="your_cloudinary_cloud_name"
 CLOUDINARY_API_KEY="your_cloudinary_api_key"
 CLOUDINARY_API_SECRET="your_cloudinary_api_secret"
+
+#### frontend config.js
+
+REACT_APP_GOOGLE_MAPS_API_KEY="YOUR_API_KEY"
 
 ### Start the development servers:
 
@@ -60,6 +67,7 @@ The Grocery Wise project relies on the following dependencies:
   -jsonwebtoken: For user authentication using JSON Web Tokens.
   -mongoose: For interacting with the MongoDB database.
   -nodemailer: For sending emails for password reset functionality.
+  -Twilio: for sms
   -nodemon: For automatically restarting the Node.js app
 
 ### Frontend:
