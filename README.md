@@ -32,8 +32,7 @@ Create a .env file in the backend and frontend directories.Add the following var
 
 #### backend .env
 
-PORT=3636
-
+- PORT=3636
 - MONGODB_URI="your_mongodb_connection"
 - JWT_KEY="your_jwt_secret_key"
 - SALT_ROUNDS=8
@@ -104,4 +103,4 @@ We welcome contributions! Please open an issue or pull request with your ideas.
 
 ## Contact
 
-<!-- For any questions or support, please email support@grocerywise.com -->
+For any questions or support, please email support@grocerywise.com
