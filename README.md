@@ -64,6 +64,7 @@ The Grocery Wise project relies on the following dependencies:
 - cloudinary: For storing and managing images.
 - dotenv: For managing environment variables.
 - express: For building the backend server.
+- cors:
 - jsonwebtoken: For user authentication using JSON Web Tokens.
 - mongoose: For interacting with the MongoDB database.
 - nodemailer: For sending emails for password reset functionality.

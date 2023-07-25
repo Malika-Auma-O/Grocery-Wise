@@ -2,7 +2,7 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
-// const jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const saltRounds = Number(process.env.SALT_ROUNDS);
 const generateToken = require("../utils/generateToken");
 const privateKey = process.env.PRIVATE_KEY;
@@ -23,6 +23,7 @@ const signUp = async(req, res) =>{
     } else {    
       const hashPassword = await bcrypt.hash(password, saltRounds);
       const newUser = await User.create({username, password: hashPassword})
+      
       // Create a payload for the JWT
       const payload = {
         user: {
@@ -31,7 +32,7 @@ const signUp = async(req, res) =>{
         },
       };
 
-      // Generate the JWT using the utility function
+      // Generate the JWT from the generateToken.js in utils
       const token = generateToken(payload, "1h");
 
       // Send the token and user data back to the client
@@ -68,11 +69,11 @@ const login = async(req, res) =>{
         username: checkUser.username,
       };
       
-      // Generate the JWT using the utility function
-      const token = generateToken(payload);
+      // Generate the JWT from the generateToken.js in utils
+      const token = generateToken(payload, "1h");
 
        // Send the token back to the client
-      res.send(token)
+      return res.status(201).send({msg: "Login successful", token})
       }
   } catch (error) {
     res.status(500).send(error)
@@ -82,32 +83,34 @@ const login = async(req, res) =>{
 //// Verify user token
 const verify = async(req, res) =>{
   if (!req.body.token){
-    res.send({msg:false});
-    return
+    return res.status(400).send({ msg: "Token is required" });
 }
   try {
 
     // Verify the token using the private key
     const payload = jwt.verify(req.body.token, privateKey);
+ 
     if (payload){
 
       // Find the user in the database based on the payload's ID
-      const user = await User.findOne({ _id:payload.id});
+      const user = await User.findOne({ _id:payload.userId});
       if(user){
+        // console.log(user)
 
         // Generate a new token with updated user information
-        const token = generateToken({ userId: user._id, username: user.username });
+        const newToken = generateToken({ userId: user._id, username: user.username}, "1h");
+      // console.log(newToken)
 
         // Send the user data and the new token back to the client
-        res.send({user, token});
+        return res.status(200).send({ user, token: newToken });
       } else {
-        res.send("Invalid Token");
+        return res.status(404).send({ msg: "User not found" });
       }
     } else {
-      res.send ("Invalid Token");
+      return res.status(401).send({ msg: "Token is Invalid" });
     }
   } catch (error) {
-    res.send (error, "Invalid Token");
+    res.status(500).send({msg: "Invalid Token", error})
   }
 }
 

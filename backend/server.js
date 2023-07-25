@@ -9,11 +9,16 @@ const cors = require("cors");
 // add middleware
 app.use(express.json());
 
+const userAuthRouter = require("./routes/userAuthRouter");
+
 app.use(
   cors({
     origin: "*",
   })
 )
+
+app.use("/api/auth", userAuthRouter);
+
 
 app.listen(port, hostName, err => {
   if(err) {
