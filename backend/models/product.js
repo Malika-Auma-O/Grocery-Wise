@@ -1,4 +1,3 @@
-require("../connection")
 const mongoose = require("mongoose");
 
 const ProductSchema = new mongoose.Schema( {
@@ -8,8 +7,6 @@ const ProductSchema = new mongoose.Schema( {
   brand: { type: String },
   price: { type: Number, required: true },
   image: { type: String },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
   store: { type: String },
   location: {
     latitude: { type: Number, required: true},
@@ -17,7 +14,7 @@ const ProductSchema = new mongoose.Schema( {
   },
   rating: { type: Number, default: 0 },
   userId: {type: String},
-});
+}, { timestamps: true });
 
 const Product = mongoose.model("Product", ProductSchema);
 
