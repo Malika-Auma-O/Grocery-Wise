@@ -10,7 +10,7 @@ const privateKey = process.env.PRIVATE_KEY;
 // Sign up a new user
 const signUp = async(req, res) =>{
   try {
-    let {username, password} = req.body;
+    const {username, password} = req.body;
     if(!username || !password) {
       return res.status(400).send({msg: "Both username and password required"});
     }
@@ -46,19 +46,19 @@ const signUp = async(req, res) =>{
 // User login
 const login = async(req, res) =>{
   try {
-    let {username, password} = req.body;
+    const {username, password} = req.body;
     if(!username || !password) {
       return res.status(400).send({msg: "Both username and password required"});
     }
 
     // Find the user in the database
-    let checkUser = await User.findOne({username});
+    const checkUser = await User.findOne({username});
       if(!checkUser) {
         return res.status(404).send({msg:"User does not exist" });
       } else {
 
          // Validate the password
-        let validatePassword = await bcrypt.compare(password, checkUser.password)
+        const validatePassword = await bcrypt.compare(password, checkUser.password)
         if (!validatePassword) {
           return res.status(401).send({ msg : "Invalid Password"})
         }
