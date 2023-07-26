@@ -13,6 +13,8 @@ const userAuthRouter = require("./routes/userAuthRouter");
 const userRouter = require("./routes/userRouter");
 const productRouter = require("./routes/productRouter");
 const favoriteRouter = require("./routes/favouriteRouter");
+const weeklyNeedRouter = require("./routes/weeklyNeedRouter");
+const temporaryNeedRouter = require("./routes/temporaryNeedRouter");
 
 app.use(
   cors({
@@ -24,6 +26,8 @@ app.use("/api/auth", userAuthRouter);
 app.use("/api", userRouter);
 app.use("/api", productRouter);
 app.use("/api", favoriteRouter);
+app.use("/api", weeklyNeedRouter);
+app.use("/api", temporaryNeedRouter);
 
 
 app.listen(port, hostName, err => {
