@@ -10,7 +10,9 @@ const cors = require("cors");
 app.use(express.json());
 
 const userAuthRouter = require("./routes/userAuthRouter");
-const userRouter = require("./routes/userRouter")
+const userRouter = require("./routes/userRouter");
+const productRouter = require("./routes/productRouter");
+const favoriteRouter = require("./routes/favouriteRouter");
 
 app.use(
   cors({
@@ -20,6 +22,8 @@ app.use(
 
 app.use("/api/auth", userAuthRouter);
 app.use("/api", userRouter);
+app.use("/api", productRouter);
+app.use("/api", favoriteRouter);
 
 
 app.listen(port, hostName, err => {
