@@ -6,8 +6,6 @@ router.post("/products", verifyToken, createProduct);
 router.get("/products", getAllProducts);
 router.put("/products/:id", verifyToken, updateProduct);
 router.delete("/products/:id", verifyToken, deleteProduct);
-router.get("/user/products/", verifyToken, getAllUserProducts);
-
-// find a way to allow only user who owns product to delete/update it, not all authenticated users.
+router.get("/user/products", verifyToken, getAllUserProducts);
 
 module.exports = router;

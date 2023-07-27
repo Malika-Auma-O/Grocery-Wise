@@ -1,8 +1,5 @@
-const mongoose = require("mongoose");
 const User = require("../models/user");
-const bcrypt = require("bcrypt");
-const generateToken = require("../utils/generateToken");
-const saltRounds = Number(process.env.SALT_ROUNDS);
+const { userAvatarParser } = require("../middleware/uploadMiddleware")
 
 // Get all users
 const getAllUsers = async(req, res) =>{
@@ -43,8 +40,53 @@ const deleteUser = async(req, res) =>{
   }
 }
 
+// Use the userAvatarParser middleware for uploading user avatars
+const uploadUserAvatar = userAvatarParser.single("avatar");
+
+
+// Update user profile
+const updateUserProfile = async(req,res)=>{
+  try {
+
+    // Check if the user exists
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(404).send({ errorCode: 404, message: "User not found" });
+    }
+
+    uploadUserAvatar(req, res, async (err)=>{
+      if (err) {
+        return res.status(500).send({ msg: "Failed to upload user avatar", error: err });
+      }
+      // Handle avatar upload
+      if (req.file) {
+         // Delete the existing avatar from Cloudinary if it exists
+        const user = await User.findById(req.params.id);
+        if (user && user.avatarPublicId) {
+          await cloudinary.uploader.destroy(user.avatarPublicId);
+        }
+        
+        // Store the new avatar details in the user object
+        user.profilePicture = req.file.path;
+        user.avatarPublicId = req.file.filename;
+      }
+      
+      // Update the user profile in the database
+      const updatedUser = await User.findByIdAndUpdate(
+        req.params.id,
+        { $set: req.body },
+        { new: true }
+      );
+      res.status(200).send(updatedUser);
+    })    
+  } catch (error) {
+    res.status(500).send({ msg: "Failed to update user profile", error });
+  }
+}
+
 module.exports = {
   getAllUsers,
   getOneUser,
-  deleteUser
+  deleteUser,
+  updateUserProfile
 }

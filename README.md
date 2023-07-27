@@ -62,6 +62,7 @@ The Grocery Wise project relies on the following dependencies:
 - bcrypt: For encrypting and decrypting user passwords.
 - multer: For handling file uploads.
 - cloudinary: For storing and managing images.
+- multer-storage-cloudinary
 - dotenv: For managing environment variables.
 - express: For building the backend server.
 - cors:
