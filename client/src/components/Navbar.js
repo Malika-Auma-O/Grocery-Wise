@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Toolbar, Typography, IconButton } from '@mui/material';
+import { Box, Toolbar, Typography, IconButton} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
 import { styled } from '@mui/material/styles';
@@ -19,27 +19,28 @@ import StoreIcon from '@mui/icons-material/Store';
 import MailIcon from '@mui/icons-material/Mail';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import LoginIcon from '@mui/icons-material/Login';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
 
 const drawerWidth = 240;
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  }),
-);
+// const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+//   ({ theme, open }) => ({
+//     flexGrow: 1,
+//     padding: theme.spacing(3),
+//     transition: theme.transitions.create('margin', {
+//       easing: theme.transitions.easing.sharp,
+//       duration: theme.transitions.duration.leavingScreen,
+//     }),
+//     marginLeft: `-${drawerWidth}px`,
+//     ...(open && {
+//       transition: theme.transitions.create('margin', {
+//         easing: theme.transitions.easing.easeOut,
+//         duration: theme.transitions.duration.enteringScreen,
+//       }),
+//       marginLeft: 0,
+//     }),
+//   }),
+// );
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -67,9 +68,13 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 function Navbar() {
-  const pageList = ["Home", "Dashboard", "Discover"];
   const [leftOpen, setLeftOpen] = useState(false);
   const [rightOpen, setRightOpen] = useState(false);
+  const pageList = [
+    { title: "Home", link: "/" },
+    { title: "Discover", link: "/explore" },
+    { title: "Dashboard", link: "/profile" },
+  ];
 
   const toggleLeftDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -88,7 +93,7 @@ function Navbar() {
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <CssBaseline />
-        <AppBar position="static" sx={{ bgcolor: "primary.main" }}>
+        <AppBar position="static" sx={{ bgcolor: "primary.main", width: '100%' }}>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -104,10 +109,18 @@ function Navbar() {
             </Typography>
 
             {pageList.map((page) => (
-              <div key={page}>
-                <Typography sx={{ m: 1, display: { xs: 'none', sm: 'none', md: 'block' } }}>{page}</Typography>
-              </div>
-            ))}
+            <div key={page.title}>
+              <Link to={page.link} style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Typography
+                variant="body1"
+                  color="inherit"
+                  style={{ margin: 8, display: { xs: 'none', sm: 'none', md: 'block' } }}
+                >
+                  {page.title}
+                </Typography>
+              </Link>
+            </div>
+      ))}
 
             <IconButton
               color="inherit"
@@ -143,22 +156,27 @@ function Navbar() {
           </DrawerHeader>
           <Divider />
           <List>
-            {['Home', 'Dashboard', 'Discover', 'Recipes'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton onClick={toggleLeftDrawer(false)} >
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <LocalGroceryStoreIcon /> : <StoreIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
+            {[
+              { text: 'Home', icon: <StoreIcon/>, link: '/' },
+              { text: 'Dashboard', icon: <PersonIcon/>, link: '/dashboard' },
+              { text: 'Discover', icon: <LocalGroceryStoreIcon  />, link: '/discover' },
+              { text: 'Recipes', icon: <RestaurantIcon />, link: '/recipe' },
+            ].map((item) => (
+              <ListItem key={item.text} disablePadding>
+                <ListItemButton onClick={toggleLeftDrawer(false)} component={Link} to={item.link}>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} />
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
+
+          
         </Drawer>
 
-        <Main open={leftOpen || rightOpen}>
+        {/* <Main open={leftOpen || rightOpen}>
           <DrawerHeader />
-        </Main>
+        </Main> */}
 
         <Drawer
           sx={{
