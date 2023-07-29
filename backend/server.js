@@ -15,6 +15,7 @@ const productRouter = require("./routes/productRouter");
 const favoriteRouter = require("./routes/favouriteRouter");
 const weeklyNeedRouter = require("./routes/weeklyNeedRouter");
 const temporaryNeedRouter = require("./routes/temporaryNeedRouter");
+const imageRouter = require("./routes/imageRouter")
 
 app.use(
   cors({
@@ -28,6 +29,7 @@ app.use("/api", productRouter);
 app.use("/api", favoriteRouter);
 app.use("/api", weeklyNeedRouter);
 app.use("/api", temporaryNeedRouter);
+app.use("/api", imageRouter);
 
 
 app.listen(port, hostName, err => {

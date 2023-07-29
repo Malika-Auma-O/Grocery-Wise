@@ -7,7 +7,7 @@ const uploadProductImage = productImageParser.single("image");
 const createProduct = async (req, res) => {
   try {
     // Set the user ID from the authentication token
-    req.body.userId = req.user.userId;
+    const userId = req.user.userId;
 
     // Use the uploadProductImage middleware for handling image upload
     uploadProductImage(req, res, async (err) => {
@@ -22,7 +22,15 @@ const createProduct = async (req, res) => {
       }
 
       // Create a new product in the database and response
-      const newProduct = await Product.create(req.body);
+      let product = {
+        userId: req.user.userId,
+        description: req.user.description,
+        name: req.body.name,
+        image: req.body.image, price:
+        req.body.price
+      }
+
+      const newProduct = await Product.create(product);
       res.status(201).send({ msg: "Product created successfully", newProduct });
     });
   } catch (error) {

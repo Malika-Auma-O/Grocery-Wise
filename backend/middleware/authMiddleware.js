@@ -23,7 +23,6 @@ const verifyToken = (req, res, next) => {
     } else {
       // If the token is valid, store the user information in req.user
       req.user = verifiedToken;
-
       // continue to the next middleware
       next();
     }
