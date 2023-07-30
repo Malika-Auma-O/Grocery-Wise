@@ -72,8 +72,8 @@ function Navbar() {
   const [rightOpen, setRightOpen] = useState(false);
   const pageList = [
     { title: "Home", link: "/" },
-    { title: "Discover", link: "/explore" },
-    { title: "Dashboard", link: "/profile" },
+    { title: "Discover", link: "/discover" },
+    { title: "Dashboard", link: "/dashboard" },
   ];
 
   const toggleLeftDrawer = (open) => (event) => {

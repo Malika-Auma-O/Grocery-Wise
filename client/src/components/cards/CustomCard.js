@@ -24,8 +24,9 @@ const CustomCard = (props) => {
         <Typography>{props.description}</Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">View</Button>
-        <Button size="small">Edit</Button>
+        <Button size="small">Price €</Button>
+        <Button size="small">Compare</Button>
+        <Button size="small">Add</Button>
       </CardActions>
     </Card>
   );

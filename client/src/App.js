@@ -4,6 +4,9 @@ import Navbar from "./components/Navbar";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import Homepage from "./components/Home/Homepage";
+import Discover from "./components/discover/Discover";
+import Compare from "./components/discover/Compare";
+import Dashboard from "./components/UserDashboard/Dashboard";
 
 
 function App() {
@@ -16,7 +19,10 @@ function App() {
           <Routes>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />      
-            <Route path="/" element={<Homepage />} />      
+            <Route path="/" element={<Homepage />} />   
+            <Route path="/discover" element={<Discover/>} />   
+            <Route path="/compare" element={<Compare/>} />  
+            <Route path="/dashboard" element={<Dashboard/>} /> 
           </Routes>
         </div>        
       </Router>
