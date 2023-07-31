@@ -55,7 +55,7 @@ export default function Hero() {
                 {heroPost.title}
               </Typography>
               <TextField
-                label="Input Field"
+                label="Search for a product..."
                 variant="outlined"
                 fullWidth
                 sx={{ backgroundColor: '#fff', mt: 2, mb: 2, width: '80%' }}

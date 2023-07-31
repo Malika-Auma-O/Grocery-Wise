@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 import { Box, Toolbar, Typography, IconButton} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
@@ -19,28 +21,11 @@ import StoreIcon from '@mui/icons-material/Store';
 import MailIcon from '@mui/icons-material/Mail';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const drawerWidth = 240;
-
-// const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-//   ({ theme, open }) => ({
-//     flexGrow: 1,
-//     padding: theme.spacing(3),
-//     transition: theme.transitions.create('margin', {
-//       easing: theme.transitions.easing.sharp,
-//       duration: theme.transitions.duration.leavingScreen,
-//     }),
-//     marginLeft: `-${drawerWidth}px`,
-//     ...(open && {
-//       transition: theme.transitions.create('margin', {
-//         easing: theme.transitions.easing.easeOut,
-//         duration: theme.transitions.duration.enteringScreen,
-//       }),
-//       marginLeft: 0,
-//     }),
-//   }),
-// );
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -68,6 +53,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 function Navbar() {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
   const [leftOpen, setLeftOpen] = useState(false);
   const [rightOpen, setRightOpen] = useState(false);
   const pageList = [
@@ -89,10 +76,28 @@ function Navbar() {
     setRightOpen(open);
   };
 
+  let decoded;
+  if (token) {
+    try {
+      decoded = jwt_decode(token);
+      console.log("decoded", decoded)
+    } catch (error) {
+      localStorage.removeItem("token")
+      navigate("/login")
+    }    
+  }
+
+  function handleLogout() {
+    // remove user from local storage and set current user to null
+    localStorage.removeItem('token');
+    toggleRightDrawer(false);
+    navigate("/login")
+  }
+
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
-        <CssBaseline />
+        <CssBaseline />        
         <AppBar position="static" sx={{ bgcolor: "primary.main", width: '100%' }}>
           <Toolbar>
             <IconButton
@@ -131,7 +136,8 @@ function Navbar() {
             >
               <PersonIcon />
             </IconButton>
-            <Typography variant="body1" color="inherit" onClick={toggleRightDrawer(true)}>Create Account</Typography>
+            
+            <Typography variant="body1" color="inherit" onClick={toggleRightDrawer(true)}>{decoded ? decoded.username : "Create Account"}</Typography>
           </Toolbar>
         </AppBar>
 
@@ -173,12 +179,61 @@ function Navbar() {
 
           
         </Drawer>
+        {token ? 
+        ( 
+          <Drawer
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+            },
+          }}
+          variant="temporary"
+          anchor="right"
+          open={rightOpen}
+          onClose={toggleRightDrawer(false)}
+        >
+          <DrawerHeader>
+            <IconButton onClick={toggleRightDrawer(false)}>
+              <CloseIcon />
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            {[
+              { text: 'Profile', icon: <PersonIcon />, link: '/profile' },
+              { text: 'My Dashboard', icon: <DashboardIcon />, link: '/dashboard' },
+              { text: 'Contact Us', icon: <MailIcon />, link: '/contact' },
+              { text: 'FAQ', icon: <HelpCenterIcon />, link: '/faq' },
+            ].map((item) => (
+              <ListItem key={item.text} disablePadding>
+                <ListItemButton onClick={toggleRightDrawer(false)} component={Link} to={item.link}>
+                  <ListItemIcon>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+            <ListItem disablePadding>
+              <ListItemButton
+              onClick={ () =>{
+                handleLogout();
+                toggleLeftDrawer(false);
+              }}
+              >
+              <LogoutIcon/>
+              <ListItemText sx={{ m: 3 }}>
+                Logout  
+              </ListItemText>
+              </ListItemButton>              
+            </ListItem>
+          </List>
+        </Drawer>
 
-        {/* <Main open={leftOpen || rightOpen}>
-          <DrawerHeader />
-        </Main> */}
+        ) : (
 
-        <Drawer
+          <Drawer
           sx={{
             width: drawerWidth,
             flexShrink: 0,
@@ -214,6 +269,8 @@ function Navbar() {
             ))}
           </List>
         </Drawer>
+        )}
+        
 
       </Box>
     </div>

@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 
 const introduction = [
   {
-    title: 'Introduction',
+    title: 'Introduction1',
     date: 'July 31',
     description:
       'This is a wider card with supporting text content.',
@@ -16,7 +16,7 @@ const introduction = [
     imageLabel: 'Image Text',
   },
   {
-    title: 'Post title',
+    title: 'Post title1',
     date: 'July 31',
     description:
       'This is a wider card with supporting text content.',
@@ -24,7 +24,7 @@ const introduction = [
     imageLabel: 'Image Text',
   },
   {
-    title: 'Post title',
+    title: 'Post title2',
     date: 'July 31',
     description:
       'This is a wider card with supporting text content.',
@@ -32,7 +32,7 @@ const introduction = [
     imageLabel: 'Image Text',
   },
   {
-    title: 'Post title',
+    title: 'Post title3',
     date: 'July 31',
     description:
       'This is a wider card with supporting text content.',

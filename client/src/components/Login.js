@@ -1,4 +1,8 @@
 import * as React from 'react';
+import { useState } from "react";
+import axios from "axios";
+import {useNavigate} from "react-router-dom"
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -26,19 +30,36 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function handleLogin(e){
+    e.preventDefault();
+    try {
+      let user = {
+        username,
+        password
+      }
+      let response = await axios.post("http://localhost:3636/api/auth/login", user)
+      if (response) {
+        console.log(response.data.token)
+        localStorage.setItem("token", response.data.token)
+        alert(`Welcome ${user.username}!`)
+        setTimeout(()=>navigate("/dashboard"),1000) //redirect to home page after login with
+        // window.location.reload()
+      }
+    } catch (error) {
+      alert(error.response.data.msg)
+    }
+  }
+
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        
         <Box
           sx={{
             marginTop: 8,
@@ -50,13 +71,16 @@ export default function Login() {
             padding: '20px',
           }}
         >
+
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
+
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+
+          <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -66,7 +90,10 @@ export default function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={username}
+              onChange={(event)=>setUsername(event.target.value)}
             />
+
             <TextField
               margin="normal"
               required
@@ -76,11 +103,15 @@ export default function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={(event)=>(setPassword(event.target.value))}
             />
+
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+
             <Button
               type="submit"
               fullWidth
@@ -89,12 +120,14 @@ export default function Login() {
             >
               Sign In
             </Button>
+
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
+
               <Grid item>
                 <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}

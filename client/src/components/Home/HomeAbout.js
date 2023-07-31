@@ -6,10 +6,21 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
 const defaultTheme = createTheme();
 
 function HomeAbout() {
+  const navigate = useNavigate();
+
+  function toSignup () {
+    navigate("/signup")
+  }
+
+  function toDiscover () {
+    navigate("/discover")
+  }
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -40,8 +51,8 @@ function HomeAbout() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
+              <Button onClick={toSignup} variant="contained">Create a free account</Button>
+              <Button onClick={toDiscover} variant="outlined">Compare groceries</Button>
             </Stack>
           </Container>
         </Box>

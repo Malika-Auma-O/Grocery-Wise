@@ -10,27 +10,28 @@ import Footer from "../Footer";
 function Dashboard() {
   return (
     <div>
-      <Container maxWidth="lg" sx={{ mt: 4 }}>
+      <Container maxWidth="xl" sx={{ mt: 4 }}>
       <Grid container spacing={3}>
         {/* Main Grocery List */}
-        <Grid item xs={12} sm={8}>
+        <Grid item xs={12} sm={9}>
           <MainList />
         </Grid>
 
         {/* Special Offers */}
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={3}>
           <Offers />
         </Grid>
 
         {/* Store Locator and Price Comparison */}
         <Grid item xs={12}>
           <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <Support />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={9}>
               <UserCompare />
             </Grid>
+            <Grid item xs={12} sm={3}>
+              <Support />
+            </Grid>
+            
           </Grid>
         </Grid>
       </Grid>

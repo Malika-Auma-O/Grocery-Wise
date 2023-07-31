@@ -7,6 +7,7 @@ import Homepage from "./components/Home/Homepage";
 import Discover from "./components/discover/Discover";
 import Compare from "./components/discover/Compare";
 import Dashboard from "./components/UserDashboard/Dashboard";
+import Profile from "./components/UserDashboard/Profile";
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             <Route path="/discover" element={<Discover/>} />   
             <Route path="/compare" element={<Compare/>} />  
             <Route path="/dashboard" element={<Dashboard/>} /> 
+            <Route path="/profile" element={<Profile/>} /> 
           </Routes>
         </div>        
       </Router>
