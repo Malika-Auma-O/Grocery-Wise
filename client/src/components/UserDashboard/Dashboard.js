@@ -2,7 +2,7 @@ import React from "react";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import MainList from "./MainList";
-import Support from "./Support";
+import Support from "../Support"
 import Offers from "../discover/Offers";
 import UserCompare from "./UserCompare";
 import Footer from "../Footer";
@@ -30,8 +30,7 @@ function Dashboard() {
             </Grid>
             <Grid item xs={12} sm={3}>
               <Support />
-            </Grid>
-            
+            </Grid>          
           </Grid>
         </Grid>
       </Grid>

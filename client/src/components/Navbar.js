@@ -57,11 +57,6 @@ function Navbar() {
   const token = localStorage.getItem("token");
   const [leftOpen, setLeftOpen] = useState(false);
   const [rightOpen, setRightOpen] = useState(false);
-  const pageList = [
-    { title: "Home", link: "/" },
-    { title: "Discover", link: "/discover" },
-    { title: "Dashboard", link: "/dashboard" },
-  ];
 
   const toggleLeftDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -98,7 +93,7 @@ function Navbar() {
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <CssBaseline />        
-        <AppBar position="static" sx={{ bgcolor: "primary.main", width: '100%' }}>
+        <AppBar position="static" sx={{ bgcolor: "white", color: "black", width: '100%' }}>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -113,7 +108,11 @@ function Navbar() {
               Grocery-Wise
             </Typography>
 
-            {pageList.map((page) => (
+            {[
+              { title: "Home", link: "/" },
+              { title: "Discover", link: "/discover" },
+              // { title: "Dashboard", link: "/dashboard" },
+            ].map((page) => (
             <div key={page.title}>
               <Link to={page.link} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Typography

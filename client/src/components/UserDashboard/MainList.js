@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -69,13 +70,43 @@ const MainList = () => {
     Favorites: [],
   });
 
-  const handleAddItem = () => {
+  const endPath = {
+    "Weekly Needs": "weekly",
+    "Temporary Needs": "temporary",
+    "Favorites": "favorites",
+  };
+
+  const handleAddItem = async () => {
     if (inputValue.trim() !== "") {
-      setLists((prevLists) => ({
-        ...prevLists,
-        [selectedList]: [...prevLists[selectedList], { name: inputValue }],
-      }));
-      setInputValue("");
+      try {
+        let newItem = { name: inputValue };
+        const path = endPath[selectedList];
+        const response = await axios.post(`http://localhost:3636/api/${path}`, newItem, 
+        {
+          headers: {
+            Authorization:  `Bearer ${localStorage.getItem('token')}`
+          }
+        }
+        );
+        console.log(response);
+        if (response) {
+          alert(response.data.msg);
+          setLists((prevLists) => ({
+            ...prevLists,
+            [selectedList]: [...prevLists[selectedList], { name: inputValue }],
+          }));
+          setInputValue("");
+        } else {
+          console.log("Error adding to list.");
+        }
+      } catch (error) {  
+        if (error.response && error.response.status === 401) {
+          alert("Unauthorized access. Please log in first to create a list.");
+        } else {
+          console.log(error);
+          alert("An error occurred while adding to the list.");
+        }    
+      }
     }
   };
 
