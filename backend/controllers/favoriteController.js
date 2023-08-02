@@ -2,8 +2,12 @@ const Favorite = require("../models/favorite");
 
 const addFavorite = async(req, res) =>{
   try {
-    req.body.userId = req.user.userId;
-    const newFavorite = await Favorite.create(req.body);
+    const userId = req.user.userId;
+    let favorite= {
+      userId: userId,
+      name: req.body.name,
+    }
+    const newFavorite = await Favorite.create(favorite);
     res.status(201).send({ msg: "Favorite added successfully", newFavorite });
   } catch (error) {
     res.status(500).send({ msg: "Unable to add favorite", error });
@@ -21,8 +25,13 @@ const getAllFavorites = async(req, res) =>{
 
 const deleteFavorite = async(req, res) =>{
   try {
-    await Favorite.findByIdAndDelete({ _id: req.params.id });
+    const favorite = await Favorite.findById(req.params.id);
+    if (favorite.userId !== req.user.userId) {
+      return res.status(403).send({ msg: "Unauthorized to delete this favorite" });
+    }else {
+      await Favorite.findByIdAndDelete({ _id: req.params.id });
     res.send({ msg: "Favorite deleted successfully" });
+    }
   } catch (error) {
     res.status(500).send({ error: "An error occurred while deleting the favorite" });
   }
@@ -37,9 +46,36 @@ const getUserFavorites = async(req, res) =>{
   }
 }
 
+const updateFavorite = async(req, res) =>{
+  try {
+
+    // Set the user ID from the authentication token
+    req.body.userId = req.user.userId;
+
+    // Find the favorite by ID
+    const favorite = await Favorite.findById(req.params.id);
+
+    // Check if the authenticated user owns the favorite
+    if (favorite.userId !== req.user.userId) {
+      return res.status(403).send({ msg: "Unauthorized to update this item" });
+    }
+
+     // Find by ID and update only the specified fields using $set
+    const updatedFavorite = await Favorite.findByIdAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { new: true } //true returns the updated favorite object
+    );
+    res.status(200).send({ msg: "favorite updated successfully", updatedFavorite });
+  } catch (error) {
+    res.status(500).send({ msg: "Unable to update favorite", error });
+  }
+}
+
 module.exports = {
   addFavorite,
   getAllFavorites,
   deleteFavorite,
   getUserFavorites,
+  updateFavorite
 };

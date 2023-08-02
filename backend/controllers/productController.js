@@ -73,7 +73,7 @@ const updateProduct = async(req, res) =>{
     }
 
      // Find by ID and update only the specified fields using $set
-    await Product.findByIdAndUpdate(
+    const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
       { new: true } //true returns the updated product object

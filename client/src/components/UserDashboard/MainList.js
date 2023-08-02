@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -31,43 +32,45 @@ const MainListItem = ({ title, details, onDeleteItem }) => {
 
   return (
     <React.Fragment>
-      <ListItem onClick={handleToggle}>
-        <ListItemIcon>
-          <InboxIcon />
-        </ListItemIcon>
-        <ListItemText primary={title} />
-        {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-      </ListItem>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          {details.map((item, index) => (
-            <ListItem key={index}>
-              <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="delete" onClick={() => onDeleteItem(index)}>
-                  <DeleteIcon fontSize="small" />
-                </IconButton>
-              </ListItemSecondaryAction>
-              <ListItemText primary={item.name} />
-              <ListItemIcon>
-                <IconButton edge="start" aria-label="edit">
-                  <EditIcon fontSize="small" />
-                </IconButton>
-              </ListItemIcon>
-            </ListItem>
-          ))}
-        </List>
-      </Collapse>
-    </React.Fragment>
+  <ListItem  onClick={handleToggle}>
+    <ListItemIcon>
+      <InboxIcon />
+    </ListItemIcon>
+    <ListItemText primary={title} />
+    {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+  </ListItem>
+  <Collapse in={open} timeout="auto" unmountOnExit>
+    <List component="div" disablePadding>
+      {details.map((item, index) => (
+        <ListItem key={index}>
+          <ListItemText primary={item.name} />
+          <ListItemIcon>
+            <IconButton edge="start" aria-label="edit">
+              <EditIcon fontSize="small" />
+            </IconButton>
+          </ListItemIcon>
+          <ListItemSecondaryAction>
+            <IconButton edge="end" aria-label="delete" onClick={() => onDeleteItem(index)}>
+              <DeleteIcon fontSize="small" />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </ListItem>
+      ))}
+    </List>
+  </Collapse>
+</React.Fragment>
+
   );
 };
 
 const MainList = () => {
   const [selectedList, setSelectedList] = useState("Weekly Needs");
   const [inputValue, setInputValue] = useState("");
+  const {userId} = useParams();
   const [lists, setLists] = useState({
     "Weekly Needs": [],
     "Temporary Needs": [],
-    Favorites: [],
+    "Favorites": []
   });
 
   const endPath = {
@@ -79,23 +82,20 @@ const MainList = () => {
   const handleAddItem = async () => {
     if (inputValue.trim() !== "") {
       try {
-        let newItem = { name: inputValue };
+        let newItem = { name: inputValue, userId };
         const path = endPath[selectedList];
-        const response = await axios.post(`http://localhost:3636/api/${path}`, newItem, 
+        const response = await axios.post(`http://localhost:3636/api/user/${path}`, newItem, 
         {
           headers: {
             Authorization:  `Bearer ${localStorage.getItem('token')}`
           }
         }
         );
-        console.log(response);
-        if (response) {
+        // console.log(response);
+        if (response && response.data) {
           alert(response.data.msg);
-          setLists((prevLists) => ({
-            ...prevLists,
-            [selectedList]: [...prevLists[selectedList], { name: inputValue }],
-          }));
           setInputValue("");
+          getAllLists();
         } else {
           console.log("Error adding to list.");
         }
@@ -109,12 +109,54 @@ const MainList = () => {
       }
     }
   };
+  
+  const getAllLists = async () => {
+    try {
+      const paths = Object.values(endPath);
+      const responses = await Promise.all(
+        paths.map((path) =>
+          axios.get(`http://localhost:3636/api/user/${path}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          })
+        )
+      );
+  
+      const newData = {
+        "Weekly Needs": responses[0].data.reverse(),
+        "Temporary Needs": responses[1].data.reverse(),
+        "Favorites": responses[2].data.reverse(),
+      };
+  
+      setLists(newData);
+    } catch (error) {
+      console.log(error);
+      alert("An error occurred while fetching the lists.");
+    }
+  };
 
-  const handleDeleteItem = (listTitle, index) => {
-    setLists((prevLists) => ({
-      ...prevLists,
-      [listTitle]: prevLists[listTitle].filter((_, i) => i !== index),
-    }));
+  useEffect(() => {
+    getAllLists();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+
+
+  const handleDeleteItem = async (listTitle, id) => {
+    try {
+      const confirmDelete = window.confirm("Are you sure you want to delete this item?")
+      if (confirmDelete) {      
+        await axios.delete(`http://localhost:3636/api/user/${endPath[listTitle]}/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }      
+        })      
+        getAllLists();
+      }   
+    } catch (error) {      
+      console.log('Error deleting list', error);
+    }  
   };
 
   return (
@@ -124,7 +166,7 @@ const MainList = () => {
       </Typography>
       <FormControl fullWidth variant="outlined" sx={{ mb: "10px" }}>
         <InputLabel>List</InputLabel>
-        <Select value={selectedList} onChange={(e) => setSelectedList(e.target.value)}>
+        <Select value={selectedList} onChange={(e) => setSelectedList(e.target.value) }>
           <MenuItem value="Weekly Needs">Weekly Needs</MenuItem>
           <MenuItem value="Temporary Needs">Temporary Needs</MenuItem>
           <MenuItem value="Favorites">Favorites</MenuItem>
@@ -145,7 +187,7 @@ const MainList = () => {
         {Object.entries(lists).map(([title, details]) => (
           <Grid item xs={12} sm={4} key={title}>
             <List sx={{ bgcolor: "#f5f5f5" }}>
-              <MainListItem title={title} details={details} onDeleteItem={(index) => handleDeleteItem(title, index)} />
+              <MainListItem title={title} details={details}onDeleteItem={(index) => handleDeleteItem(title, details[index].id)} />
             </List>
           </Grid>
         ))}

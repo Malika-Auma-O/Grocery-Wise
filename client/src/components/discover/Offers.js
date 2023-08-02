@@ -24,7 +24,7 @@ const Offers = () => {
         </Box>
         <Container sx={{ py: 4 }} maxWidth="lg">
           <Grid container spacing={4}>
-              <Grid  xs={12}>
+              <Grid item xs={12}>
                 <CustomCard
                   image="https://media.istockphoto.com/id/1412763720/photo/shopping-basket-with-discount-sale-tag.jpg?s=612x612&w=0&k=20&c=GcLJCR18eBTZ8FsyTpmwLmjOqEMVVPOggKXeQCLd6LM="
                   heading="Heading"
