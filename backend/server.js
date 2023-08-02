@@ -14,7 +14,7 @@ const userRouter = require("./routes/userRouter");
 const productRouter = require("./routes/productRouter");
 const favoriteRouter = require("./routes/favouriteRouter");
 const weeklyNeedRouter = require("./routes/weeklyNeedRouter");
-const temporaryNeedRouter = require("./routes/temporaryNeedRouter");
+const temporaryNeedRouter = require("./routes/temporaryNeedRouter")
 const imageRouter = require("./routes/imageRouter")
 
 app.use(

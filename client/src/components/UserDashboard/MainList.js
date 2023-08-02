@@ -23,7 +23,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-const MainListItem = ({ title, details, onDeleteItem }) => {
+const MainListItem = ({ title, details, onDeleteItem, onUpdateItem }) => {
   const [open, setOpen] = useState(false);
 
   const handleToggle = () => {
@@ -45,12 +45,12 @@ const MainListItem = ({ title, details, onDeleteItem }) => {
         <ListItem key={index}>
           <ListItemText primary={item.name} />
           <ListItemIcon>
-            <IconButton edge="start" aria-label="edit">
+            <IconButton edge="start" aria-label="edit" onClick={() => onUpdateItem(item)} >
               <EditIcon fontSize="small" />
             </IconButton>
           </ListItemIcon>
           <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete" onClick={() => onDeleteItem(index)}>
+            <IconButton edge="end" aria-label="delete" onClick={() => onDeleteItem(item)}>
               <DeleteIcon fontSize="small" />
             </IconButton>
           </ListItemSecondaryAction>
@@ -143,17 +143,32 @@ const MainList = () => {
 
 
 
-  const handleDeleteItem = async (listTitle, id) => {
+  const handleDeleteItem = async (listTitle, item) => {
     try {
       const confirmDelete = window.confirm("Are you sure you want to delete this item?")
       if (confirmDelete) {      
-        await axios.delete(`http://localhost:3636/api/user/${endPath[listTitle]}/${id}`, {
+        await axios.delete(`http://localhost:3636/api/user/${endPath[listTitle]}/${item._id}`,  {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }      
         })      
         getAllLists();
       }   
+    } catch (error) {      
+      console.log('Error deleting list', error);
+    }  
+  };
+
+  const handleUpdateItem = async (listTitle, item) => {
+    try {
+         
+        await axios.put(`http://localhost:3636/api/user/${endPath[listTitle]}/${item._id}`,  {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }      
+        })      
+        getAllLists();
+        
     } catch (error) {      
       console.log('Error deleting list', error);
     }  
@@ -187,7 +202,10 @@ const MainList = () => {
         {Object.entries(lists).map(([title, details]) => (
           <Grid item xs={12} sm={4} key={title}>
             <List sx={{ bgcolor: "#f5f5f5" }}>
-              <MainListItem title={title} details={details}onDeleteItem={(index) => handleDeleteItem(title, details[index].id)} />
+              <MainListItem title={title} details={details}
+              onDeleteItem={(item) => handleDeleteItem(title, item)}
+              onUpdateItem={(item) => handleUpdateItem(title, item)}
+              />
             </List>
           </Grid>
         ))}
