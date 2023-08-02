@@ -2,18 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import Grid from "@mui/material/Grid";
-import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
-import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
@@ -22,46 +11,12 @@ import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import MainListItem from "./MainListItem";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
 
-const MainListItem = ({ title, details, onDeleteItem, onUpdateItem }) => {
-  const [open, setOpen] = useState(false);
-
-  const handleToggle = () => {
-    setOpen(!open);
-  };
-
-  return (
-    <React.Fragment>
-  <ListItem  onClick={handleToggle}>
-    <ListItemIcon>
-      <InboxIcon />
-    </ListItemIcon>
-    <ListItemText primary={title} />
-    {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-  </ListItem>
-  <Collapse in={open} timeout="auto" unmountOnExit>
-    <List component="div" disablePadding>
-      {details.map((item, index) => (
-        <ListItem key={index}>
-          <ListItemText primary={item.name} />
-          <ListItemIcon>
-            <IconButton edge="start" aria-label="edit" onClick={() => onUpdateItem(item)} >
-              <EditIcon fontSize="small" />
-            </IconButton>
-          </ListItemIcon>
-          <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="delete" onClick={() => onDeleteItem(item)}>
-              <DeleteIcon fontSize="small" />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-      ))}
-    </List>
-  </Collapse>
-</React.Fragment>
-
-  );
-};
 
 const MainList = () => {
   const [selectedList, setSelectedList] = useState("Weekly Needs");
@@ -159,20 +114,54 @@ const MainList = () => {
     }  
   };
 
-  const handleUpdateItem = async (listTitle, item) => {
-    try {
-         
-        await axios.put(`http://localhost:3636/api/user/${endPath[listTitle]}/${item._id}`,  {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          }      
-        })      
-        getAllLists();
-        
-    } catch (error) {      
-      console.log('Error deleting list', error);
-    }  
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [editItemData, setEditItemData] = useState({
+    listTitle: "",
+    item: null,
+    editedName: "",
+  });
+
+  const handleEditItem = (listTitle, item) => {
+    setEditItemData({
+      listTitle,
+      item,
+      editedName: item.name,
+    });
+    setEditDialogOpen(true);
   };
+
+  const handleSaveEditedItem = async () => {
+    const { listTitle, item, editedName } = editItemData;
+    try {
+      const response = await axios.put(
+        `http://localhost:3636/api/user/${endPath[listTitle]}/${item._id}`,
+        { name: editedName },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (response && response.data) {
+        alert(response.data.msg); 
+        const updatedLists = { ...lists };
+        const index = updatedLists[listTitle].findIndex((el) => el._id === item._id);
+        if (index !== -1) {
+          updatedLists[listTitle][index].name = editedName;
+          setLists(updatedLists);
+        }
+        setEditDialogOpen(false);
+      } else {
+        console.log("Error updating the item.");
+        alert("An error occurred while updating the item.");
+      }
+    } catch (error) {
+      console.log("Error updating the item:", error);
+      alert("An error occurred while updating the item.");
+    }
+  };
+  
 
   return (
     <Box sx={{ mt: 8 }}>
@@ -181,7 +170,7 @@ const MainList = () => {
       </Typography>
       <FormControl fullWidth variant="outlined" sx={{ mb: "10px" }}>
         <InputLabel>List</InputLabel>
-        <Select value={selectedList} onChange={(e) => setSelectedList(e.target.value) }>
+        <Select value={selectedList} onChange={(e) => setSelectedList(e.target.value)}>
           <MenuItem value="Weekly Needs">Weekly Needs</MenuItem>
           <MenuItem value="Temporary Needs">Temporary Needs</MenuItem>
           <MenuItem value="Favorites">Favorites</MenuItem>
@@ -202,14 +191,35 @@ const MainList = () => {
         {Object.entries(lists).map(([title, details]) => (
           <Grid item xs={12} sm={4} key={title}>
             <List sx={{ bgcolor: "#f5f5f5" }}>
-              <MainListItem title={title} details={details}
-              onDeleteItem={(item) => handleDeleteItem(title, item)}
-              onUpdateItem={(item) => handleUpdateItem(title, item)}
+              <MainListItem
+                title={title}
+                details={details}
+                onDeleteItem={(item) => handleDeleteItem(title, item)}
+                onEditItem={(item) => handleEditItem(title, item)} // Pass the onEditItem function
               />
             </List>
           </Grid>
         ))}
       </Grid>
+
+      <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)}>
+        <DialogTitle>Edit Item</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="Item Name"
+            value={editItemData.editedName}
+            onChange={(e) => setEditItemData({ ...editItemData, editedName: e.target.value })}
+            fullWidth
+            variant="outlined"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setEditDialogOpen(false)}>Cancel</Button>
+          <Button onClick={handleSaveEditedItem} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
