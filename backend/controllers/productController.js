@@ -24,10 +24,16 @@ const createProduct = async (req, res) => {
       // Create a new product in the database and response
       let product = {
         userId: req.user.userId,
-        description: req.user.description,
         name: req.body.name,
-        image: req.body.image, price:
-        req.body.price
+        description: req.body.description,
+        category: req.body.category,
+        brand: req.body.brand,
+        price: req.body.price,
+        image: req.body.image,
+        imagePublicId : req.body.imagePublicId ,
+        store: req.body.store,
+        location: req.body.location,
+        rating: req.body.rating,
       }
 
       const newProduct = await Product.create(product);
@@ -38,6 +44,60 @@ const createProduct = async (req, res) => {
     res.status(500).send({ msg: "Unable to create product", error });
   }
 }
+
+
+const updateProduct = async (req, res) => {
+  try {
+    // Set the user ID from the authentication token
+    const userId = req.user.userId;
+
+    // Check if the product exists
+    const productId = req.params.id;
+    const existingProduct = await Product.findById(productId);
+
+    if (!existingProduct) {
+      return res.status(404).send({ msg: "Product not found" });
+    }
+
+    // Check if the user is the owner of the product
+    if (existingProduct.userId !== userId) {
+      return res.status(403).send({ msg: "You are not authorized to update this product" });
+    }
+
+    // Use the uploadProductImage middleware for handling image upload
+    uploadProductImage(req, res, async (err) => {
+      if (err) {
+        return res.status(500).send({ msg: "Failed to upload product image", error: err });
+      }
+
+      // Update the product details with the new data
+      existingProduct.name = req.body.name;
+      existingProduct.description = req.body.description;
+      existingProduct.category = req.body.category;
+      existingProduct.brand = req.body.brand;
+      existingProduct.price = req.body.price;
+      existingProduct.store = req.body.store;
+      existingProduct.location = req.body.location;
+      existingProduct.rating = req.body.rating;
+
+      // if a new image is uploaded, save the Cloudinary image URL and public ID to the product
+      if (req.file) {
+        existingProduct.image = req.file.path;
+        existingProduct.imagePublicId = req.file.filename;
+      }
+
+      // Save the updated product to the database
+      await existingProduct.save();
+
+      res.send({ msg: "Product updated successfully", updatedProduct: existingProduct });
+    });
+  } catch (error) {
+    console.log("error updating", error);
+    res.status(500).send({ msg: "Unable to update product", error });
+  }
+};
+
+
 
 const getAllProducts = async(req, res) =>{
   try {
@@ -52,35 +112,20 @@ const getAllProducts = async(req, res) =>{
   }
 }
 
-const updateProduct = async(req, res) =>{
+const getOneProduct = async(req, res) =>{
   try {
 
-    // Set the user ID from the authentication token
-    req.body.userId = req.user.userId;
-
-    // if a new image uploaded save the Cloudinary image URL an ID to the product
-    if (req.file) {
-      req.body.image = req.file.path;
-      req.body.imagePublicId = req.file.filename; 
+    // Fetch product from the database
+    const product = await Product.findById({_id: req.params.id});
+    
+    // check for product, and send the product as a response
+    if (!product) {
+      res.status(404).send({ errorCode: 404, message: "Product not found" });
+      return;
     }
-
-    // Find the product by ID
-    const product = await Product.findById(req.params.id);
-
-    // Check if the authenticated user owns the product
-    if (product.userId !== req.user.userId) {
-      return res.status(403).send({ msg: "Unauthorized to update this product" });
-    }
-
-     // Find by ID and update only the specified fields using $set
-    const updatedProduct = await Product.findByIdAndUpdate(
-      req.params.id,
-      { $set: req.body },
-      { new: true } //true returns the updated product object
-    );
-    res.status(200).send({ msg: "Product updated successfully", updatedProduct });
+    res.status(200).send(product); 
   } catch (error) {
-    res.status(500).send({ msg: "Unable to update product", error });
+    res.status(500).send({ error: "An error occurred while getting products" });
   }
 }
 
@@ -103,6 +148,7 @@ const deleteProduct = async(req, res) =>{
   }
 }
 
+
 // get all products associated with a specific user
 const getAllUserProducts = async(req, res) =>{
   try {
@@ -117,6 +163,7 @@ const getAllUserProducts = async(req, res) =>{
 module.exports = {
   createProduct,
   getAllProducts,
+  getOneProduct,
   updateProduct,
   deleteProduct,
   getAllUserProducts,

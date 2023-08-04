@@ -43,46 +43,53 @@ const deleteUser = async(req, res) =>{
 // Use the userAvatarParser middleware for uploading user avatars
 const uploadUserAvatar = userAvatarParser.single("avatar");
 
-
-// Update user profile
-const updateUserProfile = async(req,res)=>{
+const updateUserProfile = async (req, res) => {
   try {
+    // Set the user ID from the authentication token
+    const userId = req.user.userId;
 
     // Check if the user exists
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).send({ errorCode: 404, message: "User not found" });
+    const existingUser = await User.findById(userId);
+
+    if (!existingUser) {
+      return res.status(404).send({ msg: "User not found" });
     }
 
-    uploadUserAvatar(req, res, async (err)=>{
+    // Use the uploadUserAvatar middleware for handling avatar upload
+    uploadUserAvatar(req, res, async (err) => {
       if (err) {
-        return res.status(500).send({ msg: "Failed to upload user avatar", error: err });
+        return res.status(500).send({ msg: "Failed to upload avatar", error: err });
       }
-      // Handle avatar upload
+
+      // Update the user profile details with the new data
+      existingUser.firstName = req.body.firstName || existingUser.firstName;
+      existingUser.lastName = req.body.lastName || existingUser.lastName;
+      existingUser.username = req.body.username || existingUser.username;
+      // existingUser.password = req.body.password || existingUser.password;
+      existingUser.dateOfBirth = req.body.dateOfBirth || existingUser.dateOfBirth;
+      existingUser.location = req.body.location || existingUser.location;
+      existingUser.phone = req.body.phone || existingUser.phone;
+
+      // if a new avatar is uploaded, save the Cloudinary avatar URL and public ID to the user
       if (req.file) {
-         // Delete the existing avatar from Cloudinary if it exists
-        const user = await User.findById(req.params.id);
-        if (user && user.avatarPublicId) {
-          await cloudinary.uploader.destroy(user.avatarPublicId);
-        }
-        
-        // Store the new avatar details in the user object
-        user.profilePicture = req.file.path;
-        user.avatarPublicId = req.file.filename;
+        existingUser.avatar = req.file.path;
+        existingUser.avatarPublicId = req.file.filename;
       }
-      
-      // Update the user profile in the database
-      const updatedUser = await User.findByIdAndUpdate(
-        req.params.id,
-        { $set: req.body },
-        { new: true }
-      );
-      res.status(200).send(updatedUser);
-    })    
+
+      // Save the updated user profile to the database
+      await existingUser.save();
+
+      // Exclude the password from the response
+      const updatedUser = { ...existingUser.toObject() };
+      delete updatedUser.password;
+
+      res.send({ msg: "User profile updated successfully", updatedUser: existingUser });
+    });
   } catch (error) {
-    res.status(500).send({ msg: "Failed to update user profile", error });
+    console.log("error updating user profile", error);
+    res.status(500).send({ msg: "Unable to update user profile", error });
   }
-}
+};
 
 module.exports = {
   getAllUsers,

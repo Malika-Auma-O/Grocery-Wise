@@ -7,7 +7,7 @@ const addTemporaryNeed = async(req, res) =>{
       userId: userId,
       name: req.body.name,
     }
-    console.log(need)
+    // console.log(need)
     const newTemporaryNeed = await TemporaryNeed.create(need);
     res.status(201).send({ msg: "TemporaryNeed added successfully", newTemporaryNeed });
   } catch (error) {
