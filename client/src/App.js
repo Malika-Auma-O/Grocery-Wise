@@ -8,7 +8,13 @@ import Discover from "./components/discover/Discover";
 import Compare from "./components/discover/Compare";
 import Dashboard from "./components/UserDashboard/Dashboard";
 import Profile from "./components/UserDashboard/Profile";
-
+import ProfileAvatar from "./components/UserDashboard/ProfileAvatar";
+import ProfileAvatarForm from "./components/UserDashboard/ProfileAvatarForm"
+import Search from "./components/Home/Search";
+import ProductsForm from "./components/discover/ProductsForm";
+import ProductUpdate from "./components/UserDashboard/ProductUpdate";
+import AllProducts from "./components/discover/AllProducts";
+// import Maps from "./components/discover/Map";
 
 function App() {
   return (
@@ -25,6 +31,16 @@ function App() {
             <Route path="/compare" element={<Compare/>} />  
             <Route path="/dashboard" element={<Dashboard/>} /> 
             <Route path="/profile" element={<Profile/>} /> 
+            <Route path="/avatar" element={<ProfileAvatar/>} />
+            <Route path="/avatar-form" element={<ProfileAvatarForm />} />
+            <Route path="/products-form" element={<ProductsForm/>} />
+            <Route path="/update-product/:id" element={<ProductUpdate/>} />
+            <Route path="/products" element={<AllProducts/>} />
+            <Route path="/search" element={<Search/>} />
+            {/* <Route path="/map" element={<Maps/>} /> */}
+         
+  
+        
           </Routes>
         </div>        
       </Router>

@@ -185,7 +185,7 @@ const MainList = () => {
         sx={{ mb: "10px" }}
       />
       <Button variant="contained" color="primary" onClick={handleAddItem} sx={{ mb: "10px" }}>
-        Add
+        Add to List
       </Button>
       <Grid container spacing={2}>
         {Object.entries(lists).map(([title, details]) => (

@@ -6,6 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Rating from "@mui/material/Rating";
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 
 const formatAmountInEuro = (amount) => {
   if (amount !== undefined) {
@@ -18,12 +20,23 @@ const formatAmountInEuro = (amount) => {
   return '';
 };
 
-const CustomCard = (props) => {
+const UserCard = (props) => {
   const [editableRating, setEditableRating] = useState(props.rating);
+  const [menuAnchorEl, setMenuAnchorEl] = useState(null);
 
   const onChangeRating = (event, newRating) => {
     setEditableRating(newRating);
   };
+
+  const handleMenuOpen = (event) => {
+    setMenuAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setMenuAnchorEl(null);
+  };
+
+
   
   return (
     <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -70,23 +83,39 @@ const CustomCard = (props) => {
         )}
       </CardContent>
       <CardActions>
-        {props.showCompare ? (
-          <Button size="small" onClick={props.onAddToList}>
-            Add to List
-          </Button>
-        ) : (
-          <>
-            <Button size="small" onClick={props.onCompareClick}>
-              Compare
-            </Button>
-            <Button size="small" onClick={props.onAddToList}>
+        {/* Actions dropdown menu */}
+        <Button size="small" onClick={handleMenuOpen}>
+          Actions
+        </Button>
+        <Menu
+          anchorEl={menuAnchorEl} 
+          open={Boolean(menuAnchorEl)}
+          onClose={handleMenuClose}
+        >          
+          {props.showCompare ? [
+            <MenuItem key="add-to-list" onClick={props.onAddToList}>
+              Add to List 
+            </MenuItem>    
+          ] : [ 
+            <MenuItem key="compare" onClick={props.onCompareClick}>
+              Compare 
+            </MenuItem>,   
+            <MenuItem key="add-to-list" onClick={props.onAddToList}>      
               Add to List
-            </Button>
-          </>
-        )}
+            </MenuItem>   
+          ]}       
+          
+          <MenuItem key="update" onClick={props.onUpdateClick}>
+            Update  
+          </MenuItem>
+          
+          <MenuItem key="delete" onClick={props.onDeleteClick}>
+            Delete  
+          </MenuItem>    
+        </Menu>
       </CardActions>
     </Card>
   );
 };
 
-export default CustomCard;
+export default UserCard;

@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -6,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import SearchIcon from "@mui/icons-material/Search"; 
 
 const heroPost = {
   title: 'Grocery-Wise',
@@ -16,6 +19,16 @@ const heroPost = {
 const defaultTheme = createTheme();
 
 export default function Hero() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearchSubmit = async (event) => {
+    event.preventDefault();
+    if (searchQuery.trim() !== "") {
+      navigate(`/discover?q=${searchQuery}`);
+    }
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Paper
@@ -54,12 +67,24 @@ export default function Hero() {
               <Typography component="h1" variant="h3" color="inherit" gutterBottom>
                 {heroPost.title}
               </Typography>
+
+              <form onSubmit={handleSearchSubmit}>
               <TextField
                 label="Search for a product..."
-                variant="outlined"
+                variant="filled"
                 fullWidth
-                sx={{ backgroundColor: '#fff', mt: 2, mb: 2, width: '80%' }}
+                sx={{ backgroundColor: '#fff', mt: 2, mb: 2, width: '100%', border: 0, borderRadius: '16px'}}
+                InputProps={{
+                  disableUnderline: true,
+                  endAdornment: (
+                    <SearchIcon sx={{color: 'grey.500', marginLeft: 1, cursor: 'pointer'}} onClick={handleSearchSubmit} />
+                  )
+                }}
+                value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
               />
+              </form>
+              
               <Typography variant="h5" color="inherit" paragraph>
                 {heroPost.description}
               </Typography>

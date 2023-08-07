@@ -5,13 +5,14 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import CustomCard from "../cards/CustomCard";
+// import CustomCard from "../cards/CustomCard";
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Footer from "../Footer"
+import AllProducts from './AllProducts';
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+// const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 const defaultTheme = createTheme();
 
@@ -34,95 +35,113 @@ function Discover() {
           </Container>
         </Box>
         <Container sx={{ py: 4 }} maxWidth="lg">
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={3}>
-              <Paper sx={{ p: 2, border: '1px solid #ccc', borderRadius: 4 }}>
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Shop Location
-                  </Typography>
-                  <TextField fullWidth id="shopLocation" variant="outlined" />
-                </Box>
-
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Name or Keyword
-                  </Typography>
-                  <TextField fullWidth id="nameOrKeyword" variant="outlined" />
-                </Box>
-
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Type
-                  </Typography>
-                  <TextField
-                    fullWidth
-                    id="productType"
-                    variant="outlined"
-                    select
-                    SelectProps={{ native: true }}
-                  >
-                    <option value="type1">Type 1</option>
-                    <option value="type2">Type 2</option>
-                    <option value="type3">Type 3</option>
-              
-                  </TextField>
-                </Box>
-
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Country
-                  </Typography>
-                  <TextField
-                    fullWidth
-                    id="selectCountry"
-                    variant="outlined"
-                    select
-                    SelectProps={{ native: true }}
-                  >
-                    <option value="country1">Country 1</option>
-                    <option value="country2">Country 2</option>
-                    <option value="country3">Country 3</option>
-            
-                  </TextField>
-                </Box>
-
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Region
-                  </Typography>
-                  <TextField fullWidth id="selectRegion" variant="outlined" />
-                </Box>
-
-                <Box sx={{ mb: 2 }}>
-                  <Typography variant="subtitle1" gutterBottom>
-                    Food Pairing
-                  </Typography>
-                  <TextField fullWidth id="foodPairing" variant="outlined" />
-                </Box>
-
-                <Button fullWidth variant="outlined" onClick={() => {}}>
-                  Reset all
-                </Button>
-              </Paper>
-            </Grid>
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={3}>
+            <Paper sx={{ p: 2, border: '1px solid #ccc', borderRadius: 4 }}>
+              {/* Product Name */}
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Product Name or Keyword
+                </Typography>
+                <TextField fullWidth id="productName" variant="outlined" />
+              </Box>
+  
+              {/* Category */}
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Category
+                </Typography>
+                <TextField
+                  fullWidth
+                  id="productCategory"
+                  variant="outlined"
+                  select
+                  SelectProps={{ native: true }}
+                >
+                  <option value="">Any Category</option>
+                  <option value="fruits">Fruits</option>
+                  <option value="vegetables">Vegetables</option>
+                  <option value="dairy">Dairy</option>
+                  <option value="dairy">Dairy</option> 
+                  <option value="meat_seafood">Meat & Seafood</option> 
+                  <option value="bread_bakery">Bread & Bakery</option> 
+                  <option value="canned_goods">Canned Goods</option> 
+                  <option value="frozen_foods">Frozen Foods</option> 
+                  <option value="snacks_sweets">Snacks & Sweets</option> 
+                  <option value="beverages">Beverages</option> 
+                  <option value="breakfast_cereal">Breakfast & Cereal</option> 
+                  <option value="pasta_grains">Pasta & Grains</option> 
+                  <option value="condiments_sauces">Condiments & Sauces</option> 
+                  <option value="cooking_oils_vinegars">Cooking Oils & Vinegars</option> 
+                  <option value="spices_seasonings">Spices & Seasonings</option> 
+                  <option value="nuts_seeds">Nuts & Seeds</option> 
+                  <option value="baking_ingredients">Baking Ingredients</option> 
+                  <option value="baby_food_formula">Baby Food & Formula</option> 
+                  <option value="pet_food">Pet Food</option>
+                </TextField>
+              </Box>
+  
+              {/* Brand */}
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Brand
+                </Typography>
+                <TextField fullWidth id="productBrand" variant="outlined" />
+              </Box>
+  
+              {/* Price Range */}
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Price Range
+                </Typography>
+                <TextField fullWidth id="minPrice" variant="outlined" type="number" placeholder="Min Price" />
+                <TextField fullWidth id="maxPrice" variant="outlined" type="number" placeholder="Max Price" />
+              </Box>
+  
+              {/* Store Name */}
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Store Name
+                </Typography>
+                <TextField fullWidth id="storeName" variant="outlined" />
+              </Box>
+  
+              {/* Store Location */}
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle1" gutterBottom>
+                  Store Location
+                </Typography>
+                <TextField fullWidth id="storeLocation" variant="outlined" />
+              </Box>
+  
+              {/* Reset Button */}
+              <Button fullWidth variant="outlined" onClick={() => {}}>
+                Reset all
+              </Button>
+            </Paper>
+          </Grid>
 
             {/* Right column for the cards grid */}
             <Grid item xs={12} md={9}>
+              <Paper sx={{ p: 2, border: "1px solid #ccc", borderRadius: 4 }}>
+                <Grid container spacing={2}>
+                  <AllProducts />
+                </Grid>
+              </Paper>
+            </Grid>
+        
+            {/* <Grid item xs={12} md={9}>
               <Paper sx={{ p: 2, border: '1px solid #ccc', borderRadius: 4 }}>
                 <Grid container spacing={2}>
                   {cards.map((card) => (
                     <Grid item key={card} xs={12} sm={6} md={4}>
-                      <CustomCard
-                        image="https://media.istockphoto.com/id/1482589583/photo/grocery-vegetables-and-fruits-shop.jpg?s=612x612&w=0&k=20&c=X4q9BDKTMT25eBE7YJGlM06l4V2fmJ3RyhVJaJC3IoE="
-                        heading="Product name"
-                        description="This is a media card. You can use this section to describe the content."
+                      <AllImages
                       />
                     </Grid>
                   ))}
                 </Grid>
               </Paper>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Container>
         <Footer/>

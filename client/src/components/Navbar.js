@@ -24,6 +24,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import DescriptionIcon from '@mui/icons-material/Description';
 
 const drawerWidth = 240;
 
@@ -75,7 +76,7 @@ function Navbar() {
   if (token) {
     try {
       decoded = jwt_decode(token);
-      console.log("decoded", decoded)
+      // console.log("decoded", decoded)
     } catch (error) {
       localStorage.removeItem("token")
       navigate("/login")
@@ -204,6 +205,7 @@ function Navbar() {
             {[
               { text: 'Profile', icon: <PersonIcon />, link: '/profile' },
               { text: 'My Dashboard', icon: <DashboardIcon />, link: '/dashboard' },
+              { text: 'Add Product', icon: <DescriptionIcon />, link: '/products-form' },
               { text: 'Contact Us', icon: <MailIcon />, link: '/contact' },
               { text: 'FAQ', icon: <HelpCenterIcon />, link: '/faq' },
             ].map((item) => (

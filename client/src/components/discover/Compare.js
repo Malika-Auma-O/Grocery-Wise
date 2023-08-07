@@ -8,18 +8,13 @@ import Grid from '@mui/material/Grid';
 import CustomCard from "../cards/CustomCard";
 import Paper from '@mui/material/Paper';
 import Discover from './Discover';
+import { useLocation } from "react-router-dom"; // Import the useLocation hook
 
 const defaultTheme = createTheme();
 
-function Compare() {
-  // Simulated data for the selected product (replace this with your actual data)
-  const selectedProduct = {
-    image: "https://media.istockphoto.com/id/1482589583/photo/grocery-vegetables-and-fruits-shop.jpg?s=612x612&w=0&k=20&c=X4q9BDKTMT25eBE7YJGlM06l4V2fmJ3RyhVJaJC3IoE=",
-    heading: "Product Name",
-    description: "This is a media card. You can use this section to describe the content.",
-    compareDescription: "Comparison Text Here",
-    storeDetails: "Different shops and details go here...",
-  };
+function CompareDetails() {
+  const location = useLocation();
+  const selectedProduct = location.state.image; // Access the selected product data
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -42,18 +37,29 @@ function Compare() {
           <Paper sx={{ p: 2, border: '1px solid #ccc', borderRadius: 4 }}>
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
+            
                 <CustomCard
                   image={selectedProduct.image}
-                  heading={selectedProduct.heading}
-                  description={selectedProduct.description}
+                  name={selectedProduct.name}
+                 price={selectedProduct.price}
+                 rating={selectedProduct.rating}
                 />
               </Grid>
               <Grid item xs={12} md={6}>
                 <Typography variant="subtitle2" sx={{ mt: 2 }}>
-                  {selectedProduct.compareDescription}
+                  Category: {selectedProduct.category}
+                </Typography>
+                <Typography variant="subtitle2" sx={{ mt: 2 }}>
+                  Brand: {selectedProduct.brand}
+                </Typography>
+                <Typography variant="subtitle2" sx={{ mt: 2 }}>
+                  Description: {selectedProduct.description}
                 </Typography>
                 <Typography variant="body2" sx={{ mt: 2 }}>
-                  {selectedProduct.storeDetails}
+                  Store: {selectedProduct.store}
+                </Typography>
+                <Typography variant="body2" sx={{ mt: 2 }}>
+                  Location: {selectedProduct.store}
                 </Typography>
               </Grid>
             </Grid>
@@ -65,4 +71,4 @@ function Compare() {
   );
 }
 
-export default Compare;
+export default CompareDetails;
