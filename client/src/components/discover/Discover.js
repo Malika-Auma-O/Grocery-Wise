@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {  useState } from "react";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
@@ -17,6 +17,17 @@ import AllProducts from './AllProducts';
 const defaultTheme = createTheme();
 
 function Discover() {
+
+  const [discoverQuery, setDiscoverQuery] = useState("");
+  // const [nameQuery, setNameQuery] = useState("");
+  // const [categoryQuery, setCategoryQuery] = useState("");
+  // const [brandQuery, setBrandQuery] = useState("");
+  // const [minPrice, setMinPrice] = useState("");
+  // const [maxPrice, setMaxPrice] = useState("");
+  // const [storeQuery, setStoreQuery] = useState("");
+  // const [locationQuery, setLocationQuery] = useState("");
+
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -43,7 +54,19 @@ function Discover() {
                 <Typography variant="subtitle1" gutterBottom>
                   Product Name or Keyword
                 </Typography>
-                <TextField fullWidth id="productName" variant="outlined" />
+                <TextField
+                fullWidth
+                id="productName"
+                variant="outlined"
+                onChange={(e) => {
+                  setDiscoverQuery(e.target.value)  
+                }}
+                value={discoverQuery}         
+                // onChange={(e) => {
+                //   setNameQuery(e.target.value)  
+                // }}
+                // value={nameQuery}         
+                />
               </Box>
   
               {/* Category */}
@@ -57,6 +80,10 @@ function Discover() {
                   variant="outlined"
                   select
                   SelectProps={{ native: true }}
+                  // onChange={(e) => {
+                  //   setCategoryQuery(e.target.value)  
+                  // }}
+                  // value={categoryQuery}  
                 >
                   <option value="">Any Category</option>
                   <option value="fruits">Fruits</option>
@@ -86,7 +113,14 @@ function Discover() {
                 <Typography variant="subtitle1" gutterBottom>
                   Brand
                 </Typography>
-                <TextField fullWidth id="productBrand" variant="outlined" />
+                <TextField fullWidth
+                id="productBrand"
+                variant="outlined"
+                // onChange={(e) => {
+                //   setBrandQuery(e.target.value)  
+                // }}
+                // value={brandQuery}   
+                />
               </Box>
   
               {/* Price Range */}
@@ -94,8 +128,21 @@ function Discover() {
                 <Typography variant="subtitle1" gutterBottom>
                   Price Range
                 </Typography>
-                <TextField fullWidth id="minPrice" variant="outlined" type="number" placeholder="Min Price" />
-                <TextField fullWidth id="maxPrice" variant="outlined" type="number" placeholder="Max Price" />
+                <TextField fullWidth id="minPrice"
+                variant="outlined"
+                type="number"
+                placeholder="Min Price"
+                // value={minPrice}   
+                // onChange={(e) => setMinPrice(e.target.value)}
+                />
+                <TextField fullWidth
+                id="maxPrice"
+                variant="outlined"
+                type="number"
+                placeholder="Max Price"
+                // value={maxPrice}   
+                // onChange={(e) => setMaxPrice(e.target.value)}
+                />
               </Box>
   
               {/* Store Name */}
@@ -103,7 +150,14 @@ function Discover() {
                 <Typography variant="subtitle1" gutterBottom>
                   Store Name
                 </Typography>
-                <TextField fullWidth id="storeName" variant="outlined" />
+                <TextField fullWidth
+                id="storeName" 
+                variant="outlined"
+                // onChange={(e) => {
+                //   setStoreQuery(e.target.value)  
+                // }}
+                // value={storeQuery}   
+                />
               </Box>
   
               {/* Store Location */}
@@ -111,11 +165,23 @@ function Discover() {
                 <Typography variant="subtitle1" gutterBottom>
                   Store Location
                 </Typography>
-                <TextField fullWidth id="storeLocation" variant="outlined" />
+                <TextField fullWidth
+                id="storeLocation"
+                variant="outlined"
+                // onChange={(e) => {
+                //   setLocationQuery(e.target.value)  
+                // }}
+                // value={locationQuery}   
+                />
               </Box>
   
               {/* Reset Button */}
-              <Button fullWidth variant="outlined" onClick={() => {}}>
+              <Button fullWidth
+              variant="outlined"
+              onClick={() => {
+                setDiscoverQuery("")  
+              }}
+              >
                 Reset all
               </Button>
             </Paper>
@@ -125,7 +191,17 @@ function Discover() {
             <Grid item xs={12} md={9}>
               <Paper sx={{ p: 2, border: "1px solid #ccc", borderRadius: 4 }}>
                 <Grid container spacing={2}>
-                  <AllProducts />
+                <AllProducts
+                   discoverQuery={discoverQuery}
+
+                  // nameQuery={nameQuery}  
+                  // categoryQuery={categoryQuery}  
+                  // brandQuery={brandQuery}  
+                  // minPrice={minPrice}  
+                  // maxPrice={maxPrice}
+                  // storeQuery={storeQuery}  
+                  // locationQuery={locationQuery}  
+                />
                 </Grid>
               </Paper>
             </Grid>

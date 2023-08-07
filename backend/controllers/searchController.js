@@ -12,6 +12,15 @@ const getSearchResults = async (req, res) => {
       name: { $regex: new RegExp(query, "i") },
     });
 
+    // const results = await Product.find({
+    //   $or: [
+    //     {name: { $regex: new RegExp(query, "i") }},   
+    //     { name: { $regex: new RegExp(nameQuery, "i") } }, 
+    //     { brand: { $regex: new RegExp(brandQuery, "i") } },   
+    //     { location: { $regex: new RegExp(locationQuery, "i") } }  
+    //   ]
+    // })
+
     res.json(results);
   } catch (error) {
     console.error("Error fetching search results:", error);

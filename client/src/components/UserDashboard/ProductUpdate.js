@@ -12,6 +12,7 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 function ProductUpdate() {
     const {id} = useParams();
     const navigate = useNavigate();
+     // eslint-disable-next-line
     const [product, setProduct] = useState(null);
     const [image, setImage] = useState(null);
     const [name, setName] = useState("");

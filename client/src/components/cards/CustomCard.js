@@ -3,9 +3,10 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
+import {Button, IconButton} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Rating from "@mui/material/Rating";
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const formatAmountInEuro = (amount) => {
   if (amount !== undefined) {
@@ -80,8 +81,11 @@ const CustomCard = (props) => {
               Compare
             </Button>
             <Button size="small" onClick={props.onAddToList}>
-              Add to List
+              Add List
             </Button>
+            <IconButton onClick={props.onClearSearch}>
+              <RefreshIcon/>
+            </IconButton>
           </>
         )}
       </CardActions>

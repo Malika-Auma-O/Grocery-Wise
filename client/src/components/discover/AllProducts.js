@@ -14,7 +14,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { useLocation } from "react-router-dom";
 
-const AllProducts = () => {
+const AllProducts = ({ discoverQuery }) => {
   const { userId } = useParams();
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
@@ -26,19 +26,63 @@ const AllProducts = () => {
   const searchQuery = new URLSearchParams(location.search).get("q") || "";
 
   useEffect(() => {
-    if (searchQuery.trim() === "") {
+    let query = "";
+  
+    if(searchQuery) {
+      query = searchQuery; 
+    }
+  
+    if(discoverQuery) {
+      query = discoverQuery;
+    }
+  
+    if(query.trim() === '') {
       getAllImages();
     } else {
-      getFilteredImages(searchQuery);
+      getFilteredImages(query); 
     }
-    // eslint-disable-next-line
-  }, [searchQuery]);
+  // eslint-disable-next-line
+  }, [searchQuery, discoverQuery])
+
+  // useEffect(() => {
+  //   if (searchQuery.trim() === "") {
+  //     getAllImages();
+  //   } else {
+  //     getFilteredImages(searchQuery);
+  //   }
+  //   // eslint-disable-next-line
+  // }, [searchQuery]);
+
+  // useEffect(() => {
+  //   if (discoverQuery.trim() === "") {
+  //     getAllImages();
+  //   } else {
+  //     getFilteredImages(discoverQuery);
+  //   }
+  // })
 
 
   // useEffect(() => {
   //   getAllImages();
   //   // eslint-disable-next-line
-  // }, []);
+  // }, []); 
+  
+
+  // clear searched query from the search in hero page
+    const clearSearch = () => {
+      const params = new URLSearchParams(location.search);
+      params.delete('q');
+      navigate({search: params.toString()})
+    }
+  
+    useEffect(() => {
+      const params = new URLSearchParams(location.search);
+      if(params.get('q')){
+        // fetch filtered data
+      } else {
+        // fetch all data
+      }
+    }, [location.search])
 
   const headers = {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -77,7 +121,7 @@ const AllProducts = () => {
       );
 
       if (response && response.data) {
-        console.log("Item added to Temporary Needs:", itemName);
+        alert("Item added to Temporary Needs:", itemName);
       
       } else {
         console.log("Error adding to Temporary Needs.");
@@ -99,7 +143,7 @@ const AllProducts = () => {
       );
 
       if (response && response.data) {
-        console.log("Item added to Weekly Needs:", itemName);
+        alert("Item added to Weekly Needs:", itemName);
         // Handle successful addition, if needed
       } else {
         console.log("Error adding to Weekly Needs.");
@@ -121,20 +165,21 @@ const AllProducts = () => {
       );
 
       if (response && response.data) {
-        console.log("Item added to Favorites:", itemName);
+        alert("Item added to Favorites:", itemName);
         // Handle successful addition, if needed
       } else {
-        console.log("Error adding to Favorites.");
+        alert("Error adding to Favorites.");
         // Handle error, if needed
       }
     } catch (error) {
-      console.log("Error adding to Favorites:", error);
+      alert("Error adding to Favorites:", error);
       // Handle error, if needed
     }
   };
 
   const handleAddItemToList = (itemName) => {
     if (itemName.trim() !== "") {
+      console.log(itemName)
       setSelectedItemName(itemName);
       setOpenDialog(true);
     }
@@ -162,7 +207,7 @@ const AllProducts = () => {
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} >
       {images.map((image, index) => (
         <Grid item xs={12} sm={6} md={4} key={index}>
           <CustomCard
@@ -178,6 +223,7 @@ const AllProducts = () => {
             showCompare={false} // Hide additional details in Explore page
             onAddToList={() => handleAddItemToList(image.name)}
             onCompareClick={() => compareDetails(image)}
+            onClearSearch={() => clearSearch()}
           />
         </Grid>
       ))}
