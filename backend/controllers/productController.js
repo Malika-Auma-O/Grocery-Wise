@@ -1,4 +1,4 @@
-const Product = require("../Models/product");
+const Product = require("../models/product");
 const { productImageParser } = require("../middleware/uploadMiddleware");
 
 // Use the productImageParser middleware for uploading product images

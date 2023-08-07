@@ -33,7 +33,8 @@ const signUp = async(req, res) =>{
       };
 
       // Generate the JWT from the generateToken.js in utils
-      const token = generateToken(payload, "1h");
+      // const token = generateToken(payload, "1h");
+      const token = generateToken(payload);
 
       // Send the token and user data back to the client
       return res.status(201).send({msg: "Registered successfully", token, newUser})
@@ -70,7 +71,8 @@ const login = async(req, res) =>{
       };
       
       // Generate the JWT from the generateToken.js in utils
-      const token = generateToken(payload, "1h");
+      // const token = generateToken(payload, "1h");
+      const token = generateToken(payload);
 
        // Send the token back to the client
       return res.status(201).send({msg: "Login successful", token})
@@ -98,8 +100,9 @@ const verify = async(req, res) =>{
         // console.log(user)
 
         // Generate a new token with updated user information
-        const newToken = generateToken({ userId: user._id, username: user.username}, "1h");
+        // const newToken = generateToken({ userId: user._id, username: user.username}, "1h");
       // console.log(newToken)
+      const newToken = generateToken({ userId: user._id, username: user.username});
 
         // Send the user data and the new token back to the client
         return res.status(200).send({ user, token: newToken });
