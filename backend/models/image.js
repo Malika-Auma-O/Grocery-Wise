@@ -4,8 +4,6 @@ const mongoose = require("mongoose");
 
 const ImageSchema = new mongoose.Schema({
    image: String,
-   title: String,
-   caption: { type :String },
    publicId: String,
    userId: String,
 });

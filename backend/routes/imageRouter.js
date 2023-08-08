@@ -5,7 +5,7 @@ const verifyToken = require("../middleware/authMiddleware");
 
 router.post("/upload", verifyToken, uploadImage);
 router.get("/images/", getAllImages);
-router.get("/user/images/:id", verifyToken, getOneUserImage);
+router.get("/user/images/:userId", verifyToken, getOneUserImage);
 router.get("/user/images/", verifyToken, getAllUserImages);
 router.put("/user/images/:id", verifyToken, updateImage);
 

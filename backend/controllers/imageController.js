@@ -44,7 +44,7 @@ const uploadImage = async (req, res) => {
       req.body.imagePublicId = req.file.filename;
     }
 
-    // Assuming you have a model called "Image" to save the uploaded image details
+ 
     let images = {
       image: req.body.image,
       userId: userId,
@@ -88,7 +88,7 @@ const getOneUserImage = async (req, res) => {
     const image = await Image.findOne({ userId }); // Fetch the image associated with the user
 
     if (!image) {
-      // If the user does not have an image associated, you can send a placeholder image or return an empty response
+      // If the user does not have an image associated, send a placeholder image or return an empty response
       return res.status(404).send({ error: "Image not found" });
     }
 
