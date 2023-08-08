@@ -6,6 +6,9 @@ const jwt = require("jsonwebtoken");
 const saltRounds = Number(process.env.SALT_ROUNDS);
 const generateToken = require("../utils/generateToken");
 const privateKey = process.env.PRIVATE_KEY;
+const crypto = require('crypto');
+const port = process.env.PORT || 8080;
+const sendPasswordResetEmail = require("../utils/email/sendEmail")
 
 // Sign up a new user
 const signUp = async(req, res) =>{
@@ -117,8 +120,65 @@ const verify = async(req, res) =>{
   }
 }
 
+// Request password reset
+const requestPasswordReset = async (req, res) => {
+  try {
+    const { username } = req.body;
+
+    // Check if the user exists
+    const user = await User.findOne({ username });
+    if (!user) {
+      return res.status(404).send({ msg: 'User not found' });
+    }
+
+    // Generate a password reset token
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    console.log('Generated Reset Token:', resetToken);
+    user.resetToken = resetToken;
+    console.log('Generated use Reset Token:',user.resetToken)
+    user.resetTokenExpiry = Date.now() + 3600000;
+    console.log('Expiry Reset Token:', user.resetTokenExpiry) // Token valid for 1 hour
+    await user.save();
+    console.log("user saved")
+
+    // Send password reset email
+    const resetLink = `http://localhost:3636/api/auth/request-password?token=${resetToken}`;
+    sendPasswordResetEmail(user.username, resetLink);
+
+    return res.status(200).send({ msg: 'Password reset email sent' });
+  } catch (error) {
+    res.status(500).send({ msg: 'Error requesting password reset', error });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+
+    // Find user with matching reset token and token expiry
+    const user = await User.findOne({ resetToken: token, resetTokenExpiry: { $gt: Date.now() } });
+    if (!user) {
+      return res.status(400).send({ msg: 'Invalid or expired reset token' });
+    }
+
+    // Update user's password and reset token fields
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+    user.password = hashedPassword;
+    user.resetToken = undefined;
+    user.resetTokenExpiry = undefined;
+    await user.save();
+
+    return res.status(200).send({ msg: 'Password reset successful' });
+  } catch (error) {
+    res.status(500).send({ msg: 'Error resetting password', error });
+  }
+};
+
+
 module.exports = {
   signUp,
   login,
-  verify
+  verify,
+  requestPasswordReset,
+  resetPassword
 }

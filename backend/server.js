@@ -1,3 +1,4 @@
+require("express-async-errors");
 const express = require("express");
 const app = express();
 require("./connection")
@@ -33,6 +34,10 @@ app.use("/api", temporaryNeedRouter);
 app.use("/api", imageRouter);
 app.use("/api", searchRouter);
 
+app.use((error, req, res, next) => {
+  res.status(500).json({ error: error.message });
+});
+
 
 app.listen(port, hostName, err => {
   if(err) {
@@ -41,3 +46,5 @@ app.listen(port, hostName, err => {
     console.log(`Server is running at http://${hostName}:${port}`)
   }
 })
+
+module.exports = app;
