@@ -5,16 +5,31 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
+import Button from "@mui/material/Button";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import SearchIcon from "@mui/icons-material/Search"; 
+import SearchIcon from "@mui/icons-material/Search";
+import { keyframes } from "@mui/system";
+import heroImage from "../../images/hero3.jpeg"
 
 const heroPost = {
-  title: 'Grocery-Wise',
-  description: 'Multiple lines of text that explain site a little more',
+  title: 'Your Smart Shopping.',
+  description: ' Compare prices, organize your shopping lists, and save money.',
+  linkText: 'Get Started...',
   image: 'https://images.unsplash.com/photo-1543168256-418811576931?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=870&q=80',
 };
+
+const shake = keyframes`
+0% {
+  transform: translateY(0);
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+100% {
+  transform: translateY(-2px);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+`;
 
 const defaultTheme = createTheme();
 
@@ -40,11 +55,11 @@ export default function Hero() {
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center',
-          backgroundImage: `url(${heroPost.image})`,
-          height: 400,
+          backgroundImage: `url(${heroImage })`,
+          height: 550,
         }}
       >
-        {<img style={{ display: 'none' }} src={heroPost.image} alt={heroPost.imageText} />}
+        {<img style={{ display: 'none' }} src={heroImage } alt={heroPost.imageText} />}
         <Box
           sx={{
             position: 'absolute',
@@ -64,7 +79,7 @@ export default function Hero() {
                 pr: { md: 0 },
               }}
             >
-              <Typography component="h1" variant="h3" color="inherit" gutterBottom>
+              <Typography component="h1" variant="h3" color="inherit" gutterBottom align='center' >
                 {heroPost.title}
               </Typography>
 
@@ -85,12 +100,25 @@ export default function Hero() {
               />
               </form>
               
-              <Typography variant="h5" color="inherit" paragraph>
+              <Typography variant="h5" color="inherit" paragraph align='center'>
                 {heroPost.description}
               </Typography>
-              <Link variant="subtitle1" href="#">
+              <Button 
+              sx={{
+                cursor: 'pointer',
+                fontSize: "18px" ,
+                backgroundColor: 'transparent',
+                textTransform: 'capitalize',
+                animation: `${shake} .5s ease-in-out infinite`,
+                '&:hover': {
+                  backgroundColor: '#f0f0f0',
+                  color: 'grey.800',
+                  animation: 'none', // Disable animation on hover
+                },
+              }}
+                color="inherit" onClick={() => navigate("/signup")}>
                 {heroPost.linkText}
-              </Link>
+              </Button>
             </Box>
           </Grid>
         </Grid>

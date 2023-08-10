@@ -15,6 +15,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import CardMedia from '@mui/material/CardMedia';
 import CloseIcon from '@mui/icons-material/Close';
 import LocalGroceryStoreIcon from '@mui/icons-material/LocalGroceryStore';
 import StoreIcon from '@mui/icons-material/Store';
@@ -25,6 +26,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import DescriptionIcon from '@mui/icons-material/Description';
+import logo from "../images/logo.jpg";
 
 const drawerWidth = 240;
 
@@ -94,7 +96,7 @@ function Navbar() {
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <CssBaseline />        
-        <AppBar position="static" sx={{ bgcolor: "white", color: "black", width: '100%' }}>
+        <AppBar position="static" sx={{ bgcolor: "#071828", width: '100%' }}>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -105,6 +107,12 @@ function Navbar() {
             >
               <MenuIcon />
             </IconButton>
+            <CardMedia
+          component="img"
+          src={logo}
+          alt='free'
+          sx={{ width: "40px", mr: "10px"}}
+          />
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Grocery-Wise
             </Typography>
@@ -112,7 +120,7 @@ function Navbar() {
             {[
               { title: "Home", link: "/" },
               { title: "Discover", link: "/discover" },
-              // { title: "Dashboard", link: "/dashboard" },
+              { title: "About", link: "/about" },
             ].map((page) => (
             <div key={page.title}>
               <Link to={page.link} style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -137,7 +145,7 @@ function Navbar() {
               <PersonIcon />
             </IconButton>
             
-            <Typography variant="body1" color="inherit" onClick={toggleRightDrawer(true)}>{decoded ? decoded.username : "Create Account"}</Typography>
+            <Typography variant="body1" color="inherit" onClick={toggleRightDrawer(true)}>{decoded ? decoded.username.split('@')[0] : "Create Account"}</Typography>
           </Toolbar>
         </AppBar>
 

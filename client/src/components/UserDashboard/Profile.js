@@ -8,7 +8,10 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Container from "@mui/material/Container";
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+// import Input from '@mui/material/Input'
+// import IconButton from '@mui/material/IconButton';
+// import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Footer from "../Footer";
 
@@ -68,23 +71,49 @@ function ProfilePage() {
 
     try {
       const response = await axios.put(`http://localhost:3636/api/user/profile/${userId}`, formData, {headers});
-      console.log(response.data) 
+      
       setUserData(response.data.updatedUser);
+      alert("profile updated successfully")
     } catch (error) {
       console.error('Error updating user data:', error);
     }
   };
 
   return (
-    <Container>
-      <Grid container spacing={2} sx={{ mt: 6, mb: 6 }}>
-      <Grid item xs={12} md={3}>
-        <Paper sx={{ padding: 2 }}>
-          {userData.avatar && <Avatar src={userData.avatar} alt="User Avatar" sx={{ width: 100, height: 100 }} />}
-          <input type="file" name="avatar" accept="image/*" onChange={handleFileChange} />
-        </Paper>
-      </Grid>
+    <div>
+      <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "1rem",
+            padding: "2rem",
+            m: 6,
+            // border: "1px solid #ccc",
+            // borderRadius: "8px",
+          }}
+        >
+          <Typography variant="h4" gutterBottom>
+            Personal details
+          </Typography>
 
+      <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'center', height: '100vh', border: "1px solid #ccc", borderRadius: "8px"  }}>
+
+      <Grid item xs={12} md={3}>
+        <Paper sx={{ padding: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+          {userData.avatar && <Avatar src={userData.avatar} alt="User Avatar" sx={{ width: 120, height: 120}} />}
+          <br></br>
+          <Button
+          sx={{textTransform: 'capitalize',}}
+            variant="contained"
+            component="label"
+            startIcon={<AddAPhotoIcon  />}
+          >
+            Add Image 
+            <input type="file" hidden name="avatar" accept="image/*" onChange={handleFileChange} />
+          </Button>      
+        </Paper>    
+      </Grid>
 
       <Grid item xs={12} md={5}>
         <Paper sx={{ padding: 2 }}>
@@ -125,15 +154,19 @@ function ProfilePage() {
               fullWidth
               margin="normal"
             />
-            <Button type="submit" variant="contained" startIcon={<CloudUploadIcon />}>
+            <Button
+            sx={{textTransform: 'capitalize',}}
+             type="submit" variant="contained" startIcon={<CloudUploadIcon />} >
               Save Changes
             </Button>
           </Box>
         </Paper>
       </Grid>
     </Grid>
+    </Box>
     <Footer/>
-    </Container>
+    </div>
+    
     
   );
 }
