@@ -15,9 +15,11 @@ const userRouter = require("./routes/userRouter");
 const productRouter = require("./routes/productRouter");
 const favoriteRouter = require("./routes/favouriteRouter");
 const weeklyNeedRouter = require("./routes/weeklyNeedRouter");
-const temporaryNeedRouter = require("./routes/temporaryNeedRouter")
-const imageRouter = require("./routes/imageRouter")
-const searchRouter= require('./routes/searchRouter')
+const temporaryNeedRouter = require("./routes/temporaryNeedRouter");
+const imageRouter = require("./routes/imageRouter");
+const searchRouter= require("./routes/searchRouter");
+const geocodeRouter= require("./routes/geocodeRouter");
+
 
 app.use(
   cors({
@@ -33,6 +35,7 @@ app.use("/api", weeklyNeedRouter);
 app.use("/api", temporaryNeedRouter);
 app.use("/api", imageRouter);
 app.use("/api", searchRouter);
+app.use("/api", geocodeRouter);
 
 app.use((error, req, res, next) => {
   res.status(500).json({ error: error.message });

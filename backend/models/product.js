@@ -10,8 +10,8 @@ const ProductSchema = new mongoose.Schema( {
   imagePublicId: { type: String, required: false },
   store: { type: String },
   location: {
-    latitude: { type: Number, required: false},
-    longitude: { type: Number, required: false},
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Location"
   },
   rating: { type: Number, default: 0 },
   userId: {type: String},

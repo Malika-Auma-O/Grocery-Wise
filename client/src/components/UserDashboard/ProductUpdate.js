@@ -22,9 +22,6 @@ function ProductUpdate() {
     const [price, setPrice] = useState("");
     const [store, setStore] = useState("");
     const [previewUrl, setPreviewUrl] = useState(null);
-    const [latitude, setLatitude] = useState("");
-    const [longitude, setLongitude] = useState("");
-
     const onChangeImage = (e) => {
       const file = e.target.files[0];
   
@@ -67,52 +64,6 @@ function ProductUpdate() {
     const onChangeStore = (e) => {
       setStore(e.target.value);
     };
-  
-    // Function to perform geocoding using Google Maps Geocoding API
-    const geocodeLocation = (location) => {
-      const apiKey = "YOUR_GOOGLE_MAPS_API_KEY";
-      const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-        location
-      )}&key=${apiKey}`;
-  
-      return fetch(geocodeUrl)
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.results && data.results.length > 0) {
-            const result = data.results[0];
-            const { lat, lng } = result.geometry.location;
-            return { latitude: lat, longitude: lng };
-          } else {
-            return null;
-          }
-        })
-        .catch((error) => {
-          console.error("Error geocoding location:", error);
-          return null;
-        });
-    };
-  
-    const onChangeGeoLocation = (e) => {
-      const locationValue = e.target.value;
-  
-      geocodeLocation(locationValue)
-        .then((coordinates) => {
-          if (coordinates) {
-            setLatitude(coordinates.latitude);
-            setLongitude(coordinates.longitude);
-          } else {
-            // Handle case where location couldn't be geocoded
-            setLatitude("");
-            setLongitude("");
-          }
-        })
-        .catch((error) => {
-          // Handle error from geocoding service
-          console.error("Error geocoding location:", error);
-          setLatitude("");
-          setLongitude("");
-        });
-    };
 
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -140,8 +91,6 @@ function ProductUpdate() {
         brand,
         price,
         store,
-        latitude,
-        longitude
       };
 
       try {
@@ -269,12 +218,12 @@ function ProductUpdate() {
           onChange={onChangeStore}
           fullWidth
         />
-        <TextField
+        {/* <TextField
           label="Geographic Location"
           variant="outlined"
-          onChange={onChangeGeoLocation} // Update this line to use the onChangeGeoLocation function
+          onChange={onChangeGeoLocation} 
           fullWidth
-        />
+        /> */}
         <Button type="submit" variant="contained" color="primary" onClick={handleUpdate}>
           Submit!
         </Button>

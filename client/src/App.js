@@ -12,6 +12,8 @@ import Search from "./components/Home/Search";
 import ProductsForm from "./components/discover/ProductsForm";
 import ProductUpdate from "./components/UserDashboard/ProductUpdate";
 import AllProducts from "./components/discover/AllProducts";
+import LocationMap from "./components/discover/LocationMap";
+import LocationDetails from "./components/discover/LocationDetails";
 // import Maps from "./components/discover/Map";
 
 function App() {
@@ -33,6 +35,8 @@ function App() {
             <Route path="/update-product/:id" element={<ProductUpdate/>} />
             <Route path="/products" element={<AllProducts/>} />
             <Route path="/search" element={<Search/>} />
+            <Route path="/location" element={<LocationMap/>} />
+            <Route path="location/location/:locationId" element={<LocationDetails/>} />
             {/* <Route path="/map" element={<Maps/>} /> */}
          
   

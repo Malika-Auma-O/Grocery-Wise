@@ -43,7 +43,7 @@ export default function Login() {
       }
       let response = await axios.post("http://localhost:3636/api/auth/login", user)
       if (response) {
-        console.log(response.data.token)
+        // console.log(response.data.token)
         localStorage.setItem("token", response.data.token)
         alert(`Welcome ${user.username}!`)
         setTimeout(()=>navigate("/dashboard"),1000) //redirect to home page after login with
