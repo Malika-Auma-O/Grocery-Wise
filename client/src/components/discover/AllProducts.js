@@ -207,9 +207,11 @@ const AllProducts = ({ discoverQuery }) => {
   }
 
   return (
-    <Grid container spacing={2} >
+    <Grid     sx={{ m: 1 }}
+    container spacing={2} >
       {images.map((image, index) => (
-        <Grid item xs={12} sm={6} md={4} key={index}>
+        <Grid 
+        item xs={12} sm={6} md={4} key={index}>
           <CustomCard
             image={image.image}
             name={image.name}
@@ -242,8 +244,12 @@ const AllProducts = ({ discoverQuery }) => {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-          <Button onClick={handleListChange} color="primary">
+          <Button 
+          sx={{ color: '#022D5E' }}
+          onClick={() => setOpenDialog(false)}>Cancel</Button>
+          <Button 
+          sx={{ color: '#022D5E' }}
+          onClick={handleListChange} >
             Add to List
           </Button>
         </DialogActions>

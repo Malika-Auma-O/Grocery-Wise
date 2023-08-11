@@ -11,6 +11,7 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Footer from "../Footer"
 import AllProducts from './AllProducts';
+import "./Discover.css"
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -29,9 +30,9 @@ function Discover() {
 
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider  theme={defaultTheme}>
       <CssBaseline />
-      <main>
+      <main className="main">
         <Box
           sx={{
             bgcolor: 'background.paper',
@@ -39,10 +40,22 @@ function Discover() {
             pb: 4,
           }}
         >
-          <Container maxWidth="sm">
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Something about the collection below
+          <Container maxWidth="xl">
+            <Box
+             sx={{
+              width: "100%",
+              padding: "15px",
+              borderBottom: '1px solid #022D5E', 
+              boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)',
+            }}
+            >
+            <Typography component="h1" variant="h4" color="inherit" >
+              Discover!
             </Typography>
+            <Typography variant="h5" color="text.secondary" paragraph>
+            Explore the products the way you like - refine your search by name, category, price, and location to discover quality groceries in your location for your budget.
+            </Typography>
+            </Box>           
           </Container>
         </Box>
         <Container sx={{ py: 4 }} maxWidth="lg">
@@ -178,6 +191,7 @@ function Discover() {
               {/* Reset Button */}
               <Button fullWidth
               variant="outlined"
+              sx={{ color: '#022D5E', border: "1px solid #022D5E" }}
               onClick={() => {
                 setDiscoverQuery("")  
               }}

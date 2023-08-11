@@ -39,7 +39,7 @@ function HomeAbout() {
       onClick={toSeller} 
       sx={{ cursor: "pointer" }}
        >
-      <Paper elevation={6}  sx={{ display: 'flex', justifyContent: "center", width: "96%", margin: "20px auto" , borderRadius: "5px", bgcolor: "rgba(255, 241, 216, 1)"}}>
+      <Paper elevation={6}  sx={{ display: 'flex', justifyContent: "center", width: "96%", margin: "20px auto" , borderRadius: "5px", bgcolor: "#fcf3ee"}}>
       <CardMedia
         component="img"
         sx={{ width: 400 }}
@@ -47,7 +47,7 @@ function HomeAbout() {
         alt="Live from space album cover"
       />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ flex: '1 0 auto',  bgcolor: "rgba(255, 241, 216, 1)" }}>
+        <CardContent sx={{ flex: '1 0 auto',  bgcolor: "#fcf3ee" }}>
 
           <Typography component="div" variant="h5">
           PUT YOUR SHOP'S PRICE LIST ON GROCERY-WISE
@@ -60,7 +60,7 @@ function HomeAbout() {
           <br></br>
           <Button
           variant="contained"
-          sx={{ bgcolor: '#071828' }}
+          sx={{ bgcolor: '#022D5E' }}
           >
             List Shop
           </Button>
@@ -73,7 +73,7 @@ function HomeAbout() {
           component="img"
           src={free}
           alt='free'
-          sx={{ maxWidth: 200, ml: "80%"}}
+          sx={{ maxWidth: 200, ml: "75%"}}
           />
       </Box>
       
@@ -108,12 +108,13 @@ function HomeAbout() {
               justifyContent="center"
             >
               <Button onClick={toSignup} variant="contained"
-              sx={{ bgcolor: '#071828' }}
+              sx={{ bgcolor: '#022D5E' }}
               >
                 Create a free account
                 </Button>
+                
               <Button onClick={toContact} variant="outlined"
-              sx={{ color: '#071828', border: "1px solid #071828" }}
+              sx={{ color: '#022D5E', border: "1px solid #022D5E" }}
               >
                 Contact Us
                 </Button>

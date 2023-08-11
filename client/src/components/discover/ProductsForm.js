@@ -6,7 +6,8 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Rating from "@mui/material/Rating";
+import Rating from "@mui/material/Rating"
+import Footer from "../Footer";
 
 const ProductsForm = () => {
   const [image, setImage] = useState(null);
@@ -107,7 +108,12 @@ const ProductsForm = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Box
+    sx={{bgcolor: "#fcf3ee",}}
+    >
+      <Container maxWidth="sm"
+      
+      >
         <Box
           sx={{
             display: "flex",
@@ -115,8 +121,10 @@ const ProductsForm = () => {
             alignItems: "center",
             gap: "1rem",
             padding: "2rem",
+            bgcolor: "white",
             border: "1px solid #ccc",
             borderRadius: "8px",
+            
           }}
         >
           <Typography variant="h4" gutterBottom>
@@ -131,6 +139,7 @@ const ProductsForm = () => {
               onChange={onChangeImage}
             />
             <Button
+            sx={{ bgcolor: "#022D5E"}}
               variant="contained"
               color="primary"
               component="span"
@@ -224,11 +233,17 @@ const ProductsForm = () => {
             onChange={onChangeRating}
             precision={0.5}
           />
-          <Button type="submit" variant="contained" color="primary" onClick={onSubmit}>
+          <Button
+          sx={{bgcolor: "#022D5E"}}
+           type="submit" variant="contained" color="primary" onClick={onSubmit}>
             Submit!
           </Button>
         </Box>
+        
       </Container>
+      <Footer/>
+    </Box>
+    
   );
 };
 

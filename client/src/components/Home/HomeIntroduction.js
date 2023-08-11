@@ -12,13 +12,13 @@ export default function HomeIntroduction() {
 
   return (
     <div>
-      <Box sx={{bgcolor: "rgba(255, 241, 216, 1)"}} >
-      <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: " 20px auto", bgcolor: "rgba(255, 241, 216, 1)" }}>
+      <Box sx={{bgcolor: "#fcf3ee"}} >
+      <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: " 20px auto", bgcolor: "#fcf3ee" }}>
       <CardMedia
         component="img"
         sx={{ width: 300 }}
         image={orange}
-        alt="Live from space album cover"
+        alt="Live "
       />
       <Box >
         <CardContent >
@@ -61,13 +61,13 @@ export default function HomeIntroduction() {
     </Paper>
       </Box>
 
-      <Box sx={{bgcolor: "rgba(255, 241, 216, 1)"}} >
-      <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: " 20px auto", bgcolor: "rgba(255, 241, 216, 1)" }}>
+      <Box sx={{bgcolor: "#fcf3ee"}} >
+      <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: " 20px auto", bgcolor: "#fcf3ee" }}>
       <CardMedia
         component="img"
         sx={{ width: 370 }}
         image={list}
-        alt="Live from space album cover"
+        alt="Live "
       />
       <Box >
         <CardContent >

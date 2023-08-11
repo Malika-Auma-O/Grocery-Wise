@@ -173,7 +173,7 @@ function HomeFeatures() {
           <Typography variant="h5" align="center" color="text.secondary" paragraph>
             Discover a Glimpse of Savings! 🛒✨ Unveil the Best Deals on Your Horizon with Our Featured Selection! Compare and Conquer Your Grocery List with Ease.
             <br></br> <br></br>
-            <Link href="/discover"  underline="none" sx={{ bgcolor: '#071828', color: "white", borderRadius: "3px" , padding: "7px 12px" , fontSize: "15px", fontWeight: 500}}>
+            <Link href="/discover"  underline="none" sx={{ bgcolor: '#022D5E', color: "white", borderRadius: "3px" , padding: "7px 12px" , fontSize: "15px", fontWeight: 500}}>
                COMPARE GROCERIES
             </Link>
           </Typography>

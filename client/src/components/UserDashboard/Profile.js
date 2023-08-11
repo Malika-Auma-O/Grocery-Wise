@@ -89,22 +89,21 @@ function ProfilePage() {
             gap: "1rem",
             padding: "2rem",
             m: 6,
-            // border: "1px solid #ccc",
-            // borderRadius: "8px",
+            
           }}
         >
           <Typography variant="h4" gutterBottom>
             Personal details
           </Typography>
-
-      <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'center', height: '100vh', border: "1px solid #ccc", borderRadius: "8px"  }}>
+        
+      <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'center', height: '100vh', border: "1px solid #ccc", borderRadius: "8px", bgcolor: "#fcf3ee"  }}>
 
       <Grid item xs={12} md={3}>
         <Paper sx={{ padding: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
           {userData.avatar && <Avatar src={userData.avatar} alt="User Avatar" sx={{ width: 120, height: 120}} />}
           <br></br>
           <Button
-          sx={{textTransform: 'capitalize',}}
+          sx={{ bgcolor: "#022D5E"}}
             variant="contained"
             component="label"
             startIcon={<AddAPhotoIcon  />}
@@ -155,7 +154,7 @@ function ProfilePage() {
               margin="normal"
             />
             <Button
-            sx={{textTransform: 'capitalize',}}
+            sx={{ bgcolor: "#022D5E"}}
              type="submit" variant="contained" startIcon={<CloudUploadIcon />} >
               Save Changes
             </Button>

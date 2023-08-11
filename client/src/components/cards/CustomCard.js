@@ -7,6 +7,7 @@ import {Button, IconButton} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Rating from "@mui/material/Rating";
 import RefreshIcon from '@mui/icons-material/Refresh';
+import "../cards/CardStyle.css";
 
 const formatAmountInEuro = (amount) => {
   if (amount !== undefined) {
@@ -27,7 +28,7 @@ const CustomCard = (props) => {
   };
   
   return (
-    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Card className="card" sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <CardMedia
         component="div"
         sx={{
@@ -72,15 +73,21 @@ const CustomCard = (props) => {
       </CardContent>
       <CardActions>
         {props.showCompare ? (
-          <Button size="small" onClick={props.onAddToList}>
+          <Button 
+          sx={{ color: '#022D5E' }}
+          size="small" onClick={props.onAddToList}>
             Add to List
           </Button>
         ) : (
           <>
-            <Button size="small" onClick={props.onCompareClick}>
+            <Button
+            sx={{ color: '#022D5E' }}
+             size="small" onClick={props.onCompareClick}>
               Compare
             </Button>
-            <Button size="small" onClick={props.onAddToList}>
+            <Button
+             sx={{ color: '#022D5E' }}
+             size="small" onClick={props.onAddToList}>
               Add List
             </Button>
             <IconButton onClick={props.onClearSearch}>

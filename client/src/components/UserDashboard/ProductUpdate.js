@@ -7,6 +7,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import Footer from "../Footer";
 
 
 function ProductUpdate() {
@@ -108,7 +109,10 @@ function ProductUpdate() {
 
 
     return ( 
-      <Container maxWidth="sm">
+      <Box
+      sx={{bgcolor: "#fcf3ee",}}
+      >
+        <Container maxWidth="sm">
       <Box
         sx={{
           display: "flex",
@@ -116,6 +120,7 @@ function ProductUpdate() {
           alignItems: "center",
           gap: "1rem",
           padding: "2rem",
+          bgcolor: "white",
           border: "1px solid #ccc",
           borderRadius: "8px",
         }}
@@ -132,6 +137,7 @@ function ProductUpdate() {
             onChange={onChangeImage}
           />
           <Button
+          sx={{ bgcolor: "#022D5E"}}
             variant="contained"
             color="primary"
             component="span"
@@ -224,11 +230,16 @@ function ProductUpdate() {
           onChange={onChangeGeoLocation} 
           fullWidth
         /> */}
-        <Button type="submit" variant="contained" color="primary" onClick={handleUpdate}>
+        <Button 
+        sx={{ bgcolor: "#022D5E"}}
+        type="submit" variant="contained" color="primary" onClick={handleUpdate}>
           Submit!
         </Button>
       </Box>
     </Container>
+    <Footer/>
+      </Box>
+      
      );
 }
 
