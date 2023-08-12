@@ -213,7 +213,11 @@ const AllProducts = ({ discoverQuery }) => {
   return (
     <Grid     sx={{ m: 1 }}
     container spacing={2} >
+<<<<<<< HEAD
       {images.slice(0, displayCount).map((image, index) => (
+=======
+      {images.map((image, index) => (
+>>>>>>> 30ab31a486e3c8e228c90eba5e5522040485269e
         <Grid 
         item xs={12} sm={6} md={4} key={index}>
           <CustomCard

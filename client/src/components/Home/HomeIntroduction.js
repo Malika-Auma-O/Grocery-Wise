@@ -12,8 +12,13 @@ export default function HomeIntroduction() {
 
   return (
     <div>
+<<<<<<< HEAD
       <Box sx={{bgcolor: "#fceae3"}} >
       <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: " 20px auto", bgcolor: "#fceae3" }}>
+=======
+      <Box sx={{bgcolor: "#fcf3ee"}} >
+      <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: " 20px auto", bgcolor: "#fcf3ee" }}>
+>>>>>>> 30ab31a486e3c8e228c90eba5e5522040485269e
       <CardMedia
         component="img"
         sx={{ width: 300 }}
@@ -61,8 +66,13 @@ export default function HomeIntroduction() {
     </Paper>
       </Box>
 
+<<<<<<< HEAD
       <Box sx={{bgcolor: "#fceae3"}} >
       <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: " 20px auto", bgcolor: "#fceae3" }}>
+=======
+      <Box sx={{bgcolor: "#fcf3ee"}} >
+      <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: " 20px auto", bgcolor: "#fcf3ee" }}>
+>>>>>>> 30ab31a486e3c8e228c90eba5e5522040485269e
       <CardMedia
         component="img"
         sx={{ width: 370 }}

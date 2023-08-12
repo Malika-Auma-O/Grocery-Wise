@@ -77,8 +77,13 @@ const defaultTheme = createTheme();
       >
         <CssBaseline />
         <Container component="main" sx={{ mt: 8, bgcolor: "#022D5E", color: "white" }} maxWidth="sxl">
+<<<<<<< HEAD
           <Typography variant="h4" component="h2" gutterBottom>
             Mobile App Coming Soon
+=======
+          <Typography variant="h3" component="h2" gutterBottom>
+            Coming soon
+>>>>>>> 30ab31a486e3c8e228c90eba5e5522040485269e
           </Typography>
           <IconButton
             aria-label="Google Play Store"
