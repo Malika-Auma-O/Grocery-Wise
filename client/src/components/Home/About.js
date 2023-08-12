@@ -7,7 +7,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-// import supermarket from "../../images/supermarket3d.mp4"
+import supermarkt from "../../images/supermarkt.mp4"
 import Footer from "../Footer";
 
 const AboutUsPage = () => {
@@ -61,7 +61,7 @@ const AboutUsPage = () => {
                 height: "100%",  
               }}
             >
-              <source src="#" type="video/mp4" />
+              <source src={supermarkt} type="video/mp4" />
               Your browser does not support the video tag.
             </CardMedia>
           </Card>
