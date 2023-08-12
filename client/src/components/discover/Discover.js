@@ -12,10 +12,6 @@ import Button from '@mui/material/Button';
 import Footer from "../Footer"
 import AllProducts from './AllProducts';
 import "./Discover.css"
-<<<<<<< HEAD
-
-=======
->>>>>>> 30ab31a486e3c8e228c90eba5e5522040485269e
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -49,7 +45,6 @@ function Discover() {
              sx={{
               width: "100%",
               padding: "15px",
-<<<<<<< HEAD
               borderRadius: "12px",
           
               boxShadow: 'rgba(17, 17, 26, 0.2) 0px 1px 0px',
@@ -61,16 +56,6 @@ function Discover() {
               Discover!
             </Typography>
             <Typography variant="h6" color="text.secondary" paragraph>
-=======
-              borderBottom: '1px solid #022D5E', 
-              boxShadow: '0px 3px 5px rgba(0, 0, 0, 0.2)',
-            }}
-            >
-            <Typography component="h1" variant="h4" color="inherit" >
-              Discover!
-            </Typography>
-            <Typography variant="h5" color="text.secondary" paragraph>
->>>>>>> 30ab31a486e3c8e228c90eba5e5522040485269e
             Explore the products the way you like - refine your search by name, category, price, and location to discover quality groceries in your location for your budget.
             </Typography>
             </Box>           

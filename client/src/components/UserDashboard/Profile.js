@@ -85,11 +85,7 @@ function ProfilePage() {
             alignItems: "center",
             gap: "1rem",
             padding: "2rem",
-<<<<<<< HEAD
             mx: 6,
-=======
-            m: 6,
->>>>>>> 30ab31a486e3c8e228c90eba5e5522040485269e
             
           }}
         >
@@ -97,11 +93,7 @@ function ProfilePage() {
             Personal details
           </Typography>
         
-<<<<<<< HEAD
       <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'center', height: '100vh', border: "1px solid #ccc", borderRadius: "8px", bgcolor: "#fceae3"  }}>
-=======
-      <Grid container spacing={2} sx={{ display: 'flex', justifyContent: 'center', height: '100vh', border: "1px solid #ccc", borderRadius: "8px", bgcolor: "#fcf3ee"  }}>
->>>>>>> 30ab31a486e3c8e228c90eba5e5522040485269e
 
       <Grid item xs={12} md={3}>
         <Paper sx={{ padding: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>

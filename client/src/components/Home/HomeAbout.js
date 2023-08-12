@@ -39,11 +39,7 @@ function HomeAbout() {
       onClick={toSeller} 
       sx={{ cursor: "pointer" }}
        >
-<<<<<<< HEAD
       <Paper elevation={6}  sx={{ display: 'flex', justifyContent: "center", width: "96%", margin: "20px auto" , borderRadius: "5px", bgcolor: "#fceae3"}}>
-=======
-      <Paper elevation={6}  sx={{ display: 'flex', justifyContent: "center", width: "96%", margin: "20px auto" , borderRadius: "5px", bgcolor: "#fcf3ee"}}>
->>>>>>> 30ab31a486e3c8e228c90eba5e5522040485269e
       <CardMedia
         component="img"
         sx={{ width: 400 }}
@@ -51,11 +47,7 @@ function HomeAbout() {
         alt="Live from space album cover"
       />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-<<<<<<< HEAD
         <CardContent sx={{ flex: '1 0 auto',  bgcolor: "#fceae3" }}>
-=======
-        <CardContent sx={{ flex: '1 0 auto',  bgcolor: "#fcf3ee" }}>
->>>>>>> 30ab31a486e3c8e228c90eba5e5522040485269e
 
           <Typography component="div" variant="h6">
           PUT YOUR SHOP'S PRICE LIST ON GROCERY-WISE
