@@ -184,7 +184,7 @@ const MainList = () => {
         variant="outlined"
         sx={{ mb: "10px" }}
       />
-      <Button variant="contained" color="primary" onClick={handleAddItem} sx={{ mb: "10px" }}>
+      <Button variant="contained" color="primary" onClick={handleAddItem} sx={{ mb: "10px", bgcolor: "#022D5E" }}>
         Add to List
       </Button>
       <Grid container spacing={2}>

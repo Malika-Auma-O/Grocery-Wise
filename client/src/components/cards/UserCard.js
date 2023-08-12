@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Rating from "@mui/material/Rating";
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import "../cards/CardStyle.css"
 
 const formatAmountInEuro = (amount) => {
   if (amount !== undefined) {
@@ -39,7 +40,7 @@ const UserCard = (props) => {
 
   
   return (
-    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Card className="card" sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <CardMedia
         component="div"
         sx={{
@@ -84,7 +85,9 @@ const UserCard = (props) => {
       </CardContent>
       <CardActions>
         {/* Actions dropdown menu */}
-        <Button size="small" onClick={handleMenuOpen}>
+        <Button 
+        sx={{ color: '#022D5E' }}
+        size="small" onClick={handleMenuOpen}>
           Actions
         </Button>
         <Menu
@@ -93,23 +96,33 @@ const UserCard = (props) => {
           onClose={handleMenuClose}
         >          
           {props.showCompare ? [
-            <MenuItem key="add-to-list" onClick={props.onAddToList}>
+            <MenuItem
+            sx={{ color: '#022D5E' }}
+             key="add-to-list" onClick={props.onAddToList}>
               Add to List 
             </MenuItem>    
           ] : [ 
-            <MenuItem key="compare" onClick={props.onCompareClick}>
+            <MenuItem 
+            sx={{ color: '#022D5E' }}
+            key="compare" onClick={props.onCompareClick}>
               Compare 
             </MenuItem>,   
-            <MenuItem key="add-to-list" onClick={props.onAddToList}>      
+            <MenuItem
+            sx={{ color: '#022D5E' }}
+             key="add-to-list" onClick={props.onAddToList}>      
               Add to List
             </MenuItem>   
           ]}       
           
-          <MenuItem key="update" onClick={props.onUpdateClick}>
+          <MenuItem
+          sx={{ color: '#022D5E' }}
+           key="update" onClick={props.onUpdateClick}>
             Update  
           </MenuItem>
           
-          <MenuItem key="delete" onClick={props.onDeleteClick}>
+          <MenuItem
+          sx={{ color: '#022D5E' }}
+           key="delete" onClick={props.onDeleteClick}>
             Delete  
           </MenuItem>    
         </Menu>

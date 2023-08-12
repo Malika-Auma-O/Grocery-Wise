@@ -108,7 +108,6 @@ export default function Hero() {
                 cursor: 'pointer',
                 fontSize: "18px" ,
                 backgroundColor: 'transparent',
-                textTransform: 'capitalize',
                 animation: `${shake} .5s ease-in-out infinite`,
                 '&:hover': {
                   backgroundColor: '#f0f0f0',

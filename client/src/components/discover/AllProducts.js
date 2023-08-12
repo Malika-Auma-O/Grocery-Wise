@@ -14,6 +14,7 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import { useLocation } from "react-router-dom";
 
+
 const AllProducts = ({ discoverQuery }) => {
   const { userId } = useParams();
   const navigate = useNavigate();
@@ -21,6 +22,9 @@ const AllProducts = ({ discoverQuery }) => {
   const [selectedList, setSelectedList] = useState("Temporary Needs");
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedItemName, setSelectedItemName] = useState("");
+  const [displayCount, setDisplayCount] = useState(10);
+  const productsPerLoad = 10; // Number of products to load per button click
+
   const location = useLocation();
 
   const searchQuery = new URLSearchParams(location.search).get("q") || "";
@@ -207,9 +211,11 @@ const AllProducts = ({ discoverQuery }) => {
   }
 
   return (
-    <Grid container spacing={2} >
-      {images.map((image, index) => (
-        <Grid item xs={12} sm={6} md={4} key={index}>
+    <Grid     sx={{ m: 1 }}
+    container spacing={2} >
+      {images.slice(0, displayCount).map((image, index) => (
+        <Grid 
+        item xs={12} sm={6} md={4} key={index}>
           <CustomCard
             image={image.image}
             name={image.name}
@@ -227,6 +233,17 @@ const AllProducts = ({ discoverQuery }) => {
           />
         </Grid>
       ))}
+      <Button
+      sx={{ bgcolor: '#022D5E' }}
+        variant="contained"
+        fullWidth
+        onClick={() => {
+          setDisplayCount(displayCount + productsPerLoad);
+        }}
+      >
+        Show More
+      </Button>
+
 
       {/* Dialog to select the list */}
       <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
@@ -242,8 +259,12 @@ const AllProducts = ({ discoverQuery }) => {
           </FormControl>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-          <Button onClick={handleListChange} color="primary">
+          <Button 
+          sx={{ color: '#022D5E' }}
+          onClick={() => setOpenDialog(false)}>Cancel</Button>
+          <Button 
+          sx={{ color: '#022D5E' }}
+          onClick={handleListChange} >
             Add to List
           </Button>
         </DialogActions>

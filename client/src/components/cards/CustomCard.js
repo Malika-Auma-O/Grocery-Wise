@@ -7,6 +7,7 @@ import {Button, IconButton} from '@mui/material';
 import Typography from '@mui/material/Typography';
 import Rating from "@mui/material/Rating";
 import RefreshIcon from '@mui/icons-material/Refresh';
+import "../cards/CardStyle.css";
 
 const formatAmountInEuro = (amount) => {
   if (amount !== undefined) {
@@ -27,19 +28,19 @@ const CustomCard = (props) => {
   };
   
   return (
-    <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+    <Card className="card" sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <CardMedia
         component="div"
         sx={{
-          // 16:9
-          pt: '56.25%',
+          
+          pt: '100%',
         }}
         image={props.image}
       />
       <CardContent sx={{ flexGrow: 1 }}>
         {props.showCompare ? (
           <>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom variant="h6" component="h6">
               {props.name}
             </Typography>
             <Typography>{props.description}</Typography>
@@ -57,7 +58,7 @@ const CustomCard = (props) => {
           </>
         ) : (
           <>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom variant="h6" component="h6">
               {props.name}
             </Typography>
             <Typography>Price: {formatAmountInEuro(props.price)}</Typography>
@@ -72,15 +73,21 @@ const CustomCard = (props) => {
       </CardContent>
       <CardActions>
         {props.showCompare ? (
-          <Button size="small" onClick={props.onAddToList}>
+          <Button 
+          sx={{ color: '#022D5E' }}
+          size="small" onClick={props.onAddToList}>
             Add to List
           </Button>
         ) : (
           <>
-            <Button size="small" onClick={props.onCompareClick}>
+            <Button
+            sx={{ color: '#022D5E' }}
+             size="small" onClick={props.onCompareClick}>
               Compare
             </Button>
-            <Button size="small" onClick={props.onAddToList}>
+            <Button
+             sx={{ color: '#022D5E' }}
+             size="small" onClick={props.onAddToList}>
               Add List
             </Button>
             <IconButton onClick={props.onClearSearch}>

@@ -1,0 +1,8 @@
+
+  
+  .card:hover {
+    border: 1px solid #022D5E; 
+    transform: translateY(-5px);
+  }
+
+  

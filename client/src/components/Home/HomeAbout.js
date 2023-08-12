@@ -39,7 +39,7 @@ function HomeAbout() {
       onClick={toSeller} 
       sx={{ cursor: "pointer" }}
        >
-      <Paper elevation={6}  sx={{ display: 'flex', justifyContent: "center", width: "96%", margin: "20px auto" , borderRadius: "5px", bgcolor: "rgba(255, 241, 216, 1)"}}>
+      <Paper elevation={6}  sx={{ display: 'flex', justifyContent: "center", width: "96%", margin: "20px auto" , borderRadius: "5px", bgcolor: "#fceae3"}}>
       <CardMedia
         component="img"
         sx={{ width: 400 }}
@@ -47,20 +47,20 @@ function HomeAbout() {
         alt="Live from space album cover"
       />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ flex: '1 0 auto',  bgcolor: "rgba(255, 241, 216, 1)" }}>
+        <CardContent sx={{ flex: '1 0 auto',  bgcolor: "#fceae3" }}>
 
-          <Typography component="div" variant="h5">
+          <Typography component="div" variant="h6">
           PUT YOUR SHOP'S PRICE LIST ON GROCERY-WISE
           </Typography>
           
           <br></br>
-          <Typography variant="subtitle1" color="text.secondary" component="div">
+          <Typography variant="h6" color="text.secondary" component="div">
           Update your prices everyday, and add special offers and coupons.
           </Typography>
           <br></br>
           <Button
           variant="contained"
-          sx={{ bgcolor: '#071828' }}
+          sx={{ bgcolor: '#022D5E' }}
           >
             List Shop
           </Button>
@@ -73,7 +73,7 @@ function HomeAbout() {
           component="img"
           src={free}
           alt='free'
-          sx={{ maxWidth: 200, ml: "80%"}}
+          sx={{ maxWidth: 200, ml: "75%"}}
           />
       </Box>
       
@@ -90,15 +90,15 @@ function HomeAbout() {
         >
           <Container maxWidth="lg">
             <Typography
-              component="h1"
-              variant="h3"
+              component="h4"
+              variant="h4"
               align="center"
               color="text.primary"
               gutterBottom
             >
               About Us
             </Typography>
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
+            <Typography variant="h6" align="center" color="text.secondary" paragraph>
             Grocery Wise is dedicated to making your grocery shopping experience easier and more efficient. With our price comparison feature, you can find the best deals on your favorite products!.
             </Typography>
             <Stack
@@ -108,12 +108,13 @@ function HomeAbout() {
               justifyContent="center"
             >
               <Button onClick={toSignup} variant="contained"
-              sx={{ bgcolor: '#071828' }}
+              sx={{ bgcolor: '#022D5E' }}
               >
                 Create a free account
                 </Button>
+                
               <Button onClick={toContact} variant="outlined"
-              sx={{ color: '#071828', border: "1px solid #071828" }}
+              sx={{ color: '#022D5E', border: "1px solid #022D5E" }}
               >
                 Contact Us
                 </Button>

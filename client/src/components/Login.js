@@ -43,7 +43,7 @@ export default function Login() {
       }
       let response = await axios.post("http://localhost:3636/api/auth/login", user)
       if (response) {
-        console.log(response.data.token)
+        // console.log(response.data.token)
         localStorage.setItem("token", response.data.token)
         alert(`Welcome ${user.username}!`)
         setTimeout(()=>navigate("/dashboard"),1000) //redirect to home page after login with
@@ -116,14 +116,15 @@ export default function Login() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, bgcolor: "#022D5E" }}
             >
               Sign In
             </Button>
 
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link 
+                href="#" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>

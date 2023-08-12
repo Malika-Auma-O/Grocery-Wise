@@ -6,7 +6,8 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Rating from "@mui/material/Rating";
+import Rating from "@mui/material/Rating"
+import Footer from "../Footer";
 
 const ProductsForm = () => {
   const [image, setImage] = useState(null);
@@ -17,9 +18,7 @@ const ProductsForm = () => {
   const [price, setPrice] = useState("");
   const [store, setStore] = useState("");
   const [rating, setRating] = useState("");
-  const [previewUrl, setPreviewUrl] = useState(null);
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  const [previewUrl, setPreviewUrl] = useState(null);;
 
   const onChangeImage = (e) => {
     const file = e.target.files[0];
@@ -69,51 +68,7 @@ const ProductsForm = () => {
     setRating(parseFloat(value));
   };
 
-  // Function to perform geocoding using Google Maps Geocoding API
-  const geocodeLocation = (location) => {
-    const apiKey = "YOUR_GOOGLE_MAPS_API_KEY";
-    const geocodeUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-      location
-    )}&key=${apiKey}`;
-
-    return fetch(geocodeUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.results && data.results.length > 0) {
-          const result = data.results[0];
-          const { lat, lng } = result.geometry.location;
-          return { latitude: lat, longitude: lng };
-        } else {
-          return null;
-        }
-      })
-      .catch((error) => {
-        console.error("Error geocoding location:", error);
-        return null;
-      });
-  };
-
-  const onChangeGeoLocation = (e) => {
-    const locationValue = e.target.value;
-
-    geocodeLocation(locationValue)
-      .then((coordinates) => {
-        if (coordinates) {
-          setLatitude(coordinates.latitude);
-          setLongitude(coordinates.longitude);
-        } else {
-          // Handle case where location couldn't be geocoded
-          setLatitude("");
-          setLongitude("");
-        }
-      })
-      .catch((error) => {
-        // Handle error from geocoding service
-        console.error("Error geocoding location:", error);
-        setLatitude("");
-        setLongitude("");
-      });
-  };
+ 
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -127,8 +82,6 @@ const ProductsForm = () => {
     formData.append("price", price);
     formData.append("store", store);
     formData.append("rating", rating);
-    formData.append("latitude", latitude);
-    formData.append("longitude", longitude);
 
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -151,13 +104,16 @@ const ProductsForm = () => {
     setPrice("");
     setStore("");
     setRating("");
-    setLatitude("");
-    setLongitude("");
     setPreviewUrl(null);
   };
 
   return (
-    <Container maxWidth="sm">
+    <Box
+    sx={{bgcolor: "#fceae3",}}
+    >
+      <Container maxWidth="sm"
+      
+      >
         <Box
           sx={{
             display: "flex",
@@ -165,8 +121,10 @@ const ProductsForm = () => {
             alignItems: "center",
             gap: "1rem",
             padding: "2rem",
+            bgcolor: "white",
             border: "1px solid #ccc",
             borderRadius: "8px",
+            
           }}
         >
           <Typography variant="h4" gutterBottom>
@@ -181,6 +139,7 @@ const ProductsForm = () => {
               onChange={onChangeImage}
             />
             <Button
+            sx={{ bgcolor: "#022D5E"}}
               variant="contained"
               color="primary"
               component="span"
@@ -267,23 +226,24 @@ const ProductsForm = () => {
             onChange={onChangeStore}
             fullWidth
           />
-          <TextField
-            label="Geographic Location"
-            variant="outlined"
-            onChange={onChangeGeoLocation} // Update this line to use the onChangeGeoLocation function
-            fullWidth
-          />
+ 
           <Rating
             name="rating"
             value={Number(rating)} // Convert the value to a number here
             onChange={onChangeRating}
             precision={0.5}
           />
-          <Button type="submit" variant="contained" color="primary" onClick={onSubmit}>
+          <Button
+          sx={{bgcolor: "#022D5E"}}
+           type="submit" variant="contained" color="primary" onClick={onSubmit}>
             Submit!
           </Button>
         </Box>
+        
       </Container>
+      <Footer/>
+    </Box>
+    
   );
 };
 
