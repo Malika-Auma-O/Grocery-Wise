@@ -57,11 +57,21 @@ export default function Login() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+      <Box
+        sx={{
+          backgroundColor: '#fceae3', // Set the background color of the entire page
+          minHeight: '100vh', //cover the full viewport height
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Container component="main" maxWidth="xs">
         <CssBaseline />
         
         <Box
           sx={{
+            bgcolor: "white",
             marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
@@ -124,7 +134,7 @@ export default function Login() {
             <Grid container>
               <Grid item xs>
                 <Link 
-                href="#" variant="body2">
+                href="/request-password" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
@@ -139,6 +149,8 @@ export default function Login() {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
+      </Box>
+      
     </ThemeProvider>
   );
 }

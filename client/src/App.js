@@ -1,8 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Signup from "./components/Signup";
-import Login from "./components/Login";
+import Signup from "./components/userAuth.js/Signup";
+import Login from "./components/userAuth.js/Login";
+import PasswordResetRequest from "./components/userAuth.js/PasswordResetRequest";
+import PasswordRequestSubmit from "./components/userAuth.js/PasswordRequestSubmit";
+import PasswordReset from "./components/userAuth.js/PasswordReset";
 import Homepage from "./components/Home/Homepage";
 import Discover from "./components/discover/Discover";
 import Compare from "./components/discover/Compare";
@@ -29,6 +32,9 @@ function App() {
           <Routes>
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />      
+            <Route path="/request-password" element={<PasswordResetRequest />} />
+            <Route path="/request-submit" element={<PasswordRequestSubmit />} />
+            <Route path="/reset-password/:token" element={<PasswordReset />} />
             <Route path="/" element={<Homepage />} />   
             <Route path="/discover" element={<Discover/>} />   
             <Route path="/compare" element={<Compare/>} />  

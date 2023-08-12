@@ -6,7 +6,6 @@ const jwt = require("jsonwebtoken");
 const saltRounds = Number(process.env.SALT_ROUNDS);
 const generateToken = require("../utils/generateToken");
 const privateKey = process.env.PRIVATE_KEY;
-const crypto = require('crypto');
 const port = process.env.PORT || 8080;
 const sendPasswordResetEmail = require("../utils/email/sendEmail")
 
@@ -131,18 +130,24 @@ const requestPasswordReset = async (req, res) => {
       return res.status(404).send({ msg: 'User not found' });
     }
 
-    // Generate a password reset token
-    const resetToken = crypto.randomBytes(32).toString('hex');
-    console.log('Generated Reset Token:', resetToken);
+    // Create JWT payload
+    const payload = {
+      userId: user._id
+    };
+
+    // Generate JWT reset token
+    const resetToken = generateToken(payload);
+
+    // Save token to user
     user.resetToken = resetToken;
-    console.log('Generated use Reset Token:',user.resetToken)
     user.resetTokenExpiry = Date.now() + 3600000;
-    console.log('Expiry Reset Token:', user.resetTokenExpiry) // Token valid for 1 hour
+
     await user.save();
-    console.log("user saved")
+    // console.log("user saved")
 
     // Send password reset email
-    const resetLink = `http://localhost:3636/api/auth/request-password?token=${resetToken}`;
+    const resetLink = `http://localhost:3000/reset-password/${encodeURIComponent(resetToken)}`;
+
     sendPasswordResetEmail(user.username, resetLink);
 
     return res.status(200).send({ msg: 'Password reset email sent' });
@@ -155,17 +160,23 @@ const resetPassword = async (req, res) => {
   try {
     const { token, newPassword } = req.body;
 
-    // Find user with matching reset token and token expiry
-    const user = await User.findOne({ resetToken: token, resetTokenExpiry: { $gt: Date.now() } });
-    if (!user) {
-      return res.status(400).send({ msg: 'Invalid or expired reset token' });
-    }
+      // Verify JWT
+      const payload = jwt.verify(token, privateKey); 
 
-    // Update user's password and reset token fields
-    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
-    user.password = hashedPassword;
-    user.resetToken = undefined;
-    user.resetTokenExpiry = undefined;
+      // Find user
+      const user = await User.findById(payload.userId);
+
+    // Validate token expiry
+      if(Date.now() > user.resetTokenExpiry)
+        return res.status(400).send({msg: 'Token expired'});
+
+    // Update password  
+    user.password = await bcrypt.hash(newPassword, saltRounds);
+
+    // Invalidate token
+    user.resetToken = null;
+    user.resetTokenExpiry = null;
+
     await user.save();
 
     return res.status(200).send({ msg: 'Password reset successful' });

@@ -59,11 +59,20 @@ function Signup() {
 
   return (
     <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-
+      <CssBaseline />
+      <Box
+        sx={{
+          bgcolor: '#fceae3', // Set the background color of the entire page
+          minHeight: '100vh', //cover the full viewport height
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Container component="main" maxWidth="xs">        
         <Box
           sx={{
+            bgcolor: "white",
             marginTop: 8,
             display: "flex",
             flexDirection: "column",
@@ -142,6 +151,8 @@ function Signup() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
+      </Box>
+      
     </ThemeProvider>
   );
 }
