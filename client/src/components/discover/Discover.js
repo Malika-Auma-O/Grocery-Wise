@@ -12,6 +12,7 @@ import Button from '@mui/material/Button';
 import Footer from "../Footer"
 import AllProducts from './AllProducts';
 import "./Discover.css"
+import Music from "./Music";
 
 // const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -58,6 +59,7 @@ function Discover() {
             <Typography variant="h6" color="text.secondary" paragraph>
             Explore the products the way you like - refine your search by name, category, price, and location to discover quality groceries in your location for your budget.
             </Typography>
+            <Music/>
             </Box>           
           </Container>
         </Box>
