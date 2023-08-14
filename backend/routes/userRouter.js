@@ -6,6 +6,6 @@ router.get("/users", verifyToken, getAllUsers);
 router.get("/user/profile/:id", verifyToken, getOneUser );
 router.delete("/user/:id/profile", verifyToken, deleteUser );
 router.put("/user/profile/:id", verifyToken, updateUserProfile); 
-// router.put("/users/:id", verifyToken, updateUserProfile); //for admin use
+router.put("/users/:id", verifyToken, updateUserProfile); //for admin use
 
 module.exports = router;

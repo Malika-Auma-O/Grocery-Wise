@@ -146,8 +146,8 @@ const requestPasswordReset = async (req, res) => {
     // console.log("user saved")
 
     // Send password reset email
-    const resetLink = `http://localhost:3000/reset-password/${encodeURIComponent(resetToken)}`;
-
+    const resetLink = `localhost:3000/reset-password?token=${encodeURIComponent(resetToken)}`;
+    
     sendPasswordResetEmail(user.username, resetLink);
 
     return res.status(200).send({ msg: 'Password reset email sent' });
