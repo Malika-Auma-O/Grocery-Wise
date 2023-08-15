@@ -10,7 +10,6 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
 function Copyright(props) {
@@ -28,23 +27,27 @@ function Copyright(props) {
 
 function PasswordReset({ match }) {
     const navigate = useNavigate();
-    // const { token } = useParams();
-    const search = useLocation().search;
-    const token = new URLSearchParams(search).get('token');
-  const [password, setPassword] = useState("");
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const token = searchParams.get("token");
+    const [newPassword, setNewPassword] = useState("");
 
 
   const handleSubmit = async e => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:3636/api/auth/reset-password", {
+      const response =  await axios.post("http://localhost:3636/api/auth/reset-password", {
         token,
-        password  
+        newPassword  
       });
 
-      alert('Password reset successful!');
+      if (response.status === 200) {
+        alert('Password reset successful!');
       navigate("/login")
+      }
+
+      console.error('Password reset failed');
     } catch (err) {
       alert('Error resetting password');
     }
@@ -55,8 +58,8 @@ function PasswordReset({ match }) {
         <CssBaseline />
         <Box
         sx={{
-          backgroundColor: '#fceae3', // Set the background color of the entire page
-          minHeight: '100vh', //cover the full viewport height
+          backgroundColor: '#fceae3', 
+          minHeight: '100vh', 
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -90,10 +93,11 @@ function PasswordReset({ match }) {
               id="password"
               label="Enter new password"
               name="password"
+              type="password"
               autoComplete="password"
               autoFocus
-              value={password}
-              onChange={(event)=>setPassword(event.target.value)}
+              value={newPassword}
+              onChange={(event)=>setNewPassword(event.target.value)}
             />
 
             <Button

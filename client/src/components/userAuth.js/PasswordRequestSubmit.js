@@ -26,8 +26,8 @@ function PasswordRequestSubmit() {
       <CssBaseline />
       <Box
         sx={{
-          backgroundColor: '#fceae3', // Set the background color of the entire page
-          minHeight: '100vh', //cover the full viewport height
+          backgroundColor: '#fceae3', 
+          minHeight: '100vh',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',

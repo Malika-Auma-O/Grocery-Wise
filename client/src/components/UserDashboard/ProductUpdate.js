@@ -23,22 +23,26 @@ function ProductUpdate() {
     const [price, setPrice] = useState("");
     const [store, setStore] = useState("");
     const [previewUrl, setPreviewUrl] = useState(null);
+
     const onChangeImage = (e) => {
       const file = e.target.files[0];
-  
+    
       if (file) {
         const reader = new FileReader();
-  
+    
         reader.onloadend = () => {
+          
           setPreviewUrl(reader.result);
         };
-  
+    
         reader.readAsDataURL(file);
+        
+        setImage(file); // Set the new image
       } else {
+        console.log("No file selected");
+        setImage(null); // Clear the image if no file selected
         setPreviewUrl(null);
       }
-  
-      setImage(file);
     };
   
     const onChangeName = (e) => {
@@ -73,9 +77,21 @@ function ProductUpdate() {
     
     useEffect(() => {
       async function fetchProduct() {
-        const response = await axios.get(`http://localhost:3636/api/products/${id}`, { headers });
-        setProduct(response.data);
-        console.log(response.data)
+        try {
+          const response = await axios.get(`http://localhost:3636/api/products/${id}`, { headers });
+          const fetchedProduct = response.data;
+          setProduct(fetchedProduct);
+          setName(fetchedProduct.name);
+          setDescription(fetchedProduct.description);
+          setCategory(fetchedProduct.category);
+          setBrand(fetchedProduct.brand);
+          setPrice(fetchedProduct.price);
+          setStore(fetchedProduct.store);
+         
+          // console.log(response.data)
+        } catch (error) {
+          console.log("Error fetching product:", error);
+        }
       }
       fetchProduct();
       // eslint-disable-next-line 
