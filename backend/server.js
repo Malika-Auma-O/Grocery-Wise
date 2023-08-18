@@ -21,7 +21,7 @@ const searchRouter= require("./routes/searchRouter");
 const geocodeRouter= require("./routes/geocodeRouter");
 const contactRouter= require("./routes/contactRouter");
 const adminRouter= require("./routes/adminRouter");
-
+const groceryProductsRouter = require("./routes/groceryProductsRouter");
 
 app.use(
   cors({
@@ -40,6 +40,7 @@ app.use("/api", searchRouter);
 app.use("/api", geocodeRouter);
 app.use("/api", contactRouter);
 app.use("/api", adminRouter);
+app.use("/api", groceryProductsRouter);
 
 app.use((error, req, res, next) => {
   res.status(500).json({ error: error.message });

@@ -31,11 +31,43 @@ const userAvatarStorage = new CloudinaryStorage({
   },
 });
 
+
+
 // Create a multer object for product and avatar uploads
 const productImageParser = multer({ storage: productImageStorage });
 const userAvatarParser = multer({ storage: userAvatarStorage });
 
+// Function to upload image from URL
+const uploadImageFromBazaarUrl = async (url, source = 'default') => {
+  try {
+    const response = await cloudinary.uploader.upload(url, {
+      folder: `bazaar-images/`,
+      transformation: [{ width: 500, height: 500, crop: "limit" }]
+    });
+    return response.secure_url;
+  } catch (error) {
+    console.error("Failed to upload image to Cloudinary", error);
+    throw error;
+  }
+};
+
+const uploadImageFromMyMUrl = async (url, source = 'default') => {
+  try {
+    const response = await cloudinary.uploader.upload(url, {
+      folder: `mymarket-images/`,
+      transformation: [{ width: 500, height: 500, crop: "limit" }]
+    });
+    return response.secure_url;
+  } catch (error) {
+    console.error("Failed to upload image to Cloudinary", error);
+    throw error;
+  }
+};
+
+
 module.exports = { 
   productImageParser,
-  userAvatarParser 
+  userAvatarParser,
+  uploadImageFromBazaarUrl,
+  uploadImageFromMyMUrl,
 };
