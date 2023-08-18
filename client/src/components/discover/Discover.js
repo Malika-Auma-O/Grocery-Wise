@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Footer from "../Footer"
-import AllProducts from './AllProducts';
+import GroceryProducts from "./GroceryProducts";
 import "./Discover.css"
 import Music from "./Music";
 
@@ -211,7 +211,7 @@ function Discover() {
             <Grid item xs={12} md={9}>
               <Paper sx={{ p: 2, border: "1px solid #ccc", borderRadius: 4 }}>
                 <Grid container spacing={2}>
-                <AllProducts
+                <GroceryProducts
                    discoverQuery={discoverQuery}
 
                   // nameQuery={nameQuery}  

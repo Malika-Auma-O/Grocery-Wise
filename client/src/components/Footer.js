@@ -31,10 +31,10 @@ function Copyright() {
     <Link color="text.secondary" href="#" sx={{ textDecoration: "none", borderRight: "1px solid #071828", padding: "8px" }}>
        Site Map  
       </Link>{' '}
-    <Link color="text.secondary" href="#" sx={{ textDecoration: "none", borderRight: "1px solid #071828", padding: "8px" }}>
+    <Link color="text.secondary" href="terms" sx={{ textDecoration: "none", borderRight: "1px solid #071828", padding: "8px" }}>
         Terms of Use
       </Link>{' '}
-    <Link color="text.secondary" href="#" sx={{ textDecoration: "none", padding: "5px" }}>
+    <Link color="text.secondary" href="privacy" sx={{ textDecoration: "none", padding: "5px" }}>
         Privacy Policy
       </Link>{' '}
     </div>

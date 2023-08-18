@@ -207,7 +207,7 @@ const AllProducts = ({ discoverQuery }) => {
   
 
   function compareDetails(image) {
-    navigate("/compare", { state: { image } });
+    navigate("/", { state: { image } });
   }
 
   return (

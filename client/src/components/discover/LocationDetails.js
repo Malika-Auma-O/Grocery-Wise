@@ -30,6 +30,7 @@ const LocationDetails = () => {
         };
 
         fetchLocation();
+        // eslint-disable-next-line
     }, [locationId]);
 
     return (
