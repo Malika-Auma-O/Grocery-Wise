@@ -164,8 +164,8 @@ const MainList = () => {
   
 
   return (
-    <Box sx={{ mt: 8 }}>
-      <Typography variant="h3" align="center" color="text.secondary" paragraph>
+    <Box sx={{ mt: 3 }}>
+      <Typography variant="h5" align="center"  paragraph>
         My grocery lists
       </Typography>
       <FormControl fullWidth variant="outlined" sx={{ mb: "10px" }}>
@@ -190,7 +190,7 @@ const MainList = () => {
       <Grid container spacing={2}>
         {Object.entries(lists).map(([title, details]) => (
           <Grid item xs={12} sm={4} key={title}>
-            <List sx={{ bgcolor: "#f5f5f5" }}>
+            <List sx={{ bgcolor: "#fceae3" }}>
               <MainListItem
                 title={title}
                 details={details}

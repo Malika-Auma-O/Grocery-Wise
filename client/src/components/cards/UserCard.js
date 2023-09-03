@@ -53,33 +53,33 @@ const UserCard = (props) => {
         {props.showCompare ? (
           <>
             <Typography gutterBottom variant="h5" component="h2">
-              {props.name}
+              {props.title}
             </Typography>
             <Typography>{props.description}</Typography>
             <Typography>Category: {props.category}</Typography>
             <Typography>Brand: {props.brand}</Typography>
             <Typography>Price: {formatAmountInEuro(props.price)}</Typography>
             <Typography>Store: {props.store}</Typography>
-            <Typography>Location: {props.location.latitude}, {props.location.longitude}</Typography>
-            <Rating
+            {/* <Typography>Location: {props.location.latitude}, {props.location.longitude}</Typography> */}
+            {/* <Rating
           name="rating"
           value={editableRating}
           precision={0.5}
           onChange={onChangeRating} 
-        />
+        /> */}
           </>
         ) : (
           <>
             <Typography gutterBottom variant="h5" component="h2">
-              {props.name}
+              {props.title}
             </Typography>
             <Typography>Price: {formatAmountInEuro(props.price)}</Typography>
-            <Rating
+            {/* <Rating
           name="rating"
           value={editableRating}
           precision={0.5}
           onChange={onChangeRating} 
-        />
+        /> */}
           </>
         )}
       </CardContent>

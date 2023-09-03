@@ -10,6 +10,7 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Footer from "../Footer"
+import AllProducts from "./AllProducts";
 import GroceryProducts from "./GroceryProducts";
 import "./Discover.css"
 import Music from "./Music";
@@ -212,6 +213,23 @@ function Discover() {
               <Paper sx={{ p: 2, border: "1px solid #ccc", borderRadius: 4 }}>
                 <Grid container spacing={2}>
                 <GroceryProducts
+                   discoverQuery={discoverQuery}
+
+                  // nameQuery={nameQuery}  
+                  // categoryQuery={categoryQuery}  
+                  // brandQuery={brandQuery}  
+                  // minPrice={minPrice}  
+                  // maxPrice={maxPrice}
+                  // storeQuery={storeQuery}  
+                  // locationQuery={locationQuery}  
+                />
+                </Grid>
+
+                <Grid sx={{mt: "100px", borderTop: "5px solid black"}} container spacing={2}>
+                  <Typography variant="h6" color="text.secondary" paragraph sx={{mt: "50px", ml: "30px"}} >
+                    Products Added By Users
+                  </Typography>
+                <AllProducts
                    discoverQuery={discoverQuery}
 
                   // nameQuery={nameQuery}  

@@ -42,10 +42,11 @@ export default function AdminLogin() {
       let response = await axios.post("http://localhost:3636/api/admin/login", admin)
       if (response) {
         // console.log(response.data.token)
-        localStorage.setItem("token", response.data.token)
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("isAdmin", true);
         alert(`Welcome ${admin.username}!`)
-        setTimeout(()=>navigate("/dashboard"),1000) //redirect to home page after login with
-        // window.location.reload()
+        setTimeout(()=>navigate("/admin-dashboard"),1000) 
+
       }
     } catch (error) {
       alert(error.response.data.msg)

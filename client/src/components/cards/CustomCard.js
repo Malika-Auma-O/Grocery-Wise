@@ -40,15 +40,15 @@ const CustomCard = (props) => {
       <CardContent sx={{ flexGrow: 1 }}>
         {props.showCompare ? (
           <>
-            <Typography gutterBottom variant="h6" component="h6">
+            <Typography gutterBottom variant="h6" component="h6" sx={{fontSize: "14px"}} >
               {props.name}
-            </Typography>
-            <Typography>{props.description}</Typography>
+            </Typography  >
+            {/* <Typography>{props.description}</Typography>
             <Typography>Category: {props.category}</Typography>
-            <Typography>Brand: {props.brand}</Typography>
-            <Typography>Price: {formatAmountInEuro(props.price)}</Typography>
-            <Typography>Store: {props.store}</Typography>
-            <Typography>Location: {props.location.latitude}, {props.location.longitude}</Typography>
+            <Typography>Brand: {props.brand}</Typography> */}
+            <Typography  sx={{fontSize: "14px"}}>Price: {formatAmountInEuro(props.price)}</Typography>
+            <Typography  sx={{fontSize: "14px"}}>Store: {props.source}</Typography>
+            {/* <Typography>Location: {props.location.latitude}, {props.location.longitude}</Typography> */}
             <Rating
           name="rating"
           value={editableRating}
@@ -58,16 +58,17 @@ const CustomCard = (props) => {
           </>
         ) : (
           <>
-            <Typography gutterBottom variant="h6" component="h6">
+            <Typography sx={{fontSize: "14px"}} gutterBottom variant="h6" component="h6">
               {props.name}
             </Typography>
-            <Typography>Price: {formatAmountInEuro(props.price)}</Typography>
+            <Typography sx={{fontSize: "14px"}}>Price: {formatAmountInEuro(props.price)}</Typography>
             <Rating
           name="rating"
           value={editableRating}
           precision={0.5}
           onChange={onChangeRating} 
         />
+        <Typography sx={{fontSize: "14px"}}s>Store: {props.source}</Typography>
           </>
         )}
       </CardContent>
@@ -76,7 +77,7 @@ const CustomCard = (props) => {
           <Button 
           sx={{ color: '#022D5E' }}
           size="small" onClick={props.onAddToList}>
-            Add to List
+            Add-List
           </Button>
         ) : (
           <>
@@ -88,11 +89,11 @@ const CustomCard = (props) => {
             <Button
              sx={{ color: '#022D5E' }}
              size="small" onClick={props.onAddToList}>
-              Add List
+              Add-List
             </Button>
-            <IconButton onClick={props.onClearSearch}>
+            {/* <IconButton onClick={props.onClearSearch}>
               <RefreshIcon/>
-            </IconButton>
+            </IconButton> */}
           </>
         )}
       </CardActions>

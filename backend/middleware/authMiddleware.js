@@ -27,8 +27,12 @@ const verifyToken = (req, res, next) => {
       next();
     }
   } catch (error) {
-    res.status(500).send({msg: "Error occurred:", error});
-    console.log(error);
+    if (error instanceof jwt.JsonWebTokenError) {
+      // if the error thrown is because the JWT is unauthorized, return a 401 error
+      return res.status(401).send({ auth: false, message: 'Failed to authenticate token.' });
+    }
+    // otherwise, return a bad request error
+    return res.status(400).send({ auth: false, message: 'Bad request' });
   }
 }
 

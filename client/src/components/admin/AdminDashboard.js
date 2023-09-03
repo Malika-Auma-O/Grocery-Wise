@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Grid, Paper, Typography } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import AdminProfile from './AdminProfile';
+import ContactMessage from './ContactMessages';
 import Footer from '../Footer';
 
 
@@ -28,19 +29,15 @@ const AdminDashboard = () => {
           {/* Admin Profile Section */}
           
           <Grid item xs={12} md={4}>
-            <Paper sx={{ p: 3, display: 'flex', flexDirection: 'column', height: '100%', backgroundColor: 'white' }}>
+            <Paper sx={{ p: 3, display: 'flex', flexDirection: 'column', backgroundColor: 'white' }}>
             < AdminProfile/>
             </Paper>
           </Grid>
 
           {/* Notifications Section */}
           <Grid item xs={12} md={8}>
-            <Paper sx={{ p: 3, backgroundColor: 'white', height: '50%', mb: "10px" }}>
-              <Typography variant="h6">New Messages</Typography>
-              <ul>
-                <li>New contact message received</li>
-                {/* ... */}
-              </ul>
+            <Paper sx={{ p: 3, backgroundColor: 'white', height: '50%', mb: "10px", overflow: 'auto' }}>
+              <ContactMessage/>
             </Paper>
             <Paper sx={{ p: 3, height: '50%', backgroundColor: 'white' }}>
               <Typography variant="h6">Recently Added Products</Typography>

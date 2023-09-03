@@ -28,7 +28,7 @@ function Copyright() {
     </Typography>
 
     <div>
-    <Link color="text.secondary" href="#" sx={{ textDecoration: "none", borderRight: "1px solid #071828", padding: "8px" }}>
+    <Link color="text.secondary" href="site-map" sx={{ textDecoration: "none", borderRight: "1px solid #071828", padding: "8px" }}>
        Site Map  
       </Link>{' '}
     <Link color="text.secondary" href="terms" sx={{ textDecoration: "none", borderRight: "1px solid #071828", padding: "8px" }}>

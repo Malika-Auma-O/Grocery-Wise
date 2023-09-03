@@ -23,8 +23,7 @@ import UserCard from "../cards/UserCard";
 const defaultTheme = createTheme();
 
 function HomeFeatures() {
-
-  const { userId } = useParams();
+    const { userId } = useParams();
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [selectedList, setSelectedList] = useState("Temporary Needs");
@@ -45,7 +44,7 @@ function HomeFeatures() {
       );
 
       if (response && response.data) {
-        console.log("Item added to Temporary Needs:", itemName);
+        alert("Item added to Temporary Needs:", itemName);
       
       } else {
         console.log("Error adding to Temporary Needs.");
@@ -67,15 +66,12 @@ function HomeFeatures() {
       );
 
       if (response && response.data) {
-        console.log("Item added to Weekly Needs:", itemName);
-        // Handle successful addition, if needed
+        alert("Item added to Weekly Needs:", itemName);
       } else {
         console.log("Error adding to Weekly Needs.");
-        // Handle error, if needed
       }
     } catch (error) {
       console.log("Error adding to Weekly Needs:", error);
-      // Handle error, if needed
     }
   };
 
@@ -89,20 +85,18 @@ function HomeFeatures() {
       );
 
       if (response && response.data) {
-        console.log("Item added to Favorites:", itemName);
-        // Handle successful addition, if needed
+        alert("Item added to Favorites:", itemName);
       } else {
-        console.log("Error adding to Favorites.");
-        // Handle error, if needed
+        alert("Error adding to Favorites.");
       }
     } catch (error) {
-      console.log("Error adding to Favorites:", error);
-      // Handle error, if needed
+      alert("Error adding to Favorites:", error);
     }
   };
 
   const handleAddItemToList = (itemName) => {
     if (itemName.trim() !== "") {
+      console.log(itemName)
       setSelectedItemName(itemName);
       setOpenDialog(true);
     }
@@ -125,8 +119,8 @@ function HomeFeatures() {
   };
   
 
-  function compareDetails(image) {
-    navigate("/compare", { state: { image } });
+  function compareDetails(product) {
+    navigate("/compare", { state: { product } });
   }
 
    useEffect(() => {
@@ -190,8 +184,8 @@ function HomeFeatures() {
           }}
         >
           <Container maxWidth="sm">
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Something about the collection below
+            <Typography variant="h5" align="center"  paragraph>
+              My Uploaded Products
             </Typography>
           </Container>
         </Box>
@@ -201,7 +195,7 @@ function HomeFeatures() {
               <Grid item key={index} xs={12} sm={6} md={3}>
                 <UserCard
                   image={image.image}
-                  name={image.name}
+                  title={image.title}
                   description={image.description}
                   category={image.category}
                   brand={image.brand}

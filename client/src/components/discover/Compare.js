@@ -9,6 +9,7 @@ import Grid from '@mui/material/Grid';
 import CustomCard from "../cards/CustomCard";
 import Paper from '@mui/material/Paper';
 import { useLocation } from "react-router-dom";
+import Footer from '../Footer';
 
 const defaultTheme = createTheme();
 
@@ -32,7 +33,8 @@ function CompareDetails() {
     }, [selectedProduct.title]);
 
     return (
-        <ThemeProvider theme={defaultTheme}>
+        <div>
+            <ThemeProvider theme={defaultTheme}>
             <CssBaseline />
             <main>
                 <Box
@@ -44,22 +46,24 @@ function CompareDetails() {
                 >
                     <Container maxWidth="lg">
                         <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                            Something about the collection below
+                      Compare Prices and view related products
                         </Typography>
                     </Container>
                 </Box>
                 <Container sx={{ py: 4 }} maxWidth="md">
-                    <Paper sx={{ p: 2, border: '1px solid #ccc', borderRadius: 4 }}>
+                    <Paper sx={{ p: 2, border: '1px solid #ccc', borderRadius: 4 }} >
                         <Grid container spacing={2}>
-                            <Grid item xs={12} md={6}>
+                            <Grid item xs={12} md={4} sx={{width: "200px"}}>
                                 <CustomCard
                                     image={selectedProduct.imgSrc}
                                     name={selectedProduct.title}
                                     price={selectedProduct.price}
-                                    rating={selectedProduct.rating}
+                                    source={selectedProduct.source}
+                                    // onAddToList={() => handleAddItemToList(product.name)}
+                                    // showCompare={true} 
                                 />
                             </Grid>
-                            <Grid item xs={12} md={6}>
+                            <Grid item xs={12} md={7} sx={{ml: "50px"}}>
                                 <Typography variant="subtitle2" sx={{ mt: 2 }}>
                                     Category: {selectedProduct.category}
                                 </Typography>
@@ -73,7 +77,7 @@ function CompareDetails() {
                                     Store: {selectedProduct.source}
                                 </Typography>
                                 <Typography variant="body2" sx={{ mt: 2 }}>
-                                    Location: {selectedProduct.store}
+                                    Location: {selectedProduct.source}
                                 </Typography>
                             </Grid>
                         </Grid>
@@ -90,7 +94,9 @@ function CompareDetails() {
                                   image={product.imgSrc}
                                   name={product.title}
                                   price={product.price}
-                                  rating={product.rating}
+                                  source={product.source}
+                                //   showCompare={true} 
+                                //   onAddToList={() => handleAddItemToList(product.name)}
                               />
                           </Grid>
                       ))}
@@ -99,6 +105,9 @@ function CompareDetails() {
                 </Container>
             </main>
         </ThemeProvider>
+        <Footer/>
+        </div>
+        
     );
 }
 

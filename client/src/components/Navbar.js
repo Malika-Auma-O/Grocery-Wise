@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
@@ -57,6 +57,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 function Navbar() {
   const navigate = useNavigate();
+  const [decoded, setDecoded] = useState(null);
   const token = localStorage.getItem("token");
   const [leftOpen, setLeftOpen] = useState(false);
   const [rightOpen, setRightOpen] = useState(false);
@@ -74,16 +75,18 @@ function Navbar() {
     setRightOpen(open);
   };
 
-  let decoded;
-  if (token) {
-    try {
-      decoded = jwt_decode(token);
-      // console.log("decoded", decoded)
-    } catch (error) {
-      localStorage.removeItem("token")
-      navigate("/login")
-    }    
-  }
+  
+  useEffect(() => {
+    if (token) {
+      try {
+        const decodedToken = jwt_decode(token);
+        setDecoded(decodedToken);
+      } catch (error) {
+        localStorage.removeItem("token");
+        navigate("/login");
+      }
+    }
+  }, [token, navigate]);
 
   function handleLogout() {
     // remove user from local storage and set current user to null
@@ -91,6 +94,9 @@ function Navbar() {
     toggleRightDrawer(false);
     navigate("/login")
   }
+
+  const isAdmin = localStorage.getItem('isAdmin') === 'true';
+
 
   return (
     <div>
@@ -127,7 +133,10 @@ function Navbar() {
                 <Typography
                 variant="body1"
                   color="inherit"
-                  style={{ margin: 8, display: { xs: 'none', sm: 'none', md: 'block' } }}
+                  sx={{ 
+                    margin: { xs: 0, sm: 0, md: 2 },
+                    display: { xs: 'none', sm: 'none', md: 'block' }
+                  }}
                 >
                   {page.title}
                 </Typography>
@@ -144,8 +153,10 @@ function Navbar() {
             >
               <PersonIcon />
             </IconButton>
-            
-            <Typography variant="body1" color="inherit" onClick={toggleRightDrawer(true)}>{decoded ? decoded.username.split('@')[0] : "Create Account"}</Typography>
+            <Typography variant="body1" color="inherit" onClick={toggleRightDrawer(true)}>
+              {decoded && decoded.username ? decoded.username.split('@')[0] : "Create Account"}
+            </Typography>
+
           </Toolbar>
         </AppBar>
 
@@ -172,7 +183,7 @@ function Navbar() {
           <List>
             {[
               { text: 'Home', icon: <StoreIcon/>, link: '/' },
-              { text: 'Dashboard', icon: <PersonIcon/>, link: '/dashboard' },
+              { text: 'About', icon: <PersonIcon/>, link: '/about' },
               { text: 'Discover', icon: <LocalGroceryStoreIcon  />, link: '/discover' },
               { text: 'Recipes', icon: <RestaurantIcon />, link: '/recipe' },
             ].map((item) => (
@@ -211,8 +222,8 @@ function Navbar() {
           <Divider />
           <List>
             {[
-              { text: 'Profile', icon: <PersonIcon />, link: '/profile' },
-              { text: 'My Dashboard', icon: <DashboardIcon />, link: '/dashboard' },
+              { text: isAdmin ? "" : 'Profile', icon: isAdmin ? "" : <PersonIcon />, link: isAdmin ? "" : '/profile' },
+              { text: isAdmin ? 'Admin Dashboard' : 'My Dashboard', icon: <DashboardIcon />, link: isAdmin ? '/admin-dashboard' : '/dashboard' },
               { text: 'Add Product', icon: <DescriptionIcon />, link: '/products-form' },
               { text: 'Contact Us', icon: <MailIcon />, link: '/contact' },
               { text: 'FAQ', icon: <HelpCenterIcon />, link: '/faq' },

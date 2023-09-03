@@ -148,14 +148,11 @@ const AllProducts = ({ discoverQuery }) => {
 
       if (response && response.data) {
         alert("Item added to Weekly Needs:", itemName);
-        // Handle successful addition, if needed
       } else {
         console.log("Error adding to Weekly Needs.");
-        // Handle error, if needed
       }
     } catch (error) {
       console.log("Error adding to Weekly Needs:", error);
-      // Handle error, if needed
     }
   };
 
@@ -170,14 +167,11 @@ const AllProducts = ({ discoverQuery }) => {
 
       if (response && response.data) {
         alert("Item added to Favorites:", itemName);
-        // Handle successful addition, if needed
       } else {
         alert("Error adding to Favorites.");
-        // Handle error, if needed
       }
     } catch (error) {
       alert("Error adding to Favorites:", error);
-      // Handle error, if needed
     }
   };
 

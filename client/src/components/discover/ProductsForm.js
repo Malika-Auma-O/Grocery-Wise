@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate} from "react-router-dom";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -10,6 +11,7 @@ import Rating from "@mui/material/Rating"
 import Footer from "../Footer";
 
 const ProductsForm = () => {
+  const navigate = useNavigate();
   const [image, setImage] = useState(null);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -91,6 +93,7 @@ const ProductsForm = () => {
       .post("http://localhost:3636/api/products", formData, { headers })
       .then((res) => {
         alert("Image added successfully!");
+        navigate("/dashboard");
       })
       .catch((err) => {
         console.error("Error adding image:", err);
