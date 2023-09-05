@@ -23,9 +23,10 @@ const contactRouter= require("./routes/contactRouter");
 const adminRouter= require("./routes/adminRouter");
 const groceryProductsRouter = require("./routes/groceryProductsRouter");
 
+const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 app.use(
   cors({
-    origin: "*",
+    origin: FRONTEND_URL,
   })
 )
 
