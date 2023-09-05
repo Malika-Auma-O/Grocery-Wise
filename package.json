@@ -1,0 +1,16 @@
+{
+  "name": "grocery-wise",
+  "version": "1.0.0",
+  "description": "Grocery-Wise helps you save time and money on grocery shopping by comparing prices across stores.",
+  "main": "server.js",
+  "scripts": {
+    "install-server": "cd backend && npm install",
+    "start-server": "cd backend && node app.js",
+    "install-client": "cd client && npm install",
+    "build-client": "cd client && npm run build",
+    "start-client": "cd client && npm run start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
