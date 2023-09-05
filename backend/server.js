@@ -4,7 +4,7 @@ const app = express();
 require("./connection")
 require("dotenv").config();
 const port = process.env.PORT || 8080;
-hostName = "localhost";
+hostName = "0.0.0.0";
 const cors = require("cors");
 
 // add middleware
@@ -26,7 +26,7 @@ const groceryProductsRouter = require("./routes/groceryProductsRouter");
 const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
 app.use(
   cors({
-    origin: "*",
+    origin: FRONTEND_URL,
   })
 )
 
