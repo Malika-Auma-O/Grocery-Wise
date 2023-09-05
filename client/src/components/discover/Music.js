@@ -38,10 +38,11 @@ function Music() {
         </IconButton>
         {currentSong && isPlaying && (
           <AudioPlayer
-            autoPlay
             src={currentSong}
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
+            autoPlay
+            autoPlayAfterSrcChange
           />
         )}
       </div>

@@ -60,6 +60,7 @@ function Discover() {
             <Typography variant="h6" color="text.secondary" paragraph>
             Explore the products the way you like - refine your search by name, category, price, and location to discover quality groceries in your location for your budget.
             </Typography>
+            <Button>Press below to play Shopping Music</Button>
             <Music/>
             </Box>           
           </Container>

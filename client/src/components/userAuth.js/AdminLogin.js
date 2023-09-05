@@ -43,7 +43,6 @@ export default function AdminLogin() {
       if (response) {
         // console.log(response.data.token)
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("isAdmin", true);
         alert(`Welcome ${admin.username}!`)
         setTimeout(()=>navigate("/admin-dashboard"),1000) 
 

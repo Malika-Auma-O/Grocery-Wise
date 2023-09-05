@@ -115,7 +115,7 @@ export default function Hero() {
                   animation: 'none', // Disable animation on hover
                 },
               }}
-                color="inherit" onClick={() => navigate("/signup")}>
+                color="inherit" onClick={() => navigate("/discover")}>
                 {heroPost.linkText}
               </Button>
             </Box>

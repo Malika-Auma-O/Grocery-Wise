@@ -64,10 +64,24 @@ const uploadImageFromMyMUrl = async (url, source = 'default') => {
   }
 };
 
+const uploadImageFromSklavenitisUrl = async (url, source = 'default') => {
+  try {
+    const response = await cloudinary.uploader.upload(url, {
+      folder: `sklavenitis-images/`,
+      transformation: [{ width: 500, height: 500, crop: "limit" }]
+    });
+    return response.secure_url;
+  } catch (error) {
+    console.error("Failed to upload image to Cloudinary", error);
+    throw error;
+  }
+};
+
 
 module.exports = { 
   productImageParser,
   userAvatarParser,
   uploadImageFromBazaarUrl,
   uploadImageFromMyMUrl,
+  uploadImageFromSklavenitisUrl
 };

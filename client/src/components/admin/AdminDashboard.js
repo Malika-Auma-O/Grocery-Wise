@@ -3,15 +3,18 @@ import { Container, Grid, Paper, Typography } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import AdminProfile from './AdminProfile';
 import ContactMessage from './ContactMessages';
+import RecentlyAdded from './RecentlyAdded';
+import UsersList from './UsersList';
+import ProductList from './ProductList';
 import Footer from '../Footer';
 
 
 const AdminDashboard = () => {
   return (
-    <>
+    <div>
       <CssBaseline />
       
-      <Container maxWidth="" sx={{ backgroundColor: '#fceae3', minHeight: '100vh', py: 5, px: 0 }}>
+      <Container maxWidth="" sx={{  backgroundColor: '#fceae3', py: 5, px: 0 }}>
       <Typography 
       sx={{
         display: "flex",
@@ -25,62 +28,39 @@ const AdminDashboard = () => {
       variant="h4" gutterBottom>
             Admin Panel
           </Typography>
-        <Grid container spacing={3}>
+        <Grid 
+       
+        container spacing={3}>
           {/* Admin Profile Section */}
           
           <Grid item xs={12} md={4}>
-            <Paper sx={{ p: 3, display: 'flex', flexDirection: 'column', backgroundColor: 'white' }}>
+            <Paper sx={{ p: 3, display: 'flex', flexDirection: 'column', backgroundColor: 'white', mb: "10px" }}>
             < AdminProfile/>
+            </Paper>
+            <Paper sx={{ p: 3, backgroundColor: 'white', mb: "10px", height: '25%', overflow: 'auto' }}>
+              <UsersList/>
             </Paper>
           </Grid>
 
           {/* Notifications Section */}
           <Grid item xs={12} md={8}>
-            <Paper sx={{ p: 3, backgroundColor: 'white', height: '50%', mb: "10px", overflow: 'auto' }}>
+            <Paper sx={{ p: 3, backgroundColor: 'white', height: '25%', mb: "10px", overflow: 'auto' }}>
               <ContactMessage/>
             </Paper>
-            <Paper sx={{ p: 3, height: '50%', backgroundColor: 'white' }}>
-              <Typography variant="h6">Recently Added Products</Typography>
-              <ul>
-                <li>Product 1</li>
-                <li>Product 2</li>
-                {/* ... */}
-              </ul>
+
+            <Paper sx={{ p: 3, height: '25%', backgroundColor: 'white', overflow: 'auto', mb: "10px" }}>
+              <Typography variant="h6">Recently Added User Products</Typography>
+              <RecentlyAdded/>
             </Paper>
-          </Grid>
 
-          
-
-          {/* Total Users Section */}
-          <Grid item xs={12}>
-            <Paper sx={{ p: 3, height: '100%', backgroundColor: 'white' }}>
-              <Typography variant="h6">Total Users</Typography>
-              <Typography variant="body1">Number of registered users: XX</Typography>
-              <ul>
-                <li>User 1</li>
-                <li>User 2</li>
-                {/* ... */}
-              </ul>
-            </Paper>
-          </Grid>
-
-          {/* Product and Category Section */}
-          <Grid item xs={12} md={12}>
-            <Paper sx={{ p: 3, height: '100%', backgroundColor: 'white' }}>
-              <Typography variant="h6">Product and Categories</Typography>
-              <Typography variant="body1">Total number of products: XX</Typography>
-              <Typography variant="body1">Number of categories: XX</Typography>
-              <ul>
-                <li>Category 1</li>
-                <li>Category 2</li>
-                {/* ... */}
-              </ul>
+            <Paper sx={{ p: 3, height: '10%', backgroundColor: 'white', mb: "10px", overflow: 'auto' }}>
+              <ProductList/>
             </Paper>
           </Grid>
         </Grid>
       </Container>
       <Footer/>
-    </>
+    </div>
   );
 };
 

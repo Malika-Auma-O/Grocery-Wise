@@ -219,11 +219,18 @@ function GroceryProducts({ discoverQuery }) {
                     <MenuItem value=""><em>Both</em></MenuItem>
                     <MenuItem value="Bazaar">Bazaar</MenuItem>
                     <MenuItem value="MyMarket">MyMarket</MenuItem>
+                    <MenuItem value="Sklavenitis">Sklavenitis</MenuItem>
                 </Select>
             </FormControl>
     
             <Grid  container spacing={2}>
-                {products.map((product, index) => (
+                {products.map((product, index) => {
+                  console.log("Product title:", product.title);
+                  console.log("Measurement Price:", product.highlightMeasurementPrice);
+                  console.log("Unit Price:", product.unitPrice);
+                
+                 return (
+                  
                     <Grid item key={index} xs={12} sm={6} md={4}>
                         <Card
                         className="card" sx={{ height: "100%", display: "flex", flexDirection: "column" }}
@@ -255,7 +262,7 @@ function GroceryProducts({ discoverQuery }) {
                                             Price: {product.price}
                                         </Typography>
                                     </>
-                                ) : (
+                                ) : product.source === "MyMarket" ? (
                                     <>
                                         <Typography variant="body2" color="textSecondary">
                                             Price per kilo/litre: {product.finalMeasurementPrice}
@@ -268,7 +275,20 @@ function GroceryProducts({ discoverQuery }) {
                                         )}
                                      
                                     </>
-                                )}
+                                ) : product.source === "Sklavenitis" ? (
+                                  <>
+                                  <Typography variant="body2" color="textSecondary">
+                                        Price per kilo/litre: {product.highlightMeasurementPrice}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary">
+                                        Price: {product.unitPrice}
+                                    </Typography>
+                                    <Typography variant="body2" color="textSecondary">
+                                        Price d: {product.deletedUnitPrice}
+                                    </Typography>
+                                  </>
+                                ) : null
+                              }
                                 <Typography variant="body2" color="textSecondary">
                                                 Store: {product.source}
                                             </Typography>
@@ -287,7 +307,9 @@ function GroceryProducts({ discoverQuery }) {
                             </CardActions>
                         </Card>
                     </Grid>
-                ))}
+                )
+                }
+                )}
             </Grid>
             {cursor && 
                 <Button sx={{ bgcolor: '#022D5E' }}

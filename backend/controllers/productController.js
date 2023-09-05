@@ -50,6 +50,9 @@ const updateProduct = async (req, res) => {
   try {
     // Set the user ID from the authentication token
     const userId = req.user.userId;
+    const admin = req.user.userId;
+    
+    // console.log(admin)
 
     // Check if the product exists
     const productId = req.params.id;
@@ -60,7 +63,7 @@ const updateProduct = async (req, res) => {
     }
 
     // Check if the user is the owner of the product
-    if (existingProduct.userId !== userId) {
+    if (existingProduct.userId !== userId && !admin) {
       return res.status(403).send({ msg: "You are not authorized to update this product" });
     }
 
@@ -131,12 +134,16 @@ const getOneProduct = async(req, res) =>{
 
 const deleteProduct = async(req, res) =>{
   try {
+    // const admin = req.user.admin.id;
+    const admin = req.user.userId;
+
+    // console.log(admin)
 
     // Find the product by ID
     const product = await Product.findById(req.params.id);
     
     // Check if the authenticated user owns the product
-    if (product.userId !== req.user.userId) {
+    if (product.userId !== req.user.userId && !admin) {
       return res.status(403).send({ msg: "Unauthorized to delete this product" });
     }
 
@@ -160,6 +167,20 @@ const getAllUserProducts = async(req, res) =>{
   }
 }
 
+const oneWeekAgo = new Date();
+oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+const recentlyAdded = async (req, res) => {
+    try {
+        let products = await Product.find({
+            createdAt: { $gte: oneWeekAgo }
+        });
+        res.send(products);
+    } catch (error) {
+        res.status(500).send("Server error");
+    }
+}
+
 module.exports = {
   createProduct,
   getAllProducts,
@@ -167,4 +188,5 @@ module.exports = {
   updateProduct,
   deleteProduct,
   getAllUserProducts,
+  recentlyAdded
 }

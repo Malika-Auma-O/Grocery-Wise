@@ -95,7 +95,7 @@ function Navbar() {
     navigate("/login")
   }
 
-  const isAdmin = localStorage.getItem('isAdmin') === 'true';
+  // const isAdmin = localStorage.getItem('isAdmin') === 'true';
 
 
   return (
@@ -222,8 +222,9 @@ function Navbar() {
           <Divider />
           <List>
             {[
-              { text: isAdmin ? "" : 'Profile', icon: isAdmin ? "" : <PersonIcon />, link: isAdmin ? "" : '/profile' },
-              { text: isAdmin ? 'Admin Dashboard' : 'My Dashboard', icon: <DashboardIcon />, link: isAdmin ? '/admin-dashboard' : '/dashboard' },
+              // { text: isAdmin ? "" : 'Profile', icon: isAdmin ? "" : <PersonIcon />, link: isAdmin ? "" : '/profile' },
+              { text: 'My Dashboard', icon: <DashboardIcon />, link: '/dashboard' },
+              // { text: isAdmin ? 'Admin Dashboard' : 'My Dashboard', icon: <DashboardIcon />, link: isAdmin ? '/admin-dashboard' : '/dashboard' },
               { text: 'Add Product', icon: <DescriptionIcon />, link: '/products-form' },
               { text: 'Contact Us', icon: <MailIcon />, link: '/contact' },
               { text: 'FAQ', icon: <HelpCenterIcon />, link: '/faq' },

@@ -17,7 +17,7 @@ const adminSignUp = async (req, res) =>{
       return res.status(400).send({msg: "Both username and password required"});
     }
 
-    const checkAdmin = await Admin.findOne({email: req.body.email})
+    const checkAdmin = await Admin.findOne({username: req.body.username})
     if (checkAdmin) {
         return res.status(409).send({msg: `User with username ${username
         } already exists`});
@@ -30,6 +30,7 @@ const adminSignUp = async (req, res) =>{
         admin: {
           id: newAdmin._id,
           username: newAdmin.username,
+          isAdmin: true 
         },
       };
 
@@ -66,6 +67,7 @@ const adminLogin = async (req, res) => {
       const payload = {
         userId: checkAdmin._id,
         username: checkAdmin.username,
+        isAdmin: true 
       };
       
       // Generate the JWT from the generateToken.js in utils

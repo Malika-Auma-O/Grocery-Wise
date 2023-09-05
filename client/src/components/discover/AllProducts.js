@@ -47,29 +47,6 @@ const AllProducts = ({ discoverQuery }) => {
     }
   // eslint-disable-next-line
   }, [searchQuery, discoverQuery])
-
-  // useEffect(() => {
-  //   if (searchQuery.trim() === "") {
-  //     getAllImages();
-  //   } else {
-  //     getFilteredImages(searchQuery);
-  //   }
-  //   // eslint-disable-next-line
-  // }, [searchQuery]);
-
-  // useEffect(() => {
-  //   if (discoverQuery.trim() === "") {
-  //     getAllImages();
-  //   } else {
-  //     getFilteredImages(discoverQuery);
-  //   }
-  // })
-
-
-  // useEffect(() => {
-  //   getAllImages();
-  //   // eslint-disable-next-line
-  // }, []); 
   
 
   // clear searched query from the search in hero page
