@@ -35,7 +35,7 @@ function AdminProfile() {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3636/api/admin/profile/${userId}`, {headers});
+      const response = await axios.get(`https://grocery-wise.onrender.com/api/admin/profile/${userId}`, {headers});
       setUserData(response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -63,7 +63,7 @@ function AdminProfile() {
 
 
     try {
-      const response = await axios.put(`http://localhost:3636/api/admin/profile/${userId}`, formData, {headers});
+      const response = await axios.put(`https://grocery-wise.onrender.com/api/admin/profile/${userId}`, formData, {headers});
       
       setUserData(response.data.updatedUser);
       alert("profile updated successfully")

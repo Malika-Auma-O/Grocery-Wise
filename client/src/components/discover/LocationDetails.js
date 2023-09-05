@@ -20,7 +20,7 @@ const LocationDetails = () => {
     useEffect(() => {
         const fetchLocation = async () => {
             try {
-                const response = await axios.get(`http://localhost:3636/api/location/location/${locationId}`, {headers});
+                const response = await axios.get(`https://grocery-wise.onrender.com/api/location/location/${locationId}`, {headers});
                 const data = response.data;
                 setFormattedAddress(data.formattedAddress);
                 setLocation(data.location);

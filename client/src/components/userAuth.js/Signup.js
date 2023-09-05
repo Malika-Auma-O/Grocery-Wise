@@ -45,7 +45,7 @@ function Signup() {
         password
       }
       console.log(user)
-      let response = await axios.post("http://localhost:3636/api/auth/signup", user)
+      let response = await axios.post("https://grocery-wise.onrender.com/api/auth/signup", user)
       if (response) {
         localStorage.setItem("token", response.data.token)
         alert(response.data.msg);

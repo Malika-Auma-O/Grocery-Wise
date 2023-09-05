@@ -40,7 +40,7 @@ function HomeFeatures() {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "http://localhost:3636/api/user/temporary",
+        "https://grocery-wise.onrender.com/api/user/temporary",
         newItem,
         { headers }
       );
@@ -62,7 +62,7 @@ function HomeFeatures() {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "http://localhost:3636/api/user/weekly",
+        "https://grocery-wise.onrender.com/api/user/weekly",
         newItem,
         { headers }
       );
@@ -84,7 +84,7 @@ function HomeFeatures() {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "http://localhost:3636/api/user/favorites",
+        "https://grocery-wise.onrender.com/api/user/favorites",
         newItem,
         { headers }
       );
@@ -137,7 +137,7 @@ function HomeFeatures() {
 
   const getAllImages = () => {
     axios
-      .get("http://localhost:3636/api/products", { headers })
+      .get("https://grocery-wise.onrender.com/api/products", { headers })
       .then((res) => {
         // Sort the images array based on the dateAdded in des order
         res.data.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));

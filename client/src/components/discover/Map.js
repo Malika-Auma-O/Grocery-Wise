@@ -56,7 +56,7 @@
 //     };
 
 //     axios
-//       .post("http://localhost:3636/api/products", formData, { headers })
+//       .post("https://grocery-wise.onrender.com/api/products", formData, { headers })
 //       .then((res) => {
 //         alert("Image added successfully!");
 //       })

@@ -30,7 +30,7 @@ function GroceryProducts({ discoverQuery }) {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "http://localhost:3636/api/user/temporary",
+        "https://grocery-wise.onrender.com/api/user/temporary",
         newItem,
         { headers }
       );
@@ -62,7 +62,7 @@ function GroceryProducts({ discoverQuery }) {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "http://localhost:3636/api/user/weekly",
+        "https://grocery-wise.onrender.com/api/user/weekly",
         newItem,
         { headers }
       );
@@ -95,7 +95,7 @@ function GroceryProducts({ discoverQuery }) {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "http://localhost:3636/api/user/favorites",
+        "https://grocery-wise.onrender.com/api/user/favorites",
         newItem,
         { headers }
       );
@@ -151,7 +151,7 @@ function GroceryProducts({ discoverQuery }) {
   async function fetchFilteredData(query) {
     try {
       const encodedQuery = encodeURIComponent(query);
-      const url = `http://localhost:3636/api/search/grocery?q=${encodedQuery}`;
+      const url = `https://grocery-wise.onrender.com/api/search/grocery?q=${encodedQuery}`;
       const response = await axios.get(url);
       const data = response.data;
   
@@ -176,7 +176,7 @@ function GroceryProducts({ discoverQuery }) {
         return;
       }
   
-      let url = cursor ? `http://localhost:3636/api/grocery/products?cursor=${cursor}` : "http://localhost:3636/api/grocery/products";
+      let url = cursor ? `https://grocery-wise.onrender.com/api/grocery/products?cursor=${cursor}` : "https://grocery-wise.onrender.com/api/grocery/products";
       if (source) {
         url += `&source=${source}`;
       }

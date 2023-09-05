@@ -71,7 +71,7 @@ const AllProducts = ({ discoverQuery }) => {
 
   const getAllImages = () => {
     axios
-      .get("http://localhost:3636/api/products", { headers })
+      .get("https://grocery-wise.onrender.com/api/products", { headers })
       .then((res) => {
         // Reverse the images array to display the latest image first
         setImages(res.data.reverse());
@@ -83,7 +83,7 @@ const AllProducts = ({ discoverQuery }) => {
 
   const getFilteredImages = (query) => {
     axios
-      .get(`http://localhost:3636/api/search?q=${query}`, { headers })
+      .get(`https://grocery-wise.onrender.com/api/search?q=${query}`, { headers })
       .then((res) => {
         setImages(res.data);
       })
@@ -96,7 +96,7 @@ const AllProducts = ({ discoverQuery }) => {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "http://localhost:3636/api/user/temporary",
+        "https://grocery-wise.onrender.com/api/user/temporary",
         newItem,
         { headers }
       );
@@ -118,7 +118,7 @@ const AllProducts = ({ discoverQuery }) => {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "http://localhost:3636/api/user/weekly",
+        "https://grocery-wise.onrender.com/api/user/weekly",
         newItem,
         { headers }
       );
@@ -137,7 +137,7 @@ const AllProducts = ({ discoverQuery }) => {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "http://localhost:3636/api/user/favorites",
+        "https://grocery-wise.onrender.com/api/user/favorites",
         newItem,
         { headers }
       );

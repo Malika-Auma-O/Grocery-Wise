@@ -7,7 +7,7 @@ function UsersList() {
 
   useEffect(() => {
     // Fetch users from the backend
-    axios.get('http://localhost:3636/api/users')
+    axios.get('https://grocery-wise.onrender.com/api/users')
       .then(response => {
         setUsers(response.data);
       })

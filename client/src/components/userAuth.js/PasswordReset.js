@@ -37,7 +37,7 @@ function PasswordReset({ match }) {
     e.preventDefault();
 
     try {
-      const response =  await axios.post("http://localhost:3636/api/auth/reset-password", {
+      const response =  await axios.post("https://grocery-wise.onrender.com/api/auth/reset-password", {
         token,
         newPassword  
       });
