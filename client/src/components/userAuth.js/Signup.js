@@ -45,7 +45,7 @@ function Signup() {
         password
       }
       console.log(user)
-      let response = await axios.post("https://grocery-wise.onrender.com/api/auth/signup", user)
+      let response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/signup`, user)
       if (response) {
         localStorage.setItem("token", response.data.token)
         alert(response.data.msg);

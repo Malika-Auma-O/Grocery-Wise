@@ -41,7 +41,7 @@ export default function Login() {
         username,
         password
       }
-      let response = await axios.post("https://grocery-wise.onrender.com/api/auth/login", user)
+      let response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/login`, user)
       if (response) {
         // console.log(response.data.token)
         localStorage.setItem("token", response.data.token)

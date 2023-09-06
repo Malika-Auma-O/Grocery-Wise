@@ -30,7 +30,7 @@ function GroceryProducts({ discoverQuery }) {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "https://grocery-wise.onrender.com/api/user/temporary",
+        `${process.env.REACT_APP_BACKEND_URL}/api/user/temporary`,
         newItem,
         { headers }
       );
@@ -62,7 +62,7 @@ function GroceryProducts({ discoverQuery }) {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "https://grocery-wise.onrender.com/api/user/weekly",
+        `${process.env.REACT_APP_BACKEND_URL}/api/user/weekly`,
         newItem,
         { headers }
       );
@@ -95,7 +95,7 @@ function GroceryProducts({ discoverQuery }) {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "https://grocery-wise.onrender.com/api/user/favorites",
+        `${process.env.REACT_APP_BACKEND_URL}/api/user/favorites`,
         newItem,
         { headers }
       );
@@ -151,7 +151,7 @@ function GroceryProducts({ discoverQuery }) {
   async function fetchFilteredData(query) {
     try {
       const encodedQuery = encodeURIComponent(query);
-      const url = `https://grocery-wise.onrender.com/api/search/grocery?q=${encodedQuery}`;
+      const url = `${process.env.REACT_APP_BACKEND_URL}/api/search/grocery?q=${encodedQuery}`;
       const response = await axios.get(url);
       const data = response.data;
   
@@ -176,7 +176,7 @@ function GroceryProducts({ discoverQuery }) {
         return;
       }
   
-      let url = cursor ? `https://grocery-wise.onrender.com/api/grocery/products?cursor=${cursor}` : "https://grocery-wise.onrender.com/api/grocery/products";
+      let url = cursor ? `${process.env.REACT_APP_BACKEND_URL}/api/grocery/products?cursor=${cursor}` : `${process.env.REACT_APP_BACKEND_URL}/api/grocery/products`;
       if (source) {
         url += `&source=${source}`;
       }

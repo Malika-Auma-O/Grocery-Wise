@@ -27,7 +27,7 @@ const Contact = () => {
     event.preventDefault();
 
     try {
-      await axios.post("https://grocery-wise.onrender.com/api/contact", formData);
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/contact`, formData);
       setFormSubmitted(true);
       console.log(formData)
     } catch (error) {

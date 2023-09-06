@@ -34,7 +34,7 @@ function PasswordResetRequest() {
     e.preventDefault();
   
     try {
-      await axios.post("https://grocery-wise.onrender.com/api/auth/request-password", {
+      await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/auth/request-password`, {
         username
       });
       

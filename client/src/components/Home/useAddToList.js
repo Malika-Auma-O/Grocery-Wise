@@ -17,7 +17,7 @@ import { useParams } from "react-router-dom";
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "https://grocery-wise.onrender.com/api/user/temporary",
+        `${process.env.REACT_APP_BACKEND_URL}/api/user/temporary`,
         newItem,
         { headers }
       );
@@ -39,7 +39,7 @@ import { useParams } from "react-router-dom";
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "https://grocery-wise.onrender.com/api/user/weekly",
+        `${process.env.REACT_APP_BACKEND_URL}/api/user/weekly`,
         newItem,
         { headers }
       );
@@ -61,7 +61,7 @@ import { useParams } from "react-router-dom";
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "https://grocery-wise.onrender.com/api/user/favorites",
+        `${process.env.REACT_APP_BACKEND_URL}/api/user/favorites`,
         newItem,
         { headers }
       );

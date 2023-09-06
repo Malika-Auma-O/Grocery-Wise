@@ -78,7 +78,7 @@ function ProductUpdate() {
     useEffect(() => {
       async function fetchProduct() {
         try {
-          const response = await axios.get(`https://grocery-wise.onrender.com/api/products/${id}`, { headers });
+          const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`, { headers });
           const fetchedProduct = response.data;
           setProduct(fetchedProduct);
           setName(fetchedProduct.name);
@@ -111,7 +111,7 @@ function ProductUpdate() {
       };
 
       try {
-        axios.put(`https://grocery-wise.onrender.com/api/products/${id}`, updatedProduct, { headers })
+        axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`, updatedProduct, { headers })
         .then(res => {
           alert("Updated product successfully");
           navigate("/dashboard")

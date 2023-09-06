@@ -17,7 +17,7 @@ const LocationMap = () => {
 
     const handleGeocode = async () => {
         try {
-            const response = await axios.get(`https://grocery-wise.onrender.com/api/location/${address}`, {headers});
+            const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/location/${address}`, {headers});
             const data = response.data;
             setLocation(data.location);
             setFormattedAddress(data.formattedAddress);

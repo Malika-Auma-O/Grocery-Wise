@@ -3,7 +3,7 @@ import { Container, Paper, Typography, List, ListItem } from '@mui/material';
 
 function ContactMessage() {
     const [messages, setMessages] = useState([]);
-    const apiEndpoint = 'https://grocery-wise.onrender.com/api/contact';
+    const apiEndpoint = `${process.env.REACT_APP_BACKEND_URL}/api/contact`;
 
     const headers = {
       Authorization: `Bearer ${localStorage.getItem("token")}`,

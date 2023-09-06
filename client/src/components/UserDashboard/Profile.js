@@ -38,7 +38,7 @@ function ProfilePage() {
 
   const fetchUserData = async () => {
     try {
-      const response = await axios.get(`https://grocery-wise.onrender.com/api/user/profile/${userId}`, {headers});
+      const response = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user/profile/${userId}`, {headers});
       setUserData(response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -67,7 +67,7 @@ function ProfilePage() {
     formData.append('phone', userData.phone);
 
     try {
-      const response = await axios.put(`https://grocery-wise.onrender.com/api/user/profile/${userId}`, formData, {headers});
+      const response = await axios.put(`${process.env.REACT_APP_BACKEND_URL}/api/user/profile/${userId}`, formData, {headers});
       
       setUserData(response.data.updatedUser);
       alert("profile updated successfully")

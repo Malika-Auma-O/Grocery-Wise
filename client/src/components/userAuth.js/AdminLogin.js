@@ -39,7 +39,7 @@ export default function AdminLogin() {
         username,
         password
       }
-      let response = await axios.post("https://grocery-wise.onrender.com/api/admin/login", admin)
+      let response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/admin/login`, admin)
       if (response) {
         // console.log(response.data.token)
         localStorage.setItem("token", response.data.token);

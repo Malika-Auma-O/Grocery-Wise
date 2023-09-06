@@ -90,7 +90,7 @@ const ProductsForm = () => {
     };
 
     axios
-      .post("https://grocery-wise.onrender.com/api/products", formData, { headers })
+      .post(`${process.env.REACT_APP_BACKEND_URL}/api/products`, formData, { headers })
       .then((res) => {
         alert("Image added successfully!");
         navigate("/dashboard");

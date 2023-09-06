@@ -21,7 +21,7 @@ function CompareDetails() {
     useEffect(() => {
         async function fetchSimilarProducts() {
             try {
-                const response = await fetch(`https://grocery-wise.onrender.com/api/grocery/products/search?name=${selectedProduct.title}`);
+                const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/api/grocery/products/search?name=${selectedProduct.title}`);
                 const data = await response.json();
                 setSimilarProducts(data);
             } catch (error) {

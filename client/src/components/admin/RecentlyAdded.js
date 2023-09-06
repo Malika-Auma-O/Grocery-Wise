@@ -14,7 +14,7 @@ const RecentlyAdded = () => {
 
   const getAllImages = () => {
     axios
-    .get("https://grocery-wise.onrender.com/api/user/recently-added-products", { headers })
+    .get(`${process.env.REACT_APP_BACKEND_URL}/api/user/recently-added-products`, { headers })
     .then((res) => {
         setImages(res.data.reverse());
     })
@@ -36,7 +36,7 @@ const RecentlyAdded = () => {
     const confirmDelete = window.confirm("Are you sure you want to delete this product?")
     if (confirmDelete) {
       axios
-      .delete(`https://grocery-wise.onrender.com/api/products/${image._id}`, { headers })
+      .delete(`${process.env.REACT_APP_BACKEND_URL}/api/products/${image._id}`, { headers })
       .then((res) => {
         console.log("Product deleted successfully:", res.data);
         getAllImages();

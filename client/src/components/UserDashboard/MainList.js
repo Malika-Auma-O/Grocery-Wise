@@ -39,7 +39,7 @@ const MainList = () => {
       try {
         let newItem = { name: inputValue, userId };
         const path = endPath[selectedList];
-        const response = await axios.post(`https://grocery-wise.onrender.com/api/user/${path}`, newItem, 
+        const response = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/user/${path}`, newItem, 
         {
           headers: {
             Authorization:  `Bearer ${localStorage.getItem('token')}`
@@ -70,7 +70,7 @@ const MainList = () => {
       const paths = Object.values(endPath);
       const responses = await Promise.all(
         paths.map((path) =>
-          axios.get(`https://grocery-wise.onrender.com/api/user/${path}`, {
+          axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/user/${path}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
@@ -102,7 +102,7 @@ const MainList = () => {
     try {
       const confirmDelete = window.confirm("Are you sure you want to delete this item?")
       if (confirmDelete) {      
-        await axios.delete(`https://grocery-wise.onrender.com/api/user/${endPath[listTitle]}/${item._id}`,  {
+        await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/user/${endPath[listTitle]}/${item._id}`,  {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }      
@@ -134,7 +134,7 @@ const MainList = () => {
     const { listTitle, item, editedName } = editItemData;
     try {
       const response = await axios.put(
-        `https://grocery-wise.onrender.com/api/user/${endPath[listTitle]}/${item._id}`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/user/${endPath[listTitle]}/${item._id}`,
         { name: editedName },
         {
           headers: {

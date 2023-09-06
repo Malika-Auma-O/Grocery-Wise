@@ -10,7 +10,7 @@ function ProductList() {
     const [userProductCount, setUserProductCount] = useState(0);
   
     useEffect(() => {
-        axios.get('https://grocery-wise.onrender.com/api/grocery/products/count')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/grocery/products/count`)
             .then(response => {
                 setProductCount(response.data.count);
             })
@@ -20,7 +20,7 @@ function ProductList() {
     }, []);
   
     useEffect(() => {
-        axios.get('https://grocery-wise.onrender.com/api/grocery/products/count?source=Bazaar')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/grocery/products/count?source=Bazaar`)
             .then(response => {
                 setGroceryCount(response.data.count);
             })
@@ -30,7 +30,7 @@ function ProductList() {
     }, []);
   
     useEffect(() => {
-        axios.get('https://grocery-wise.onrender.com/api/grocery/products/count?source=MyMarket')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/grocery/products/count?source=MyMarket`)
             .then(response => {
                 setMyMarketCount(response.data.count);
             })
@@ -41,7 +41,7 @@ function ProductList() {
 
     useEffect(() => {
         // Fetch all products from the backend
-        axios.get('https://grocery-wise.onrender.com/api/products')
+        axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/products`)
           .then(response => {
             setUserProductCount(response.data);
           })

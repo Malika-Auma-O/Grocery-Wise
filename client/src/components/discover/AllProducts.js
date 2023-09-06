@@ -71,7 +71,7 @@ const AllProducts = ({ discoverQuery }) => {
 
   const getAllImages = () => {
     axios
-      .get("https://grocery-wise.onrender.com/api/products", { headers })
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/products`, { headers })
       .then((res) => {
         // Reverse the images array to display the latest image first
         setImages(res.data.reverse());
@@ -83,7 +83,7 @@ const AllProducts = ({ discoverQuery }) => {
 
   const getFilteredImages = (query) => {
     axios
-      .get(`https://grocery-wise.onrender.com/api/search?q=${query}`, { headers })
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/search?q=${query}`, { headers })
       .then((res) => {
         setImages(res.data);
       })
@@ -96,7 +96,7 @@ const AllProducts = ({ discoverQuery }) => {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "https://grocery-wise.onrender.com/api/user/temporary",
+        `${process.env.REACT_APP_BACKEND_URL}/api/user/temporary`,
         newItem,
         { headers }
       );
@@ -118,7 +118,7 @@ const AllProducts = ({ discoverQuery }) => {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "https://grocery-wise.onrender.com/api/user/weekly",
+        `${process.env.REACT_APP_BACKEND_URL}/api/user/weekly`,
         newItem,
         { headers }
       );
@@ -137,7 +137,7 @@ const AllProducts = ({ discoverQuery }) => {
     try {
       let newItem = { name: itemName, userId };
       const response = await axios.post(
-        "https://grocery-wise.onrender.com/api/user/favorites",
+        `${process.env.REACT_APP_BACKEND_URL}/api/user/favorites`,
         newItem,
         { headers }
       );
