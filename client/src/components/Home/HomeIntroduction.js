@@ -13,7 +13,11 @@ export default function HomeIntroduction() {
   return (
     <div>
       <Box sx={{bgcolor: "#fceae3"}} >
-      <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: " 20px auto", bgcolor: "#fceae3" }}>
+      <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: " 20px auto", bgcolor: "#fceae3",
+      '@media (max-width: 600px)': {
+        flexDirection: 'column',
+      },
+     }}>
       <CardMedia
         component="img"
         sx={{ width: 300 }}
@@ -38,7 +42,11 @@ export default function HomeIntroduction() {
       
 
       <Box  >
-      <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: "20px auto" }}>
+      <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: "20px auto",
+      '@media (max-width: 600px)': {
+        flexDirection: 'column',
+      },
+     }}>
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto' }}>
         <Typography  variant="h6" sx={{ fontSize: "12px" }}>
@@ -54,7 +62,7 @@ export default function HomeIntroduction() {
       </Box>
       <CardMedia
         component="img"
-        sx={{ width: 370 }}
+        sx={{ maxWidth: 370 }}
         image={budget}
         alt="Live from space album cover"
       />
@@ -62,10 +70,14 @@ export default function HomeIntroduction() {
       </Box>
 
       <Box sx={{bgcolor: "#fceae3"}} >
-      <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: " 20px auto", bgcolor: "#fceae3" }}>
+      <Paper elevation={0}  sx={{ display: 'flex', justifyContent: "space-around", width: "70%", margin: " 20px auto", bgcolor: "#fceae3" ,
+      '@media (max-width: 600px)': {
+        flexDirection: 'column',
+      },
+     }}>
       <CardMedia
         component="img"
-        sx={{ width: 370 }}
+        sx={{ maxWidth: 370 }}
         image={list}
         alt="Live "
       />

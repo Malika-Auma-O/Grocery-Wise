@@ -8,6 +8,7 @@ import Container from '@mui/material/Container';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Paper from '@mui/material/Paper'
+import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import store from "../../images/store.jpg"
@@ -35,16 +36,20 @@ function HomeAbout() {
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <main>
-      <Box
+    <Box
       onClick={toSeller} 
       sx={{ cursor: "pointer" }}
        >
-      <Paper elevation={6}  sx={{ display: 'flex', justifyContent: "center", width: "96%", margin: "20px auto" , borderRadius: "5px", bgcolor: "#fceae3"}}>
+      <Paper  sx={{ display: 'flex', justifyContent: "center", width: "96%", margin: "20px auto" , borderRadius: "5px", bgcolor: "#fceae3",
+      '@media (max-width: 600px)': {
+        flexDirection: 'column',
+      },
+     }}>
       <CardMedia
         component="img"
-        sx={{ width: 400 }}
+        sx={{ maxWidth: 400}}
         image={store}
-        alt="Live from space album cover"
+        alt="store"
       />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto',  bgcolor: "#fceae3" }}>
@@ -73,12 +78,12 @@ function HomeAbout() {
           component="img"
           src={free}
           alt='free'
-          sx={{ maxWidth: 200, ml: "75%"}}
+          sx={{ maxWidth: 150, }}
           />
       </Box>
       
     </Paper>
-      </Box>
+  </Box>
 
 
         <Box
