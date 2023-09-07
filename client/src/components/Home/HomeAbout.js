@@ -8,7 +8,6 @@ import Container from '@mui/material/Container';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Paper from '@mui/material/Paper'
-import Grid from "@mui/material/Grid";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import store from "../../images/store.jpg"

@@ -75,14 +75,14 @@ const AboutUsPage = () => {
               width: "100%",
               padding: "15px",
               textAlign: "center",
-              mt: "30px"
+              mt: "30px",
             }}
             >
             <Typography component="h2" variant="h4" color="inherit" >
               Our Principles
             </Typography>
-            </Box>         
-      <Grid container sx={{ mt: "20px", mx: "auto "}} spacing={3} maxWidth="md" >
+      </Box>         
+      <Grid container sx={{ mt: "20px", mx: "auto ", maxWidth: "100%"}} spacing={3} maxWidth="md" >
       
         <Grid item xs={12} md={4}>
         <Paper elevation={3} sx={{ padding: "20px", height: "100%", display: "flex", flexDirection: "column", bgcolor: "#fceae3" }}>

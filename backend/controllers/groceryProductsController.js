@@ -173,7 +173,7 @@ const getProductByName = async (req, res) => {
         const allProducts = await Product.find();
         
         // Calculate similarity for each product and filter those that are sufficiently similar
-        const similarityThreshold = 0.7;
+        const similarityThreshold = 0.4;
         const similarProducts = allProducts.filter(product => {
             const similarity = stringSimilarity.compareTwoStrings(productName, product.title);
             return similarity >= similarityThreshold;

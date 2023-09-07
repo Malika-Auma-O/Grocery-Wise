@@ -121,7 +121,7 @@ const Faq = () => {
             </AccordionSummary>
             <AccordionDetails>
               <Typography variant="body1">
-                If you have any questions or need assistance, you can visit our Contact Us page or send an email to support@grocerywise.com. Our customer support team will be happy to help you.
+                If you have any questions or need assistance, you can visit our Contact Us page or send an email to wisegrocery@gmail.com. Our customer support team will be happy to help you.
               </Typography>
             </AccordionDetails>
           </Accordion>

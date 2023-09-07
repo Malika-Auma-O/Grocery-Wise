@@ -4,9 +4,8 @@ import {  useNavigate, useParams } from 'react-router-dom';
 import { 
     Card, CardContent, Typography, Grid, 
     CardMedia, Button, Select, MenuItem, 
-    FormControl, InputLabel, CardActions, Dialog, DialogTitle, DialogContent, DialogActions
+    FormControl, InputLabel, CardActions, Dialog, DialogTitle, DialogContent, DialogActions, CircularProgress
 } from '@mui/material';
-import "../cards/CardStyle.css";
 import { useLocation } from "react-router-dom";
 
 function GroceryProducts({ discoverQuery }) {
@@ -19,6 +18,7 @@ function GroceryProducts({ discoverQuery }) {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedItemName, setSelectedItemName] = useState("");
   const location = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
 
   const searchQuery = new URLSearchParams(location.search).get("q") || "";
 
@@ -190,6 +190,10 @@ function GroceryProducts({ discoverQuery }) {
       } else {
         setCursor(null);
       }
+
+      // Data has been loaded, so set isLoading to false
+      setIsLoading(false);
+
     } catch (error) {
       console.error("Failed to fetch products:", error);
     }
@@ -222,95 +226,101 @@ function GroceryProducts({ discoverQuery }) {
                     <MenuItem value="Sklavenitis">Sklavenitis</MenuItem>
                 </Select>
             </FormControl>
-    
-            <Grid  container spacing={2}>
-                {products.map((product, index) => {
-                  console.log("Product title:", product.title);
-                  console.log("Measurement Price:", product.highlightMeasurementPrice);
-                  console.log("Unit Price:", product.unitPrice);
+
+            {isLoading ? (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' , minHeight: '30vh', width: "400px"  }}>
+            <CircularProgress />
+          </div>
+            ) : (
+              <Grid  container spacing={2}>
+              {products.map((product, index) => {
+                console.log("Product title:", product.title);
+                console.log("Measurement Price:", product.highlightMeasurementPrice);
+                console.log("Unit Price:", product.unitPrice);
+              
+               return (
                 
-                 return (
-                  
-                    <Grid item key={index} xs={12} sm={6} md={4}>
-                        <Card
-                        className="card" sx={{ height: "100%", display: "flex", flexDirection: "column" }}
-                        >
-                            <CardMedia
-                                component="div"
-                                sx={{
-          
-                                    pt: '100%',
-                                  }}
-                                image={product.imgSrc}
-                                alt={product.title}
-                                loading="lazy" 
-                            />
-                            <CardContent sx={{ flexGrow: 1 }}>
-                                <Typography sx={{fontSize: "14px", mb: "5px"}} variant="h6" component="h6">
-                                    {product.title}
-                                </Typography>
-    
-                                {product.source === "Bazaar" ? (
-                                    <>
-                                        <Typography variant="body2" color="textSecondary">
-                                            Brand: {product.brand}
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary">
-                                            Price per kilo/litre: {product.reducedPrice}
-                                        </Typography>
-                                        <Typography variant="body2" color="textSecondary">
-                                            Price: {product.price}
-                                        </Typography>
-                                    </>
-                                ) : product.source === "MyMarket" ? (
-                                    <>
-                                        <Typography variant="body2" color="textSecondary">
-                                            Price per kilo/litre: {product.finalMeasurementPrice}
-                                        </Typography>
-                                    
-                                        {product.sellingPrice && (
-                                            <Typography variant="body2" color="textSecondary">
-                                                Price: {product.sellingPrice}
-                                            </Typography>
-                                        )}
-                                     
-                                    </>
-                                ) : product.source === "Sklavenitis" ? (
+                  <Grid item key={index} xs={12} sm={6} md={4}>
+                      <Card
+                      className="card" sx={{ height: "100%", display: "flex", flexDirection: "column" }}
+                      >
+                          <CardMedia
+                              component="div"
+                              sx={{
+        
+                                  pt: '100%',
+                                }}
+                              image={product.imgSrc}
+                              alt={product.title}
+                              loading="lazy" 
+                          />
+                          <CardContent sx={{ flexGrow: 1 }}>
+                              <Typography sx={{fontSize: "14px", mb: "5px"}} variant="h6" component="h6">
+                                  {product.title}
+                              </Typography>
+  
+                              {product.source === "Bazaar" ? (
                                   <>
-                                  <Typography variant="body2" color="textSecondary">
-                                        Price per kilo/litre: {product.highlightMeasurementPrice}
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary">
-                                        Price: {product.unitPrice}
-                                    </Typography>
-                                    <Typography variant="body2" color="textSecondary">
-                                        Price d: {product.deletedUnitPrice}
-                                    </Typography>
+                                      <Typography variant="body2" color="textSecondary">
+                                          Brand: {product.brand}
+                                      </Typography>
+                                      <Typography variant="body2" color="textSecondary">
+                                          Price per kilo/litre: {product.reducedPrice}
+                                      </Typography>
+                                      <Typography variant="body2" color="textSecondary">
+                                          Price: {product.price}
+                                      </Typography>
                                   </>
-                                ) : null
-                              }
+                              ) : product.source === "MyMarket" ? (
+                                  <>
+                                      <Typography variant="body2" color="textSecondary">
+                                          Price per kilo/litre: {product.finalMeasurementPrice}
+                                      </Typography>
+                                  
+                                      {product.sellingPrice && (
+                                          <Typography variant="body2" color="textSecondary">
+                                              Price: {product.sellingPrice}
+                                          </Typography>
+                                      )}
+                                   
+                                  </>
+                              ) : product.source === "Sklavenitis" ? (
+                                <>
                                 <Typography variant="body2" color="textSecondary">
-                                                Store: {product.source}
-                                            </Typography>
-                            </CardContent>
-                            <CardActions>
-                             <Button
-                                sx={{ color: '#022D5E' }}
-                                size="small" onClick={() => compareDetails(product)}>
-                                Compare
-                             </Button>
-                             <Button
-                                sx={{ color: '#022D5E' }}
-                                size="small" onClick={() => handleAddItemToList(product.title)}>
-                                Add-list
-                             </Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
-                )
-                }
-                )}
-            </Grid>
+                                      Price per kilo/litre: {product.highlightMeasurementPrice}
+                                  </Typography>
+                                  <Typography variant="body2" color="textSecondary">
+                                      Price: {product.unitPrice}
+                                  </Typography>
+                                 
+                                </>
+                              ) : null
+                            }
+                              <Typography variant="body2" color="textSecondary">
+                                              Store: {product.source}
+                                          </Typography>
+                          </CardContent>
+                          <CardActions>
+                           <Button
+                              sx={{ color: '#022D5E' }}
+                              size="small" onClick={() => compareDetails(product)}>
+                              Compare
+                           </Button>
+                           <Button
+                              sx={{ color: '#022D5E' }}
+                              size="small" onClick={() => handleAddItemToList(product.title)}>
+                              Add-list
+                           </Button>
+                          </CardActions>
+                      </Card>
+                  </Grid>
+              )
+              }
+              )}
+          </Grid>
+            )}
+    
+          
             {cursor && 
                 <Button sx={{ bgcolor: '#022D5E' }}
                 variant="contained"

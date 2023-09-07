@@ -2,6 +2,7 @@ import React, {  useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import CircularProgress from '@mui/material/CircularProgress';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
@@ -31,6 +32,8 @@ function HomeFeatures() {
   const [selectedList, setSelectedList] = useState("Temporary Needs");
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedItemName, setSelectedItemName] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
 
   const headers = {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -100,6 +103,7 @@ function HomeFeatures() {
       console.log("Error adding to Favorites:", error);
       // Handle error, if needed
     }
+    
   };
 
   const handleAddItemToList = (itemName) => {
@@ -150,6 +154,8 @@ function HomeFeatures() {
   
         // Set the state with the last 4 images
         setImages(lastFourImages);
+         // Data has been loaded, so set isLoading to false
+      setIsLoading(false);
       })
       .catch((err) => {
         console.error("Error getting images:", err);
@@ -180,7 +186,12 @@ function HomeFeatures() {
           </Container>
         </Box>
         <Container sx={{ py: 4 }} maxWidth="lg">
-          <Grid container spacing={4}>
+          {isLoading ? (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  }}>
+            <CircularProgress />
+          </div>
+            ) : (
+              <Grid container spacing={4}>
             {images.map((image, index) => (
               <Grid item key={index} xs={12} sm={6} md={3}>
                 <CustomCard
@@ -200,27 +211,29 @@ function HomeFeatures() {
               </Grid>
             ))}
 
-            {/* Dialog to select the list */}
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogTitle>Select List</DialogTitle>
-        <DialogContent>
-          <FormControl fullWidth variant="outlined">
-            <InputLabel>List</InputLabel>
-            <Select value={selectedList} onChange={handleListChange}>
-              <MenuItem value="Temporary Needs">Temporary Needs</MenuItem>
-              <MenuItem value="Weekly Needs">Weekly Needs</MenuItem>
-              <MenuItem value="Favorites">Favorites</MenuItem>
-            </Select>
-          </FormControl>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
-          <Button onClick={handleListChange} color="primary">
-            Add to List
-          </Button>
-        </DialogActions>
-      </Dialog>
+                  {/* Dialog to select the list */}
+            <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+              <DialogTitle>Select List</DialogTitle>
+              <DialogContent>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel>List</InputLabel>
+                  <Select value={selectedList} onChange={handleListChange}>
+                    <MenuItem value="Temporary Needs">Temporary Needs</MenuItem>
+                    <MenuItem value="Weekly Needs">Weekly Needs</MenuItem>
+                    <MenuItem value="Favorites">Favorites</MenuItem>
+                  </Select>
+                </FormControl>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+                <Button onClick={handleListChange} color="primary">
+                  Add to List
+                </Button>
+              </DialogActions>
+            </Dialog>
           </Grid>
+            )}
+          
         </Container>
       </main>
     </ThemeProvider>

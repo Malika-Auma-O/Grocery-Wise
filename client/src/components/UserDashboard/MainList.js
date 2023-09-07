@@ -16,9 +16,11 @@ import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const MainList = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedList, setSelectedList] = useState("Weekly Needs");
   const [inputValue, setInputValue] = useState("");
   const {userId} = useParams();
@@ -85,6 +87,9 @@ const MainList = () => {
       };
   
       setLists(newData);
+       // Data has been loaded, so set isLoading to false
+      setIsLoading(false);
+
     } catch (error) {
       console.log(error);
       alert("An error occurred while fetching the lists.");
@@ -188,19 +193,26 @@ const MainList = () => {
         Add to List
       </Button>
       <Grid container spacing={2}>
-        {Object.entries(lists).map(([title, details]) => (
-          <Grid item xs={12} sm={4} key={title}>
-            <List sx={{ bgcolor: "#fceae3" }}>
-              <MainListItem
-                title={title}
-                details={details}
-                onDeleteItem={(item) => handleDeleteItem(title, item)}
-                onEditItem={(item) => handleEditItem(title, item)} // Pass the onEditItem function
-              />
-            </List>
-          </Grid>
-        ))}
+  {isLoading ? (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '300px' }}>
+      <CircularProgress />
+    </div>
+  ) : (
+    Object.entries(lists).map(([title, details]) => (
+      <Grid item xs={12} sm={4} key={title}>
+        <List sx={{ bgcolor: "#fceae3" }}>
+          <MainListItem
+            title={title}
+            details={details}
+            onDeleteItem={(item) => handleDeleteItem(title, item)}
+            onEditItem={(item) => handleEditItem(title, item)} // Pass the onEditItem function
+          />
+        </List>
       </Grid>
+    ))
+  )}
+</Grid>
+
 
       <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)}>
         <DialogTitle>Edit Item</DialogTitle>

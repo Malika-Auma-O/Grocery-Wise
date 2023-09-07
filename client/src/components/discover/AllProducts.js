@@ -3,6 +3,7 @@ import axios from "axios";
 import CustomCard from "../cards/CustomCard";
 import Grid from "@mui/material/Grid";
 import { useNavigate, useParams } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -24,6 +25,7 @@ const AllProducts = ({ discoverQuery }) => {
   const [selectedItemName, setSelectedItemName] = useState("");
   const [displayCount, setDisplayCount] = useState(10);
   const productsPerLoad = 10; // Number of products to load per button click
+  const [isLoading, setIsLoading] = useState(true);
 
   const location = useLocation();
 
@@ -75,6 +77,8 @@ const AllProducts = ({ discoverQuery }) => {
       .then((res) => {
         // Reverse the images array to display the latest image first
         setImages(res.data.reverse());
+        // Data has been loaded, so set isLoading to false
+      setIsLoading(false);
       })
       .catch((err) => {
         console.error("Error getting images:", err);
@@ -178,13 +182,23 @@ const AllProducts = ({ discoverQuery }) => {
   
 
   function compareDetails(image) {
-    navigate("/", { state: { image } });
+    navigate("/compare", { state: { image } });
   }
 
   return (
     <Grid     sx={{ m: 1 }}
     container spacing={2} >
-      {images.slice(0, displayCount).map((image, index) => (
+
+{isLoading ? (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  }}>
+            <CircularProgress />
+          </div>
+            ) : (
+            <Grid
+            sx={{ m: 1 }}
+            container spacing={2}
+            >
+              {images.slice(0, displayCount).map((image, index) => (
         <Grid 
         item xs={12} sm={6} md={4} key={index}>
           <CustomCard
@@ -204,6 +218,9 @@ const AllProducts = ({ discoverQuery }) => {
           />
         </Grid>
       ))}
+              
+            </Grid> )}
+      
       <Button
       sx={{ bgcolor: '#022D5E' }}
         variant="contained"

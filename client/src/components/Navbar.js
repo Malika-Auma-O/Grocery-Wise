@@ -153,7 +153,9 @@ function Navbar() {
             >
               <PersonIcon />
             </IconButton>
-            <Typography variant="body1" color="inherit" onClick={toggleRightDrawer(true)}>
+            <Typography 
+            sx={{cursor: "pointer"}}
+            variant="body1" color="inherit" onClick={toggleRightDrawer(true)}>
               {decoded && decoded.username ? decoded.username.split('@')[0] : "Create Account"}
             </Typography>
 

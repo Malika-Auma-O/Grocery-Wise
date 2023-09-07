@@ -154,7 +154,7 @@ const Contact = () => {
         <iframe
           title="Google Maps"
           src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d3145.0765603387113!2d23.73229517589292!3d37.97534257193551!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1ssyntagma%20maps!5e0!3m2!1sen!2sgr!4v1691772804781!5m2!1sen!2sgr"
-          width="100%"
+          width="80%"
           height="450"
           style={{ border: 0, marginTop: "30px" }}
           allowFullScreen=""
