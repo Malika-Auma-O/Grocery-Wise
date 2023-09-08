@@ -22,7 +22,7 @@ export default function HomeIntroduction() {
         component="img"
         sx={{ width: 300 }}
         image={orange}
-        alt="Live "
+        alt="Orange fruit"
       />
       <Box >
         <CardContent >
